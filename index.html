@@ -1485,7 +1485,7 @@
     </div>
 
   </div>
-  
+
 <!-- ================= ЭКРАН: ПОДПИСКА ================= -->
     <div id="screen-subscription" class="screen">
       <div class="lesson-header">
@@ -1590,7 +1590,7 @@
           userId = tg.initDataUnsafe.user.id;
         }
 
-        const response = await fetch(`/api/check-subscription/${userId}`);
+        const response = await fetch(`https://arabiabot-production.up.railway.app/api/check-subscription/${userId}`);
         const data = await response.json();
 
         if (data.active) {
