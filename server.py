@@ -2,6 +2,7 @@ import os
 import sqlite3
 from datetime import datetime, timedelta
 from fastapi import FastAPI, Request, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 # Определяем базовую директорию проекта
@@ -9,6 +10,15 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_NAME = os.path.join(BASE_DIR, "learning_bot.db")
 
 app = FastAPI()
+
+# Добавляем CORS, чтобы запросы из Telegram Mini App не блокировались браузером
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Разрешаем запросы с любых доменов
+    allow_credentials=True,
+    allow_methods=["*"],  # Разрешаем все HTTP-методы (GET, POST и т.д.)
+    allow_headers=["*"],  # Разрешаем любые заголовки
+)
 
 def init_db():
     """Инициализация базы данных для подписок (не перезаписывает существующие таблицы)"""
@@ -53,9 +63,9 @@ async def payment_webhook(request: Request):
         INSERT INTO subscriptions (user_id, expires_at, status)
         VALUES (?, ?, 'active')
         ON CONFLICT(user_id) DO UPDATE SET
-            expires_at = ?,
+            expires_at = excluded.expires_at,
             status = 'active'
-    """, (user_id, expires_str, expires_str))
+    """, (user_id, expires_str))
     conn.commit()
     conn.close()
 
