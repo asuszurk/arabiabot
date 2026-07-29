@@ -1485,6 +1485,31 @@
     </div>
 
   </div>
+  
+<!-- ================= ЭКРАН: ПОДПИСКА ================= -->
+    <div id="screen-subscription" class="screen">
+      <div class="lesson-header">
+        <button class="back-button" onclick="goHome()">←</button>
+        <span>Премиум-подписка</span>
+        <span>👑</span>
+      </div>
+
+      <div class="tajweed-content-box" style="text-align: center; padding: 30px 20px;">
+        <div style="font-size: 48px; margin-bottom: 15px;">🌟</div>
+        <h3 style="color: var(--gold-light); margin-bottom: 12px;">Доступ ко всем материалам</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 20px; line-height: 1.6;">
+          Оформите подписку за <strong style="color: var(--gold-light);">300 ₽ / месяц</strong>, чтобы получить полный доступ ко всем уровням таджвида и словарям.
+        </p>
+        
+        <div id="sub-status-box" style="margin-bottom: 20px; font-weight: 600; color: var(--accent-green);">
+          Проверка статуса подписки...
+        </div>
+
+        <button class="main-button" onclick="paySubscription()">Оплатить 300 ₽ (Карта РФ / СБП)</button>
+      </div>
+
+      <button class="main-button" onclick="goHome()" style="margin-top: 14px; background: transparent; border: 1px solid var(--card-border); color: var(--text-primary);">На главную</button>
+    </div>
 
 
   <!-- НИЖНЯЯ ПАНЕЛЬ НАВИГАЦИИ (TabBar) -->
@@ -1495,7 +1520,7 @@
     </button>
     
     <div class="tab-item-center">
-      <div class="tab-center-btn" onclick="openAlphabet()">📖</div>
+      <div class="tab-center-btn" onclick="openSubscription()" title="Подписка">👑</div>
     </div>
 
     <button class="tab-item" onclick="showScreen('screen-profile'); renderProfileStats();">
@@ -1549,6 +1574,66 @@
 
 
   <script>
+    function openSubscription() {
+      showScreen('screen-subscription');
+      checkUserSubscriptionStatus();
+    }
+
+    async function checkUserSubscriptionStatus() {
+      const statusBox = document.getElementById('sub-status-box');
+      statusBox.textContent = "Проверка статуса...";
+      
+      try {
+        // Получаем Telegram ID пользователя, если приложение открыто в Telegram
+        let userId = 12345678; // Дефолтный ID для теста на компьютере
+        if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
+          userId = tg.initDataUnsafe.user.id;
+        }
+
+        const response = await fetch(`/api/check-subscription/${userId}`);
+        const data = await response.json();
+
+        if (data.active) {
+          statusBox.innerHTML = `✅ Подписка активна до: <span style="color: var(--gold-light);">${data.expires_at}</span>`;
+        } else {
+          statusBox.innerHTML = `❌ Подписка не активна. Оформите доступ ниже.`;
+        }
+      } catch (e) {
+        statusBox.innerHTML = `ℹ️ Статус подписки: доступно для подключения`;
+      }
+    }
+
+    function paySubscription() {
+      // Здесь будет ссылка на оплату через Robokassa / ЮKassa
+      // Например: window.open('https://your-payment-link.ru/...', '_blank');
+      alert("Переход на страницу оплаты (300 руб.). После успешной оплаты подписка активируется автоматически!");
+    }
+    // Функция загрузки данных из JSON файлов
+async function loadAppData() {
+  try {
+    // Загружаем слова и фразы
+    const wordsResponse = await fetch('data/words.json');
+    const wordsData = await wordsResponse.json();
+    
+    // Здесь можно рендерить слова в соответствующие контейнеры на странице
+    console.log("Слова и фразы успешно загружены:", wordsData);
+
+    // Загружаем правила таджвида
+    const tajweedResponse = await fetch('data/tajweed.json');
+    const tajweedData = await tajweedResponse.json();
+    
+    console.log("Уровни таджвида успешно загружены:", tajweedData);
+    
+  } catch (error) {
+    console.error("Ошибка при загрузке данных:", error);
+  }
+}
+
+// Вызываем загрузку при старте приложения
+window.addEventListener('DOMContentLoaded', () => {
+  loadAppData();
+  // ... остальные твои функции инициализации ...
+});
     const tg = window.Telegram.WebApp;
     if (tg && tg.expand) {
       tg.expand();
@@ -1968,10 +2053,14 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      const savedTheme = localStorage.getItem('app_theme');
-      if (savedTheme) {
-        setTheme(savedTheme);
-      }
+  loadAppData(); // <-- добавь эту строчку сюда
+  
+  const savedTheme = localStorage.getItem('app_theme');
+  if (savedTheme) {
+    setTheme(savedTheme);
+  }
+  // и так далее...
+});
 
       const savedScale = localStorage.getItem('app_font_scale');
       if (savedScale) {
