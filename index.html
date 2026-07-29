@@ -821,7 +821,7 @@
           <p>Если буква م (мим) с сукуном стоит перед буквой ب, губы смыкаются не до конца, создавая легкий носовой звук на 2 счета.</p>
           <h4>Примеры из Корана:</h4>
           <div class="example-box"><div class="example-content"><div class="example-arabic">رَبُّهُمْ بِهِمْ</div><div class="example-text">[раббухум-бихим] (мим маскируется перед ب).</div></div><button class="speak-btn" onclick="speakText('رَبُّهُمْ بِهِمْ')">🔊</button></div>
-          <div class="example-box"><div class="example-content"><div class="example-arabic">تَرْمِيهِمْ بِحِجَارَةٍ</div><div class="example-text">[тармихим-бихиджаратин] (неполное смыкание губ).</div></div><button class="speak-btn" onclick="speakText('تَرْمِيهِمْ بِحِجَارَةٍ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">تَرْمِيهِمْ بِحِجَارَةٍ</div><div class="example-text">[тармихим-бихиjsonDataратин] (неполное смыкание губ).</div></div><button class="speak-btn" onclick="speakText('تَرْمِيهِمْ بِحِجَارَةٍ')">🔊</button></div>
           <div class="example-box"><div class="example-content"><div class="example-arabic">اعْتَصِمْ بِاللَّهِ</div><div class="example-text">[‘а‘тасым-би-Ллях] (мягкий переход мим в ба).</div></div><button class="speak-btn" onclick="speakText('اعْتَصِمْ بِاللَّهِ')">🔊</button></div>
 
           <label class="learn-check-label"><input type="checkbox" id="check-tajweed-11" onchange="toggleLearnItem('tajweed', 11, 'Уровень 11. Мим Сакина: Ихфа Шафави', this.checked)"> Отметить как выученное ✅</label>
@@ -1351,7 +1351,7 @@
           <div class="example-box" style="margin-top: 16px;"><div class="example-content"><div class="example-arabic">مَعَ السَّلَامَةِ</div><div class="example-text">До свидания [Ма‘а ас-саляма]</div></div><button class="speak-btn" onclick="speakText('مَعَ السَّلَامَةِ')">🔊</button></div>
           <label class="learn-check-label"><input type="checkbox" id="check-phrase-10" onchange="toggleLearnItem('phrase', 10, 'مَعَ السَّلَامَةِ - До свидания', this.checked)"> Отметить как выученное ✅</label>
 
-          <div class="example-box" style="margin-top: 16px;"><div class="example-content"><div class="example-arabic">أֵهْلًا وَسَهْلًا</div><div class="example-text">Добро пожаловать [Ахлан ва сахлан]</div></div><button class="speak-btn" onclick="speakText('أَهْلًا وَسَهْلًا')">🔊</button></div>
+          <div class="example-box" style="margin-top: 16px;"><div class="example-content"><div class="example-arabic">أَهْلًا وَسَهْلًا</div><div class="example-text">Добро пожаловать [Ахлан ва сахлан]</div></div><button class="speak-btn" onclick="speakText('أَهْلًا وَسَهْلًا')">🔊</button></div>
           <label class="learn-check-label"><input type="checkbox" id="check-phrase-11" onchange="toggleLearnItem('phrase', 11, 'أَهْلًا وَسَهْلًا - Добро пожаловать', this.checked)"> Отметить как выученное ✅</label>
 
           <div class="example-box" style="margin-top: 16px;"><div class="example-content"><div class="example-arabic">كَيْفَ حَالُكَ؟</div><div class="example-text">Как дела? [Кейфа халюк?]</div></div><button class="speak-btn" onclick="speakText('كَيْفَ حَالُكَ؟')">🔊</button></div>
@@ -1584,8 +1584,7 @@
       statusBox.textContent = "Проверка статуса...";
       
       try {
-        // Получаем Telegram ID пользователя, если приложение открыто в Telegram
-        let userId = 12345678; // Дефолтный ID для теста на компьютере
+        let userId = 12345678;
         if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
           userId = tg.initDataUnsafe.user.id;
         }
@@ -1604,36 +1603,23 @@
     }
 
     function paySubscription() {
-      // Здесь будет ссылка на оплату через Robokassa / ЮKassa
-      // Например: window.open('https://your-payment-link.ru/...', '_blank');
       alert("Переход на страницу оплаты (300 руб.). После успешной оплаты подписка активируется автоматически!");
     }
-    // Функция загрузки данных из JSON файлов
-async function loadAppData() {
-  try {
-    // Загружаем слова и фразы
-    const wordsResponse = await fetch('data/words.json');
-    const wordsData = await wordsResponse.json();
-    
-    // Здесь можно рендерить слова в соответствующие контейнеры на странице
-    console.log("Слова и фразы успешно загружены:", wordsData);
 
-    // Загружаем правила таджвида
-    const tajweedResponse = await fetch('data/tajweed.json');
-    const tajweedData = await tajweedResponse.json();
-    
-    console.log("Уровни таджвида успешно загружены:", tajweedData);
-    
-  } catch (error) {
-    console.error("Ошибка при загрузке данных:", error);
-  }
-}
+    async function loadAppData() {
+      try {
+        const wordsResponse = await fetch('data/words.json');
+        const wordsData = await wordsResponse.json();
+        console.log("Слова и фразы успешно загружены:", wordsData);
 
-// Вызываем загрузку при старте приложения
-window.addEventListener('DOMContentLoaded', () => {
-  loadAppData();
-  // ... остальные твои функции инициализации ...
-});
+        const tajweedResponse = await fetch('data/tajweed.json');
+        const tajweedData = await tajweedResponse.json();
+        console.log("Уровни таджвида успешно загружены:", tajweedData);
+      } catch (error) {
+        console.error("Ошибка при загрузке данных:", error);
+      }
+    }
+
     const tg = window.Telegram.WebApp;
     if (tg && tg.expand) {
       tg.expand();
@@ -2052,15 +2038,14 @@ window.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('app_font_scale', scaleValue);
     }
 
+    // Единый корректный блок инициализации при загрузке страницы
     window.addEventListener('DOMContentLoaded', () => {
-  loadAppData(); // <-- добавь эту строчку сюда
-  
-  const savedTheme = localStorage.getItem('app_theme');
-  if (savedTheme) {
-    setTheme(savedTheme);
-  }
-  // и так далее...
-});
+      loadAppData();
+      
+      const savedTheme = localStorage.getItem('app_theme');
+      if (savedTheme) {
+        setTheme(savedTheme);
+      }
 
       const savedScale = localStorage.getItem('app_font_scale');
       if (savedScale) {
