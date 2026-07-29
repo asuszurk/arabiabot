@@ -86,16 +86,21 @@
     }
 
     /* Премиальная шапка */
+    /* Премиальная шапка */
     .header-arch {
       position: relative;
       background: radial-gradient(circle at 50% 0%, #16364f 0%, #0a192f 80%);
       border: 1px solid var(--card-border);
       border-radius: var(--radius-lg);
-      padding: 28px 20px 24px 20px;
+      padding: 32px 20px;
       margin-bottom: 20px;
       text-align: center;
       box-shadow: 0 10px 30px rgba(0,0,0,0.4);
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
     
     .header-arch::before {
@@ -106,24 +111,24 @@
     }
 
     .header-top-actions {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      margin-bottom: 12px;
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 2;
     }
 
     .header-btn {
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid var(--card-border);
       color: var(--gold-light);
-      width: 40px;
-      height: 40px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
+      font-size: 16px;
       transition: all 0.2s;
     }
     .header-btn:active {
