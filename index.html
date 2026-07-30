@@ -2050,18 +2050,48 @@
     window.addEventListener('DOMContentLoaded', () => {
       loadAppData();
       
-      // Автоматически проверяем подписку при старте
+      const savedTheme = localStorage.getItem('app_theme');
+      if (savedTheme) {
+        setTheme(savedTheme);
+      }
+
+      const savedScale = localStorage.getItem('app_font_scale');
+      if (savedScale) {
+        document.getElementById('font-slider').value = savedScale;
+        changeFontSize(savedScale);
+      }
+
+      // Восстановление чекбоксов
+      Object.keys(userStats.learnedItems).forEach(key => {
+        const parts = key.split('_');
+        const cat = parts[0];
+        const id = parts.slice(1).join('_');
+        let chk = null;
+        if (cat === 'tajweed') {
+          chk = document.getElementById('check-tajweed-' + id);
+        } else if (cat === 'word') {
+          chk = document.getElementById('check-word-' + id);
+        } else if (cat === 'phrase') {
+          chk = document.getElementById('check-phrase-' + id);
+        }
+        if (chk) chk.checked = true;
+      });
+
+      // Мягкая фоновая проверка подписки (не блокирует интерфейс, если сервер недоступен)
       let userId = 12345678;
       if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
         userId = tg.initDataUnsafe.user.id;
       }
+      
       fetch(`https://arabiabot-production.up.railway.app/api/check-subscription/${userId}`)
         .then(res => res.json())
         .then(data => {
-          if (!data.active) {
+          if (data && data.active === false) {
             showScreen('screen-subscription');
           }
-        }).catch(err => console.log(err));
+        })
+        .catch(err => console.log("Проверка подписки отложена:", err));
+    });
 
       const savedTheme = localStorage.getItem('app_theme');
       if (savedTheme) {
