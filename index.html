@@ -1585,12 +1585,13 @@
 
     async function checkUserSubscriptionStatus() {
       const statusBox = document.getElementById('sub-status-box');
+      if (!statusBox) return;
       statusBox.textContent = "Проверка статуса подписки...";
       
       try {
-        let userId = 12345678; // Дефолтный ID для теста на ПК
-        if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
-          userId = tg.initDataUnsafe.user.id;
+        let userId = 12345678; 
+        if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
+          userId = window.Telegram.WebApp.initDataUnsafe.user.id;
         }
 
         const response = await fetch(`https://arabiabot-production.up.railway.app/api/check-subscription/${userId}`);
@@ -1604,7 +1605,7 @@
           showScreen('screen-subscription');
         }
       } catch (e) {
-        statusBox.innerHTML = `ℹ️ Ошибка проверки подписки. Попробуйте позже.`;
+        statusBox.innerHTML = `ℹ️ Сервер просыпается, попробуйте обновить страницу.`;
       }
     }
 
@@ -1626,8 +1627,9 @@
       }
     }
 
-    const tg = window.Telegram.WebApp;
-    if (tg && tg.expand) {
+    // Безопасная инициализация Telegram WebApp
+    const tg = window.Telegram ? window.Telegram.WebApp : null;
+    if (tg && typeof tg.expand === 'function') {
       tg.expand();
     }
 
@@ -2044,7 +2046,7 @@
       localStorage.setItem('app_font_scale', scaleValue);
     }
 
-    // Единый корректный блок инициализации при загрузке страницы
+    // Единственный стабильный и безопасный блок запуска, работающий при открытии с любой кнопки
     window.addEventListener('DOMContentLoaded', () => {
       loadAppData();
       
@@ -2077,8 +2079,8 @@
 
       // Мягкая фоновая проверка подписки
       let userId = 12345678;
-      if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
-        userId = tg.initDataUnsafe.user.id;
+      if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
+        userId = window.Telegram.WebApp.initDataUnsafe.user.id;
       }
       
       fetch(`https://arabiabot-production.up.railway.app/api/check-subscription/${userId}`)
