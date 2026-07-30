@@ -74,22 +74,33 @@ async def payment_webhook(request: Request):
 @app.get("/api/check-subscription/{user_id}")
 async def check_subscription(user_id: int):
     """
-    Эндпоинт для проверки статуса подписки конкретного пользователя из Mini App
+    Проверка статуса подписки. Если пользователь новый — автоматически дается 3 дня триала.
     """
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
     cursor.execute("SELECT expires_at, status FROM subscriptions WHERE user_id = ?", (user_id,))
     row = cursor.fetchone()
-    conn.close()
 
     if not row:
-        return {"active": False, "message": "No subscription found"}
+        # Новый пользователь — даем пробный период на 3 дня
+        expires_at = datetime.now() + timedelta(days=3)
+        expires_str = expires_at.strftime("%Y-%m-%d %H:%M:%S")
+        
+        cursor.execute("""
+            INSERT INTO subscriptions (user_id, expires_at, status)
+            VALUES (?, ?, 'trial')
+        """, (user_id, expires_str))
+        conn.commit()
+        conn.close()
+        
+        return {"active": True, "expires_at": expires_str, "is_trial": True}
 
     expires_at_str, status = row
     expires_at = datetime.strptime(expires_at_str, "%Y-%m-%d %H:%M:%S")
+    conn.close()
     
-    if status == 'active' and expires_at > datetime.now():
-        return {"active": True, "expires_at": expires_at_str}
+    if expires_at > datetime.now():
+        return {"active": True, "expires_at": expires_at_str, "is_trial": (status == 'trial')}
     else:
         return {"active": False, "message": "Subscription expired"}
 

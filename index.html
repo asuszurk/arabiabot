@@ -1586,10 +1586,10 @@
 
     async function checkUserSubscriptionStatus() {
       const statusBox = document.getElementById('sub-status-box');
-      statusBox.textContent = "Проверка статуса...";
+      statusBox.textContent = "Проверка статуса подписки...";
       
       try {
-        let userId = 12345678;
+        let userId = 12345678; // Дефолтный ID для теста на ПК
         if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
           userId = tg.initDataUnsafe.user.id;
         }
@@ -1598,12 +1598,15 @@
         const data = await response.json();
 
         if (data.active) {
-          statusBox.innerHTML = `✅ Подписка активна до: <span style="color: var(--gold-light);">${data.expires_at}</span>`;
+          const modeText = data.is_trial ? "Пробный период (3 дня) активен до" : "Подписка активна до";
+          statusBox.innerHTML = `✅ ${modeText}: <span style="color: var(--gold-light);">${data.expires_at}</span>`;
         } else {
-          statusBox.innerHTML = `❌ Подписка не активна. Оформите доступ ниже.`;
+          statusBox.innerHTML = `❌ Ваш пробный период истек. Оформите подписку для продолжения.`;
+          // Автоматически показываем экран подписки, если доступ закрыт
+          showScreen('screen-subscription');
         }
       } catch (e) {
-        statusBox.innerHTML = `ℹ️ Статус подписки: доступно для подключения`;
+        statusBox.innerHTML = `ℹ️ Ошибка проверки подписки. Попробуйте позже.`;
       }
     }
 
@@ -2046,6 +2049,26 @@
     // Единый корректный блок инициализации при загрузке страницы
     window.addEventListener('DOMContentLoaded', () => {
       loadAppData();
+      
+      // Автоматически проверяем подписку при старте
+      let userId = 12345678;
+      if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
+        userId = tg.initDataUnsafe.user.id;
+      }
+      fetch(`https://arabiabot-production.up.railway.app/api/check-subscription/${userId}`)
+        .then(res => res.json())
+        .then(data => {
+          if (!data.active) {
+            showScreen('screen-subscription');
+          }
+        }).catch(err => console.log(err));
+
+      const savedTheme = localStorage.getItem('app_theme');
+      if (savedTheme) {
+        setTheme(savedTheme);
+      }
+      // ... остальные настройки сохраняются
+    });
       
       const savedTheme = localStorage.getItem('app_theme');
       if (savedTheme) {
