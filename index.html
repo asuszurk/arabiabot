@@ -86,7 +86,6 @@
     }
 
     /* Премиальная шапка */
-    /* Премиальная шапка */
     .header-arch {
       position: relative;
       background: radial-gradient(circle at 50% 0%, #16364f 0%, #0a192f 80%);
@@ -1602,7 +1601,6 @@
           statusBox.innerHTML = `✅ ${modeText}: <span style="color: var(--gold-light);">${data.expires_at}</span>`;
         } else {
           statusBox.innerHTML = `❌ Ваш пробный период истек. Оформите подписку для продолжения.`;
-          // Автоматически показываем экран подписки, если доступ закрыт
           showScreen('screen-subscription');
         }
       } catch (e) {
@@ -2077,7 +2075,7 @@
         if (chk) chk.checked = true;
       });
 
-      // Мягкая фоновая проверка подписки (не блокирует интерфейс, если сервер недоступен)
+      // Мягкая фоновая проверка подписки
       let userId = 12345678;
       if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
         userId = tg.initDataUnsafe.user.id;
@@ -2091,41 +2089,6 @@
           }
         })
         .catch(err => console.log("Проверка подписки отложена:", err));
-    });
-
-      const savedTheme = localStorage.getItem('app_theme');
-      if (savedTheme) {
-        setTheme(savedTheme);
-      }
-      // ... остальные настройки сохраняются
-    });
-      
-      const savedTheme = localStorage.getItem('app_theme');
-      if (savedTheme) {
-        setTheme(savedTheme);
-      }
-
-      const savedScale = localStorage.getItem('app_font_scale');
-      if (savedScale) {
-        document.getElementById('font-slider').value = savedScale;
-        changeFontSize(savedScale);
-      }
-
-      // Восстановление чекбоксов
-      Object.keys(userStats.learnedItems).forEach(key => {
-        const parts = key.split('_');
-        const cat = parts[0];
-        const id = parts.slice(1).join('_');
-        let chk = null;
-        if (cat === 'tajweed') {
-          chk = document.getElementById('check-tajweed-' + id);
-        } else if (cat === 'word') {
-          chk = document.getElementById('check-word-' + id);
-        } else if (cat === 'phrase') {
-          chk = document.getElementById('check-phrase-' + id);
-        }
-        if (chk) chk.checked = true;
-      });
     });
   </script>
 </body>
