@@ -98,28 +98,27 @@ def get_user(user_id, username):
     return {"score": score, "level": level}
 
 # === ХЕНДЛЕРЫ БОТА ===
-@dp.message(Command("start"))
+from aiogram import types
+from aiogram.types import WebAppInfo, InlineKeyboardMarkup, InlineKeyboardButton
+
+@app.message(commands=["start"])
 async def cmd_start(message: types.Message):
-    user_id = message.from_user.id
-    user_data = get_user(user_id, message.from_user.username or message.from_user.first_name)
-    
-    # Красивая кнопка для запуска веб-приложения на весь экран
-    web_app_kb = InlineKeyboardMarkup(
+    # Создаем клавиатуру с единственной рабочей кнопкой открытия Web App
+    keyboard = InlineKeyboardMarkup(
         inline_keyboard=[
             [
                 InlineKeyboardButton(
-                    text="🚀 Открыть приложение",
-                    web_app=WebAppInfo(url=WEB_APP_URL)
+                    text="🚀 Открыть приложение", 
+                    web_app=WebAppInfo(url="https://arabiabot-production.up.railway.app")
                 )
             ]
         ]
     )
     
     await message.answer(
-        f"Ас-саляму алейкум, {message.from_user.first_name}! 👋\n\n"
-        f"Добро пожаловать в приложение для изучения арабского языка и таджвида.\n"
-        f"Нажмите на кнопку ниже, чтобы начать обучение в удобном формате:",
-        reply_markup=web_app_kb
+        "Ассаляму алейкум! Добро пожаловать в бот по изучению арабского языка и таджвида.\n\n"
+        "Нажмите кнопку ниже, чтобы открыть приложение:",
+        reply_markup=keyboard
     )
 
 @dp.message(Command("admin"))
