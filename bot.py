@@ -128,7 +128,16 @@ async def cmd_admin(message: types.Message):
 
 async def main():
     init_db()
-    print("Бот успешно запущен (без лишних кнопок в чате)!")
+    
+    # Принудительно устанавливаем рабочую ссылку для системной кнопки Меню в профиле бота
+    await bot.set_chat_menu_button(
+        menu_button=types.MenuButtonWebApp(
+            text="Открыть приложение",
+            web_app=WebAppInfo(url=WEB_APP_URL)
+        )
+    )
+    
+    print("Бот успешно запущен!")
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
