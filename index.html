@@ -1531,13 +1531,8 @@
     // Функция для динамической загрузки и отрисовки слов и фраз из words.json
     async function loadAndRenderWordsAndPhrases() {
         try {
-            console.log("Загрузка words.json...");
-            const response = await fetch('data/words.json?v=' + new Date().getTime());');
-            if (!response.ok) {
-                throw new Error('HTTP error! status: ' + response.status);
-            }
+            const response = await fetch('data/words.json?v=' + new Date().getTime());
             const data = await response.json();
-            console.log("Данные из JSON успешно загружены:", data);
 
             // 1. Рендерим слова
             const wordsContainer = document.getElementById('dynamic-words-container');
@@ -1560,9 +1555,6 @@
                     `;
                 });
                 wordsContainer.innerHTML = wordsHtml;
-                console.log("Слова отрендерены, штук:", data.words.length);
-            } else {
-                console.log("Контейнер слов не найден или в JSON нет массива words!");
             }
 
             // 2. Рендерим фразы
@@ -1586,9 +1578,6 @@
                     `;
                 });
                 phrasesContainer.innerHTML = phrasesHtml;
-                console.log("Фразы отрендерены, штук:", data.phrases.length);
-            } else {
-                console.log("Контейнер фраз не найден или в JSON нет массива phrases!");
             }
 
         } catch (error) {
