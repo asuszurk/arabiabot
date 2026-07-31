@@ -1580,6 +1580,14 @@
                 phrasesContainer.innerHTML = phrasesHtml;
             }
 
+            // Скрываем плашки «Скоро здесь появятся...», если слова и фразы успешно загрузились
+            if (data.words && data.words.length > 0) {
+                document.querySelectorAll('#wp-sub-words .coming-soon-box').forEach(el => el.style.display = 'none');
+            }
+            if (data.phrases && data.phrases.length > 0) {
+                document.querySelectorAll('#wp-sub-phrases .coming-soon-box').forEach(el => el.style.display = 'none');
+            }
+
         } catch (error) {
             console.error("Ошибка при загрузке данных из JSON:", error);
         }
