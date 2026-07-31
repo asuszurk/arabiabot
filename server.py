@@ -45,7 +45,7 @@ async def check_subscription(user_id: int):
         return {"active": True, "expires_at": expires_str, "is_trial": True}
 
     expires_at_str, status = row
-    expires_at = datetime.strptime(expires_at_str, "%Y-%m-%d %H:%M:%S")
+        expires_str = expires_at.strftime("%d.%m.%Y %H:%M:%S")
     conn.close()
     
     if expires_at > datetime.now():

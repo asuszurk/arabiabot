@@ -1599,7 +1599,8 @@
 
         if (data.active) {
           const modeText = data.is_trial ? "Пробный период (3 дня) активен до" : "Подписка активна до";
-          statusBox.innerHTML = `✅ ${modeText}: <span style="color: var(--gold-light);">${data.expires_at}</span>`;
+          const [datePart, timePart] = data.expires_at.split(" ");
+ML = `✅ ${modeText}:<br><span style="color: var(--gold-light); font-size: 1.1em; font-weight: bold;">${datePart}</span><br><span style="color: var(--gold-light); opacity: 0.8; font-size: 0.9em;">${timePart}</span>`;
         } else {
           statusBox.innerHTML = `❌ Ваш пробный период истек. Оформите подписку за 500 ₽ для продолжения.`;
           showScreen('screen-subscription');
