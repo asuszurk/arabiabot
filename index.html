@@ -2095,10 +2095,13 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      loadAndRenderWordsAndPhrases(); // <--- Добавьте эту строчку сюда
+      loadAndRenderWordsAndPhrases(); // <--- Вот эта строчка запускает загрузку!
       loadAppData();
       
       const savedTheme = localStorage.getItem('app_theme');
+      if (savedTheme) {
+        setTheme(savedTheme);
+      }
     });
 
       const savedScale = localStorage.getItem('app_font_scale');
