@@ -17,7 +17,7 @@ bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
 # Ссылка на ваше веб-приложение (замените при смене туннеля Cloudflare, если нужно)
-WEB_APP_URL = "https://collar-mpegs-wing-recently.trycloudflare.com"
+WEB_APP_URL = "https://arabiabot-production.up.railway.app"
 
 # База данных алфавита
 ALPHABET = {
