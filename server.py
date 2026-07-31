@@ -45,7 +45,11 @@ async def check_subscription(user_id: int):
         return {"active": True, "expires_at": expires_str, "is_trial": True}
 
     expires_at_str, status = row
-        expires_str = expires_at.strftime("%d.%m.%Y %H:%M:%S")
+    # Сначала парсим строку из базы, а потом форматируем в нужный вид с точками
+    dt_obj = datetime.strptime(expires_at_str, "%Y-%m-%d %H:%M:%S")
+    expires_at_str = dt_obj.strftime("%d.%m.%Y %H:%M:%S")
+    
+    expires_at = dt_obj  # оставляем объект для проверки в строке 51
     conn.close()
     
     if expires_at > datetime.now():
