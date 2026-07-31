@@ -1509,7 +1509,7 @@
           Проверка статуса подписки...
         </div>
 
-        <button class="main-button" onclick="paySubscription()">Оплатить 300 ₽ (Карта РФ / СБП)</button>
+        <button class="main-button" onclick="paySubscription()">Оплатить 500 ₽ (Карта РФ / СБП)</button>
       </div>
 
       <button class="main-button" onclick="goHome()" style="margin-top: 14px; background: transparent; border: 1px solid var(--card-border); color: var(--text-primary);">На главную</button>
@@ -1733,7 +1733,7 @@
     }
 
     async function renderProfileStats() {
-      // 1. Сначала выводим статистику тестов и галочки (как раньше)
+      // Выводим статистику тестов и галочки
       document.getElementById('stat-words-correct').textContent = userStats.tests.words.correct;
       document.getElementById('stat-words-wrong').textContent = userStats.tests.words.wrong;
       document.getElementById('stat-alphabet-correct').textContent = userStats.tests.alphabet.correct;
@@ -1769,10 +1769,9 @@
         wordsListContainer.innerHTML = '<ul style="padding-left: 20px; line-height: 1.8;">' + wordsHtml + '</ul>';
       }
 
-      // 2. Добавляем блок информации о подписке / таймере триала сверху профиля
+      // Блок статуса подписки в профиле
       let profileSubBox = document.getElementById('profile-subscription-status-box');
       if (!profileSubBox) {
-        // Если блока еще нет, создаем его динамически в самом верху экрана профиля
         const profileScreen = document.getElementById('screen-profile');
         const headerEl = profileScreen.querySelector('.lesson-header');
         
@@ -1782,7 +1781,6 @@
         profileSubBox.style.marginBottom = '16px';
         profileSubBox.style.textAlign = 'center';
         
-        // Вставляем сразу после шапки профиля
         headerEl.after(profileSubBox);
       }
 
@@ -1794,10 +1792,18 @@
           userId = window.Telegram.WebApp.initDataUnsafe.user.id;
         }
 
-        const response = await fetch(`https://arabiabot-production.up.railway.app/api/check-subscription/${userId}`);
+        // Добавляем контроллер прерывания (таймаут 6 секунд), чтобы блок не висел вечно
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 6000);
+
+        const response = await fetch(`https://arabiabot-production.up.railway.app/api/check-subscription/${userId}`, {
+          signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+
         const data = await response.json();
 
-        if (data.active) {
+        if (data && data.active) {
           const modeText = data.is_trial ? "Пробный период активен до" : "Премиум-подписка активна до";
           profileSubBox.innerHTML = `
             <h3 style="margin-bottom: 8px; color: var(--gold-light);">✨ Статус доступа</h3>
@@ -1812,7 +1818,12 @@
           `;
         }
       } catch (e) {
-        profileSubBox.innerHTML = `<h3 style="margin-bottom: 8px;">⏳ Статус доступа</h3><p style="color: var(--text-secondary);">Не удалось проверить статус (ошибка сети).</p>`;
+        // Если сервер спит или сеть пропала — показываем кнопку перехода к оплате принудительно, вместо зависания
+        profileSubBox.innerHTML = `
+          <h3 style="margin-bottom: 8px; color: var(--gold-light);">✨ Премиум-доступ</h3>
+          <p style="margin-bottom: 12px; color: var(--text-secondary);">Стоимость подписки: 500 ₽ / месяц</p>
+          <button class="main-button" style="margin: 0; padding: 12px;" onclick="openSubscription()">Оформить подписку (500 ₽)</button>
+        `;
       }
     }
 
