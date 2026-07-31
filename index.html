@@ -2095,14 +2095,13 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      loadAndRenderWordsAndPhrases(); // <--- Вот эта строчка запускает загрузку!
+      loadAndRenderWordsAndPhrases();
       loadAppData();
       
       const savedTheme = localStorage.getItem('app_theme');
       if (savedTheme) {
         setTheme(savedTheme);
       }
-    });
 
       const savedScale = localStorage.getItem('app_font_scale');
       if (savedScale) {
@@ -2124,6 +2123,7 @@
           chk = document.getElementById('check-phrase-' + id);
         }
         if (chk) chk.checked = true;
+      });
     });
 </script>
 </body>
