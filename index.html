@@ -1464,7 +1464,15 @@
         <span>👤</span>
       </div>
 
-      <div class="tajweed-content-box" style="margin-bottom: 16px;">
+<!-- Блок статуса подписки в профиле -->
+<div class="tajweed-content-box" id="profile-subscription-status-box" style="margin-bottom: 16px; text-align: center;">
+    <h3 style="margin-bottom: 8px;">✨ Статус доступа</h3>
+    <div id="subscription-status-box">
+        <!-- Сюда JavaScript подставляет статус и дату -->
+    </div>
+</div>
+
+<div class="tajweed-content-box" style="margin-bottom: 16px;">
         <h3 style="margin-bottom: 12px;">📊 Статистика тестов</h3>
         <p style="margin-bottom: 8px;"><strong>Слова и фразы:</strong> Правильно: <span id="stat-words-correct" style="color: var(--accent-green);">0</span> | Неправильно: <span id="stat-words-wrong" style="color: var(--accent-red);">0</span></p>
         <p style="margin-bottom: 8px;"><strong>Алфавит:</strong> Правильно: <span id="stat-alphabet-correct" style="color: var(--accent-green);">0</span> | Неправильно: <span id="stat-alphabet-wrong" style="color: var(--accent-red);">0</span></p>
@@ -1805,19 +1813,20 @@ ML = `✅ ${modeText}:<br><span style="color: var(--gold-light); font-size: 1.1e
         const data = await response.json();
 
         if (data && data.active) {
-          const modeText = data.is_trial ? "Пробный период активен до" : "Премиум-подписка активна до";
-          profileSubBox.innerHTML = `
+        const modeText = data.is_trial ? "Пробный период активен до" : "Подписка активна до";
+        const [datePart, timePart] = data.expires_at.split(" ");
+        profilesSubBox.innerHTML = `
             <h3 style="margin-bottom: 8px; color: var(--gold-light);">✨ Статус доступа</h3>
-            <p style="margin-bottom: 12px; font-weight: 600; color: var(--accent-green);">${modeText}: <br><span style="font-size: 16px; color: var(--gold-light);">${data.expires_at}</span></p>
-            <button class="main-button" style="margin: 0; padding: 10px; font-size: 14px;" onclick="openSubscription()">Продлить / Управлять подпиской (500 ₽)</button>
-          `;
-        } else {
-          profileSubBox.innerHTML = `
-            <h3 style="margin-bottom: 8px; color: var(--accent-red);">❌ Доступ приостановлен</h3>
-            <p style="margin-bottom: 12px; color: var(--text-secondary);">Ваш пробный период подошел к концу.</p>
-            <button class="main-button" style="margin: 0; padding: 12px;" onclick="openSubscription()">Оплатить подписку (500 ₽)</button>
-          `;
-        }
+            <p style="margin-bottom: 8px; font-weight: 500;">${modeText}:</p>
+            <div style="color: var(--gold-light); font-size: 1.1em; font-weight: bold;">${datePart}</div>
+            <div style="color: var(--gold-light); opacity: 0.8; font-size: 0.9em;">${timePart}</div>
+        `;
+    } else {
+        profilesSubBox.innerHTML = `
+            <h3 style="margin-bottom: 8px; color: var(--gold-light);">✨ Статус доступа</h3>
+            <p style="color: #ff6b6b;">❌ Ваш период доступа истек.</p>
+        `;
+    }
       } catch (e) {
         // Если сервер спит или сеть пропала — показываем кнопку перехода к оплате принудительно, вместо зависания
         profileSubBox.innerHTML = `
