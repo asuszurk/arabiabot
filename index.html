@@ -1795,8 +1795,8 @@ ML = `✅ ${modeText}:<br><span style="color: var(--gold-light); font-size: 1.1e
 
       try {
         let userId = 12345678;
-        if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
-          userId = window.Telegram.WebApp.initDataUnsafe.user.id;
+        if (window.Telegram?.WebApp?.initDataUnsafe?.user?.id) {
+            userId = window.Telegram.WebApp.initDataUnsafe.user.id;
         }
 
         // Добавляем контроллер прерывания (таймаут 6 секунд), чтобы блок не висел вечно
