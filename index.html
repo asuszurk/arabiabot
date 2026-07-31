@@ -1532,7 +1532,7 @@
     async function loadAndRenderWordsAndPhrases() {
         try {
             console.log("Загрузка words.json...");
-            const response = await fetch('data/words.json');
+            const response = await fetch('data/words.json?v=' + new Date().getTime());');
             if (!response.ok) {
                 throw new Error('HTTP error! status: ' + response.status);
             }
