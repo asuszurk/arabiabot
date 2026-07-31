@@ -1898,6 +1898,46 @@
       });
     }
 
+    // Генератор приятных звуков для теста (без внешних аудиофайлов)
+    function playQuizSound(isCorrect) {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        const now = audioCtx.currentTime;
+
+        if (isCorrect) {
+          // Приятный восходящий аккорд (правильно)
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(587.33, now); // Нота Ре (D5)
+          osc.frequency.setValueAtTime(880, now + 0.08); // Нота Ля (A5)
+          
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+          
+          osc.start(now);
+          osc.stop(now + 0.3);
+        } else {
+          // Мягкий глухой сигнал (неправильно)
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(220, now); // Низкая нота
+          osc.frequency.setValueAtTime(185, now + 0.1); // Чуть ниже
+          
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+          
+          osc.start(now);
+          osc.stop(now + 0.25);
+        }
+      } catch (e) {
+        console.log("Звук не поддерживается браузером:", e);
+      }
+    }
+
     function checkQuizAnswer(btn, selected, correct) {
       if (answered) return;
       answered = true;
@@ -1912,10 +1952,12 @@
       if (selected === correct) {
         score++;
         userStats.tests[currentQuizType].correct = score;
+        playQuizSound(true); // Проигрываем приятный звук правильного ответа
       } else {
         btn.classList.add('wrong');
         wrongAnswersCount++;
         userStats.tests[currentQuizType].wrong = wrongAnswersCount;
+        playQuizSound(false); // Проигрываем мягкий звук ошибки
       }
       saveUserStats();
 
