@@ -1502,7 +1502,7 @@
         <div style="font-size: 48px; margin-bottom: 15px;">🌟</div>
         <h3 style="color: var(--gold-light); margin-bottom: 12px;">Доступ ко всем материалам</h3>
         <p style="color: var(--text-secondary); margin-bottom: 20px; line-height: 1.6;">
-          Оформите подписку за <strong style="color: var(--gold-light);">300 ₽ / месяц</strong>, чтобы получить полный доступ ко всем уровням таджвида и словарям.
+          Оформите подписку за <strong style="color: var(--gold-light);">500 ₽ / месяц</strong>, чтобы получить полный доступ ко всем уровням таджвида и словарям.
         </p>
         
         <div id="sub-status-box" style="margin-bottom: 20px; font-weight: 600; color: var(--accent-green);">
@@ -1601,7 +1601,7 @@
           const modeText = data.is_trial ? "Пробный период (3 дня) активен до" : "Подписка активна до";
           statusBox.innerHTML = `✅ ${modeText}: <span style="color: var(--gold-light);">${data.expires_at}</span>`;
         } else {
-          statusBox.innerHTML = `❌ Ваш пробный период истек. Оформите подписку для продолжения.`;
+          statusBox.innerHTML = `❌ Ваш пробный период истек. Оформите подписку за 500 ₽ для продолжения.`;
           showScreen('screen-subscription');
         }
       } catch (e) {
@@ -1610,7 +1610,7 @@
     }
 
     function paySubscription() {
-      alert("Переход на страницу оплаты (300 руб.). После успешной оплаты подписка активируется автоматически!");
+      alert("Переход на страницу оплаты (500 руб.). После успешной оплаты подписка активируется автоматически!");
     }
 
     async function loadAppData() {
