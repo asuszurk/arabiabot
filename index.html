@@ -1813,18 +1813,20 @@ ML = `✅ ${modeText}:<br><span style="color: var(--gold-light); font-size: 1.1e
         const data = await response.json();
 
         if (data && data.active) {
+        const titleText = data.is_trial ? "✨ Статус подписки" : "👑 Премиум-доступ";
         const modeText = data.is_trial ? "Пробный период активен до" : "Подписка активна до";
         const [datePart, timePart] = data.expires_at.split(" ");
+        
         profilesSubBox.innerHTML = `
-            <h3 style="margin-bottom: 8px; color: var(--gold-light);">✨ Статус доступа</h3>
+            <h3 style="margin-bottom: 8px; color: var(--gold-light);">${titleText}</h3>
             <p style="margin-bottom: 8px; font-weight: 500;">${modeText}:</p>
             <div style="color: var(--gold-light); font-size: 1.1em; font-weight: bold;">${datePart}</div>
             <div style="color: var(--gold-light); opacity: 0.8; font-size: 0.9em;">${timePart}</div>
         `;
     } else {
         profilesSubBox.innerHTML = `
-            <h3 style="margin-bottom: 8px; color: var(--gold-light);">✨ Статус доступа</h3>
-            <p style="color: #ff6b6b;">❌ Ваш период доступа истек.</p>
+            <h3 style="margin-bottom: 8px; color: var(--gold-light);">✨ Статус подписки</h3>
+            <p style="color: #ff6b6b;">❌ Период доступа истек.</p>
         `;
     }
       } catch (e) {
