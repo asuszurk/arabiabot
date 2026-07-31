@@ -1,3 +1,12 @@
+from fastapi import FastAPI
+import sqlite3
+from datetime import datetime, timedelta
+
+# Инициализация FastAPI приложения
+app = FastAPI()
+
+DB_NAME = "learning_bot.db"
+
 @app.get("/api/check-subscription/{user_id}")
 async def check_subscription(user_id: int):
     """
@@ -27,6 +36,6 @@ async def check_subscription(user_id: int):
     conn.close()
     
     if expires_at > datetime.now():
-        return {"active": True, "expires_at": expires_str, "is_trial": (status == 'trial')}
+        return {"active": True, "expires_at": expires_at_str, "is_trial": (status == 'trial')}
     else:
         return {"active": False, "message": "Subscription expired"}
