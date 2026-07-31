@@ -1732,7 +1732,8 @@
       saveUserStats();
     }
 
-    function renderProfileStats() {
+    async function renderProfileStats() {
+      // 1. Сначала выводим статистику тестов и галочки (как раньше)
       document.getElementById('stat-words-correct').textContent = userStats.tests.words.correct;
       document.getElementById('stat-words-wrong').textContent = userStats.tests.words.wrong;
       document.getElementById('stat-alphabet-correct').textContent = userStats.tests.alphabet.correct;
@@ -1766,6 +1767,52 @@
         wordsListContainer.innerHTML = 'Вы пока не отметили ни одного слова или фразы.';
       } else {
         wordsListContainer.innerHTML = '<ul style="padding-left: 20px; line-height: 1.8;">' + wordsHtml + '</ul>';
+      }
+
+      // 2. Добавляем блок информации о подписке / таймере триала сверху профиля
+      let profileSubBox = document.getElementById('profile-subscription-status-box');
+      if (!profileSubBox) {
+        // Если блока еще нет, создаем его динамически в самом верху экрана профиля
+        const profileScreen = document.getElementById('screen-profile');
+        const headerEl = profileScreen.querySelector('.lesson-header');
+        
+        profileSubBox = document.createElement('div');
+        profileSubBox.id = 'profile-subscription-status-box';
+        profileSubBox.className = 'tajweed-content-box';
+        profileSubBox.style.marginBottom = '16px';
+        profileSubBox.style.textAlign = 'center';
+        
+        // Вставляем сразу после шапки профиля
+        headerEl.after(profileSubBox);
+      }
+
+      profileSubBox.innerHTML = `<h3 style="margin-bottom: 8px;">⏳ Статус доступа</h3><p style="color: var(--text-secondary);">Загрузка данных подписки...</p>`;
+
+      try {
+        let userId = 12345678;
+        if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
+          userId = window.Telegram.WebApp.initDataUnsafe.user.id;
+        }
+
+        const response = await fetch(`https://arabiabot-production.up.railway.app/api/check-subscription/${userId}`);
+        const data = await response.json();
+
+        if (data.active) {
+          const modeText = data.is_trial ? "Пробный период активен до" : "Премиум-подписка активна до";
+          profileSubBox.innerHTML = `
+            <h3 style="margin-bottom: 8px; color: var(--gold-light);">✨ Статус доступа</h3>
+            <p style="margin-bottom: 12px; font-weight: 600; color: var(--accent-green);">${modeText}: <br><span style="font-size: 16px; color: var(--gold-light);">${data.expires_at}</span></p>
+            <button class="main-button" style="margin: 0; padding: 10px; font-size: 14px;" onclick="openSubscription()">Продлить / Управлять подпиской (500 ₽)</button>
+          `;
+        } else {
+          profileSubBox.innerHTML = `
+            <h3 style="margin-bottom: 8px; color: var(--accent-red);">❌ Доступ приостановлен</h3>
+            <p style="margin-bottom: 12px; color: var(--text-secondary);">Ваш пробный период подошел к концу.</p>
+            <button class="main-button" style="margin: 0; padding: 12px;" onclick="openSubscription()">Оплатить подписку (500 ₽)</button>
+          `;
+        }
+      } catch (e) {
+        profileSubBox.innerHTML = `<h3 style="margin-bottom: 8px;">⏳ Статус доступа</h3><p style="color: var(--text-secondary);">Не удалось проверить статус (ошибка сети).</p>`;
       }
     }
 
