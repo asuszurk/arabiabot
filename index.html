@@ -603,7 +603,7 @@
     </div>
 
 
-    <!-- ================= ЭКРАН ПРАВИЛ ТАДЖВИДА (Все 29 уровней) ================= -->
+    <!-- ================= ЭКРАН ПРАВИЛ ТАДЖВИДА ================= -->
     <div id="screen-tajweed" class="screen">
       <div id="tajweed-menu" class="sub-screen active">
         <div class="lesson-header">
@@ -1026,7 +1026,7 @@
         <div class="tajweed-content-box">
           <h3>Правило Сыля Сугра (Маленькое продление местоимения)</h3>
           <h4>Что это за правило:</h4>
-          <p>Если местоименная буква ه (ха) стоит между двумя живыми гласными, она превращается в долгий звук «у» или «и» ровно на 2 счета.</p>
+          <p>Если местоименая буква ه (ха) стоит между двумя живыми гласными, она превращается в долгий звук «у» или «и» ровно на 2 счета.</p>
           <h4>Примеры из Корана:</h4>
           <div class="example-box"><div class="example-content"><div class="example-arabic">إِنَّهُ كَانَ</div><div class="example-text">[иннахуу кяна] (местоимение тянется 2 счета).</div></div><button class="speak-btn" onclick="speakText('إِنَّهُ كَانَ')">🔊</button></div>
           <div class="example-box"><div class="example-content"><div class="example-arabic">بِهِ بَصِيرًا</div><div class="example-text">[бихии басыран] (долгий звук «и» на местоимении).</div></div><button class="speak-btn" onclick="speakText('بِهِ بَصِيرًا')">🔊</button></div>
@@ -1243,7 +1243,6 @@
         <div class="tajweed-content-box">
           <h3>Популярные арабские слова</h3>
           <div id="dynamic-words-container"></div>
-          <di
         </div>
         <button class="main-button" onclick="showWpMenu()">К категориям</button>
       </div>
@@ -1261,6 +1260,7 @@
         </div>
         <button class="main-button" onclick="showWpMenu()">К категориям</button>
       </div>
+    </div>
 
 
     <!-- ================= ЭКРАН: ПРАКТИКА И ТЕСТЫ ================= -->
@@ -1520,6 +1520,7 @@
         console.log("Аудио не поддерживается:", e);
       }
     }
+
     // Функция для динамической загрузки и отрисовки слов и фраз из words.json
     async function loadAndRenderWordsAndPhrases() {
         try {
@@ -1592,7 +1593,7 @@
     }
 
     function showScreen(screenId) {
-      playClickSound(); // Звук при переключении экрана
+      playClickSound();
       document.querySelectorAll('.screen').forEach(screen => {
         screen.classList.remove('active');
       });
@@ -1648,7 +1649,6 @@
       if (subEl) {
         subEl.classList.add('active');
       }
-      // Принудительно запускаем загрузку и отрисовку при открытии подраздела
       loadAndRenderWordsAndPhrases();
     }
 
@@ -1756,7 +1756,8 @@
         if (data && data.active) {
             const titleText = data.is_trial ? "✨ Статус подписки" : "👑 Премиум-доступ";
             const modeText = data.is_trial ? "Пробный период активен до" : "Подписка активна до";
-            const [datePart, timePart] = data.expires_at.split(" ");
+            const [datePart, fullTimePart] = data.expires_at.split(" ");
+            const timePart = fullTimePart ? fullTimePart.substring(0, 5) : "";
             
             profilesSubBox.innerHTML = `
                 <div style="text-align: center; padding: 5px 0;">
@@ -1913,7 +1914,6 @@
       });
     }
 
-    // Генератор приятных звуков для теста (без внешних аудиофайлов)
     function playQuizSound(isCorrect) {
       try {
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -2021,9 +2021,9 @@
     const alifInfoContent = document.getElementById('alifInfoContent');
 
     function openLetterModal(letterName, description, videoUrl) {
-  playClickSound(); // <--- Добавьте эту строчку сюда
-  if (modalLetterTitle) modalLetterTitle.textContent = letterName;
-  if (modalLetterDesc) modalLetterDesc.textContent = description;
+      playClickSound();
+      if (modalLetterTitle) modalLetterTitle.textContent = letterName;
+      if (modalLetterDesc) modalLetterDesc.textContent = description;
       
       if (modalVideo) {
         modalVideo.style.display = 'block';
@@ -2133,6 +2133,6 @@
         if (chk) chk.checked = true;
       });
     });
-</script>
+  </script>
 </body>
 </html>
