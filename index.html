@@ -1811,20 +1811,25 @@ ML = `✅ ${modeText}:<br><span style="color: var(--gold-light); font-size: 1.1e
         const data = await response.json();
 
         if (data && data.active) {
+        // Меняем заголовок в зависимости от того, триал это или купленная подписка
         const titleText = data.is_trial ? "✨ Статус подписки" : "👑 Премиум-доступ";
         const modeText = data.is_trial ? "Пробный период активен до" : "Подписка активна до";
         const [datePart, timePart] = data.expires_at.split(" ");
         
         profilesSubBox.innerHTML = `
-            <h3 style="margin-bottom: 8px; color: var(--gold-light);">${titleText}</h3>
-            <p style="margin-bottom: 8px; font-weight: 500;">${modeText}:</p>
-            <div style="color: var(--gold-light); font-size: 1.1em; font-weight: bold;">${datePart}</div>
-            <div style="color: var(--gold-light); opacity: 0.8; font-size: 0.9em;">${timePart}</div>
+            <div style="text-align: center; padding: 5px 0;">
+                <h3 style="margin-bottom: 10px; color: var(--gold-light); font-size: 1.15em;">${titleText}</h3>
+                <p style="margin-bottom: 6px; font-weight: 500; opacity: 0.9; font-size: 0.95em;">${modeText}:</p>
+                <div style="color: var(--gold-light); font-size: 1.2em; font-weight: bold; letter-spacing: 0.5px;">${datePart}</div>
+                <div style="color: var(--gold-light); opacity: 0.75; font-size: 0.85em; margin-top: 2px;">в ${timePart}</div>
+            </div>
         `;
     } else {
         profilesSubBox.innerHTML = `
-            <h3 style="margin-bottom: 8px; color: var(--gold-light);">✨ Статус подписки</h3>
-            <p style="color: #ff6b6b;">❌ Период доступа истек.</p>
+            <div style="text-align: center; padding: 5px 0;">
+                <h3 style="margin-bottom: 8px; color: var(--gold-light);">✨ Статус подписки</h3>
+                <p style="color: #ff6b6b; font-weight: 500;">❌ Период доступа истек.</p>
+            </div>
         `;
     }
       } catch (e) {
