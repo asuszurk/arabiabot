@@ -1554,6 +1554,13 @@
                         </label>
                     `;
                 });
+                // Добавляем плашку в самый конец списка слов
+                wordsHtml += `
+                    <div class="coming-soon-box" style="margin-top: 24px;">
+                        <div class="coming-soon-icon">✨</div>
+                        <div class="coming-soon-text">Со временем здесь будут пополняться новые слова!</div>
+                    </div>
+                `;
                 wordsContainer.innerHTML = wordsHtml;
             }
 
@@ -1577,15 +1584,14 @@
                         </label>
                     `;
                 });
+                // Добавляем плашку в самый конец списка фраз
+                phrasesHtml += `
+                    <div class="coming-soon-box" style="margin-top: 24px;">
+                        <div class="coming-soon-icon">✨</div>
+                        <div class="coming-soon-text">Со временем здесь будут пополняться новые фразы!</div>
+                    </div>
+                `;
                 phrasesContainer.innerHTML = phrasesHtml;
-            }
-
-            // Скрываем плашки «Скоро здесь появятся...», если слова и фразы успешно загрузились
-            if (data.words && data.words.length > 0) {
-                document.querySelectorAll('#wp-sub-words .coming-soon-box').forEach(el => el.style.display = 'none');
-            }
-            if (data.phrases && data.phrases.length > 0) {
-                document.querySelectorAll('#wp-sub-phrases .coming-soon-box').forEach(el => el.style.display = 'none');
             }
 
         } catch (error) {
