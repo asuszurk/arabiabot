@@ -1499,29 +1499,27 @@
   </div>
 
 <!-- ================= ЭКРАН: ПОДПИСКА ================= -->
-    <div id="screen-subscription" class="screen">
-      <div class="lesson-header">
+    <div class="screen" id="screen-subscription" style="display: none;">
+    <div class="lesson-header">
         <button class="back-button" onclick="goHome()">←</button>
         <span>Премиум-подписка</span>
         <span>👑</span>
-      </div>
-
-      <div class="tajweed-content-box" style="text-align: center; padding: 30px 20px;">
-        <div style="font-size: 48px; margin-bottom: 15px;">🌟</div>
-        <h3 style="color: var(--gold-light); margin-bottom: 12px;">Доступ ко всем материалам</h3>
-        <p style="color: var(--text-secondary); margin-bottom: 20px; line-height: 1.6;">
-          Оформите подписку за <strong style="color: var(--gold-light);">500 ₽ / месяц</strong>, чтобы получить полный доступ ко всем уровням таджвида и словарям.
-        </p>
-        
-        <div id="sub-status-box" style="margin-bottom: 20px; font-weight: 600; color: var(--accent-green);">
-          Проверка статуса подписки...
-        </div>
-
-        <button class="main-button" onclick="paySubscription()">Оплатить 500 ₽ (Карта РФ / СБП)</button>
-      </div>
-
-      <button class="main-button" onclick="goHome()" style="margin-top: 14px; background: transparent; border: 1px solid var(--card-border); color: var(--text-primary);">На главную</button>
     </div>
+
+    <div class="tajweed-content-box" style="text-align: center; padding: 25px 20px; margin-top: 20px;">
+        <div style="font-size: 45px; margin-bottom: 12px;">🌟</div>
+        
+        <h3 style="color: var(--gold-light); margin-bottom: 15px; font-size: 1.2em;">Премиум-доступ на 30 дней</h3>
+        
+        <p style="opacity: 0.9; margin-bottom: 25px; line-height: 1.5; font-size: 0.95em;">
+            Оформите подписку за <b style="color: var(--gold-light);">500 ₽ / месяц</b>, чтобы получить полный доступ ко всем уровням таджвида и словарям школы Аравия бот.
+        </p>
+
+        <button class="main-button" onclick="paySubscription()" style="width: 100%; padding: 14px; font-size: 1.1em; font-weight: bold; border-radius: 12px; cursor: pointer;">
+            Оплатить
+        </button>
+    </div>
+</div>
 
 
   <!-- НИЖНЯЯ ПАНЕЛЬ НАВИГАЦИИ (TabBar) -->
