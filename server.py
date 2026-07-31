@@ -1,5 +1,4 @@
 import os
-import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 import sqlite3
@@ -8,7 +7,6 @@ from datetime import datetime, timedelta
 app = FastAPI()
 DB_NAME = "learning_bot.db"
 
-# Создаем таблицы в базе данных при старте сервера, если их нет
 def init_db():
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
@@ -24,7 +22,6 @@ def init_db():
 
 init_db()
 
-# Главная страница веб-приложения (отдает твой index.html)
 @app.get("/", response_class=HTMLResponse)
 async def serve_index():
     if os.path.exists("index.html"):
@@ -32,7 +29,6 @@ async def serve_index():
             return f.read()
     return "<h1>Index.html not found</h1>"
 
-# Эндпоинт проверки подписки для студентов
 @app.get("/api/check-subscription/{user_id}")
 async def check_subscription(user_id: int):
     conn = sqlite3.connect(DB_NAME)
@@ -41,7 +37,6 @@ async def check_subscription(user_id: int):
     row = cursor.fetchone()
 
     if not row:
-        # Автоматический триал 3 дня для новых учеников
         expires_at = datetime.now() + timedelta(days=3)
         expires_str = expires_at.strftime("%Y-%m-%d %H:%M:%S")
         cursor.execute("INSERT INTO subscriptions (user_id, expires_at, status) VALUES (?, ?, 'trial')", (user_id, expires_str))
@@ -57,7 +52,3 @@ async def check_subscription(user_id: int):
         return {"active": True, "expires_at": expires_at_str, "is_trial": (status == 'trial')}
     else:
         return {"active": False, "message": "Subscription expired"}
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8080))
-    uvicorn.run("server:app", host="0.0.0.0", port=port)
