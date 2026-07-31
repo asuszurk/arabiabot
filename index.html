@@ -1834,11 +1834,12 @@ ML = `✅ ${modeText}:<br><span style="color: var(--gold-light); font-size: 1.1e
     }
       } catch (e) {
         // Если сервер спит или сеть пропала — показываем кнопку перехода к оплате принудительно, вместо зависания
-        profileSubBox.innerHTML = `
-          <h3 style="margin-bottom: 8px; color: var(--gold-light);">✨ Премиум-доступ</h3>
-          <p style="margin-bottom: 12px; color: var(--text-secondary);">Стоимость подписки: 500 ₽ / месяц</p>
-          <button class="main-button" style="margin: 0; padding: 12px;" onclick="openSubscription()">Оформить подписку (500 ₽)</button>
-        `;
+       profilesSubBox.innerHTML = `
+        <div style="text-align: center; padding: 5px 0;">
+            <h3 style="margin-bottom: 8px; color: var(--gold-light);">✨ Статус подписки</h3>
+            <p style="color: var(--text-secondary); font-size: 0.95em;">Не удалось загрузить статус доступа.</p>
+        </div>
+    `;
       }
     }
 
