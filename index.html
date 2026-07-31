@@ -1625,7 +1625,33 @@
       }
     }
 
+    function playClickSound() {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        const now = audioCtx.currentTime;
+        
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(600, now);
+        osc.frequency.exponentialRampToValueAtTime(800, now + 0.05);
+        
+        gain.gain.setValueAtTime(0.08, now); 
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+        
+        osc.start(now);
+        osc.stop(now + 0.1);
+      } catch (e) {
+        console.log("Аудио не поддерживается:", e);
+      }
+    }
+
     function showScreen(screenId) {
+      playClickSound(); // Звук при переключении экрана
       document.querySelectorAll('.screen').forEach(screen => {
         screen.classList.remove('active');
       });
@@ -2052,8 +2078,9 @@
     const alifInfoContent = document.getElementById('alifInfoContent');
 
     function openLetterModal(letterName, description, videoUrl) {
-      if (modalLetterTitle) modalLetterTitle.textContent = letterName;
-      if (modalLetterDesc) modalLetterDesc.textContent = description;
+  playClickSound(); // <--- Добавьте эту строчку сюда
+  if (modalLetterTitle) modalLetterTitle.textContent = letterName;
+  if (modalLetterDesc) modalLetterDesc.textContent = description;
       
       if (modalVideo) {
         modalVideo.style.display = 'block';
