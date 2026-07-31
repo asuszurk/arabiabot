@@ -12,6 +12,10 @@ DB_NAME = "learning_bot.db"
 if os.path.exists("alphabet"):
     app.mount("/alphabet", StaticFiles(directory="alphabet"), name="alphabet")
 
+# Подключаем раздачу статики для файлов с данными (words.json, tajweed.json и др.)
+if os.path.exists("data"):
+    app.mount("/data", StaticFiles(directory="data"), name="data")
+
 def init_db():
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
