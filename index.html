@@ -1303,10 +1303,13 @@
           <div class="example-box" style="margin-top: 16px;"><div class="example-content"><div class="example-arabic">سَرِيرٌ</div><div class="example-text">Кровать [сарирун]</div></div><button class="speak-btn" onclick="speakText('سَرِيرٌ')">🔊</button></div>
           <label class="learn-check-label"><input type="checkbox" id="check-word-19" onchange="toggleLearnItem('word', 19, 'سَرِيرٌ - Кровать', this.checked)"> Отметить как выученное ✅</label>
 
-          <div class="coming-soon-box">
-            <div class="coming-soon-icon">✨</div>
-            <div class="coming-soon-text">Скоро здесь появятся новые слова!</div>
-          </div>
+          <div id="dynamic-words-container">
+    <!-- Сюда JavaScript автоматически подгрузит слова из words.json -->
+</div>
+<div class="coming-soon-box">
+    <div class="coming-soon-icon">✨</div>
+    <div class="coming-soon-text">Скоро здесь появятся новые слова!</div>
+</div>
         </div>
         <button class="main-button" onclick="showWpMenu()">К категориям</button>
       </div>
@@ -1648,6 +1651,62 @@
       } catch (e) {
         console.log("Аудио не поддерживается:", e);
       }
+    }
+    // Функция для динамической загрузки и отрисовки слов и фраз из words.json
+    async function loadAndRenderWordsAndPhrases() {
+        try {
+            const response = await fetch('data/words.json');
+            const data = await response.json();
+
+            // 1. Рендерим слова
+            const wordsContainer = document.getElementById('dynamic-words-container');
+            if (wordsContainer && data.words) {
+                let wordsHtml = '';
+                data.words.forEach((item, index) => {
+                    const isChecked = userStats.learnedItems['word_' + index] ? 'checked' : '';
+                    wordsHtml += `
+                        <div class="example-box" style="${index > 0 ? 'margin-top: 16px;' : ''}">
+                            <div class="example-content">
+                                <div class="example-arabic">${item.arabic}</div>
+                                <div class="example-text">${item.translation}</div>
+                            </div>
+                            <button class="speak-btn" onclick="speakText('${item.arabic.replace(/'/g, "\\'")}')">🔊</button>
+                        </div>
+                        <label class="learn-check-label">
+                            <input type="checkbox" id="check-word-${index}" ${isChecked} onchange="toggleLearnItem('word', ${index}, '${item.arabic} - ${item.translation.split('[')[0].trim()}', this.checked)"> 
+                            Отметить как выученное ✅
+                        </label>
+                    `;
+                });
+                wordsContainer.innerHTML = wordsHtml;
+            }
+
+            // 2. Рендерим фразы
+            const phrasesContainer = document.getElementById('dynamic-phrases-container');
+            if (phrasesContainer && data.phrases) {
+                let phrasesHtml = '';
+                data.phrases.forEach((item, index) => {
+                    const isChecked = userStats.learnedItems['phrase_' + index] ? 'checked' : '';
+                    phrasesHtml += `
+                        <div class="example-box" style="${index > 0 ? 'margin-top: 16px;' : ''}">
+                            <div class="example-content">
+                                <div class="example-arabic">${item.arabic}</div>
+                                <div class="example-text">${item.translation}</div>
+                            </div>
+                            <button class="speak-btn" onclick="speakText('${item.arabic.replace(/'/g, "\\'")}')">🔊</button>
+                        </div>
+                        <label class="learn-check-label">
+                            <input type="checkbox" id="check-phrase-${index}" ${isChecked} onchange="toggleLearnItem('phrase', ${index}, '${item.arabic} - ${item.translation.split('[')[0].trim()}', this.checked)"> 
+                            Отметить как выученное ✅
+                        </label>
+                    `;
+                });
+                phrasesContainer.innerHTML = phrasesHtml;
+            }
+
+        } catch (error) {
+            console.log("Ошибка при загрузке данных из JSON:", error);
+        }
     }
 
     function showScreen(screenId) {
@@ -2160,12 +2219,12 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
+      loadAndRenderWordsAndPhrases(); // <--- Добавьте эту строчку сюда
       loadAppData();
       
       const savedTheme = localStorage.getItem('app_theme');
-      if (savedTheme) {
-        setTheme(savedTheme);
-      }
+      // ... остальной ваш код восстановления тем, шрифтов и чекбоксов ...
+    });
 
       const savedScale = localStorage.getItem('app_font_scale');
       if (savedScale) {
