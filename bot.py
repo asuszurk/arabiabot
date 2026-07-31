@@ -101,7 +101,7 @@ def get_user(user_id, username):
 from aiogram import types
 from aiogram.types import WebAppInfo, InlineKeyboardMarkup, InlineKeyboardButton
 
-@app.message(commands=["start"])
+@dp.message(Command("start"))
 async def cmd_start(message: types.Message):
     # Создаем клавиатуру с единственной рабочей кнопкой открытия Web App
     keyboard = InlineKeyboardMarkup(
