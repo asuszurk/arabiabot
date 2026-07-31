@@ -1,4 +1,5 @@
 import os
+import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 import sqlite3
@@ -56,3 +57,7 @@ async def check_subscription(user_id: int):
         return {"active": True, "expires_at": expires_at_str, "is_trial": (status == 'trial')}
     else:
         return {"active": False, "message": "Subscription expired"}
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8080))
+    uvicorn.run("server:app", host="0.0.0.0", port=port)
