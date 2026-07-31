@@ -552,7 +552,7 @@
       <div class="menu-grid">
         
         <!-- 1. Арабский алфавит -->
-        <div class="menu-card" onclick="showScreen('screen-alphabet')">
+        <div class="menu-card" onclick="openAlphabet()">
           <div class="menu-card-left">
             <div class="menu-icon-box">📚</div>
             <div>
@@ -825,7 +825,7 @@
           <p>Если буква م (мим) с сукуном стоит перед буквой ب, губы смыкаются не до конца, создавая легкий носовой звук на 2 счета.</p>
           <h4>Примеры из Корана:</h4>
           <div class="example-box"><div class="example-content"><div class="example-arabic">رَبُّهُمْ بِهِمْ</div><div class="example-text">[раббухум-бихим] (мим маскируется перед ب).</div></div><button class="speak-btn" onclick="speakText('رَبُّهُمْ بِهِمْ')">🔊</button></div>
-          <div class="example-box"><div class="example-content"><div class="example-arabic">تَرْمِيهِمْ بِحِجَارَةٍ</div><div class="example-text">[тармихим-бихиjsonDataратин] (неполное смыкание губ).</div></div><button class="speak-btn" onclick="speakText('تَرْمِيهِمْ بِحِجَارَةٍ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">تَرْمِيهِمْ بِحِجَارَةٍ</div><div class="example-text">[тармихим-бихижаратин] (неполное смыкание губ).</div></div><button class="speak-btn" onclick="speakText('تَرْمِيهِمْ بِحِجَارَةٍ')">🔊</button></div>
           <div class="example-box"><div class="example-content"><div class="example-arabic">اعْتَصِمْ بِاللَّهِ</div><div class="example-text">[‘а‘тасым-би-Ллях] (мягкий переход мим в ба).</div></div><button class="speak-btn" onclick="speakText('اعْتَصِمْ بِاللَّهِ')">🔊</button></div>
 
           <label class="learn-check-label"><input type="checkbox" id="check-tajweed-11" onchange="toggleLearnItem('tajweed', 11, 'Уровень 11. Мим Сакина: Ихфа Шафави', this.checked)"> Отметить как выученное ✅</label>
@@ -1077,7 +1077,7 @@
           <h4>Что это за правило:</h4>
           <p>Когда вы останавливаетесь на конце аята, последняя огласовка буквы заменяется на искусственный сукун, а предшествующий мадд можно тянуть на 2, 4 или 6 счетов.</p>
           <h4>Примеры из Корана:</h4>
-          <div class="example-box"><div class="example-content"><div class="example-arabic">الرَّحِيمِ</div><div class="example-text">[Ар-Рахиим] (при остановке последняя буква получает сукун).</div></div><button class="speak-btn" onclick="speakText('الرَّحِيمِ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">الْرَّحِيمِ</div><div class="example-text">[Ар-Рахиим] (при остановке последняя буква получает сукун).</div></div><button class="speak-btn" onclick="speakText('الرَّحِيمِ')">🔊</button></div>
           <div class="example-box"><div class="example-content"><div class="example-arabic">الْعَالَمِينَ</div><div class="example-text">[аль-‘алямиин] (плавное затухание долгой гласной).</div></div><button class="speak-btn" onclick="speakText('الْعَالَمِينَ')">🔊</button></div>
 
           <label class="learn-check-label"><input type="checkbox" id="check-tajweed-26" onchange="toggleLearnItem('tajweed', 26, 'Уровень 26. Временный сукун', this.checked)"> Отметить как выученное ✅</label>
@@ -1464,15 +1464,13 @@
         <span>👤</span>
       </div>
 
-<!-- Блок статуса подписки в профиле -->
-<div class="tajweed-content-box" id="profile-subscription-status-box" style="margin-bottom: 16px; text-align: center;">
-    <h3 style="margin-bottom: 8px;">✨ Статус доступа</h3>
-    <div id="subscription-status-box">
-        <!-- Сюда JavaScript подставляет статус и дату -->
-    </div>
-</div>
+      <!-- Блок статуса подписки в профиле -->
+      <div class="tajweed-content-box" id="profile-subscription-status-box" style="margin-bottom: 16px; text-align: center;">
+        <h3 style="margin-bottom: 8px;">✨ Статус доступа</h3>
+        <p style="color: var(--text-secondary);">Загрузка данных подписки...</p>
+      </div>
 
-<div class="tajweed-content-box" style="margin-bottom: 16px;">
+      <div class="tajweed-content-box" style="margin-bottom: 16px;">
         <h3 style="margin-bottom: 12px;">📊 Статистика тестов</h3>
         <p style="margin-bottom: 8px;"><strong>Слова и фразы:</strong> Правильно: <span id="stat-words-correct" style="color: var(--accent-green);">0</span> | Неправильно: <span id="stat-words-wrong" style="color: var(--accent-red);">0</span></p>
         <p style="margin-bottom: 8px;"><strong>Алфавит:</strong> Правильно: <span id="stat-alphabet-correct" style="color: var(--accent-green);">0</span> | Неправильно: <span id="stat-alphabet-wrong" style="color: var(--accent-red);">0</span></p>
@@ -1498,8 +1496,8 @@
 
   </div>
 
-<!-- ================= ЭКРАН: ПОДПИСКА ================= -->
-    <div class="screen" id="screen-subscription">
+  <!-- ================= ЭКРАН: ПОДПИСКА ================= -->
+  <div class="screen" id="screen-subscription">
     <div class="lesson-header">
         <button class="back-button" onclick="goHome()">←</button>
         <span>Премиум-подписка</span>
@@ -1519,7 +1517,7 @@
             Оплатить
         </button>
     </div>
-</div>
+  </div>
 
 
   <!-- НИЖНЯЯ ПАНЕЛЬ НАВИГАЦИИ (TabBar) -->
@@ -1586,34 +1584,6 @@
   <script>
     function openSubscription() {
       showScreen('screen-subscription');
-      checkUserSubscriptionStatus();
-    }
-
-    async function checkUserSubscriptionStatus() {
-      const statusBox = document.getElementById('sub-status-box');
-      if (!statusBox) return;
-      statusBox.textContent = "Проверка статуса подписки...";
-      
-      try {
-        let userId = 12345678; 
-        if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
-          userId = window.Telegram.WebApp.initDataUnsafe.user.id;
-        }
-
-        const response = await fetch(`https://arabiabot-production.up.railway.app/api/check-subscription/${userId}`);
-        const data = await response.json();
-
-        if (data.active) {
-          const modeText = data.is_trial ? "Пробный период (3 дня) активен до" : "Подписка активна до";
-          const [datePart, timePart] = data.expires_at.split(" ");
-ML = `✅ ${modeText}:<br><span style="color: var(--gold-light); font-size: 1.1em; font-weight: bold;">${datePart}</span><br><span style="color: var(--gold-light); opacity: 0.8; font-size: 0.9em;">${timePart}</span>`;
-        } else {
-          statusBox.innerHTML = `❌ Ваш пробный период истек. Оформите подписку за 500 ₽ для продолжения.`;
-          showScreen('screen-subscription');
-        }
-      } catch (e) {
-        statusBox.innerHTML = `ℹ️ Сервер просыпается, попробуйте обновить страницу.`;
-      }
     }
 
     function paySubscription() {
@@ -1623,14 +1593,12 @@ ML = `✅ ${modeText}:<br><span style="color: var(--gold-light); font-size: 1.1e
     async function loadAppData() {
       try {
         const wordsResponse = await fetch('data/words.json');
-        const wordsData = await wordsResponse.json();
-        console.log("Слова и фразы успешно загружены:", wordsData);
+        await wordsResponse.json();
 
         const tajweedResponse = await fetch('data/tajweed.json');
-        const tajweedData = await tajweedResponse.json();
-        console.log("Уровни таджвида успешно загружены:", tajweedData);
+        await tajweedResponse.json();
       } catch (error) {
-        console.error("Ошибка при загрузке данных:", error);
+        console.log("Локальные файлы данных не обнаружены или загрузка пропущена:", error);
       }
     }
 
@@ -1740,7 +1708,6 @@ ML = `✅ ${modeText}:<br><span style="color: var(--gold-light); font-size: 1.1e
     }
 
     async function renderProfileStats() {
-      // Выводим статистику тестов и галочки
       document.getElementById('stat-words-correct').textContent = userStats.tests.words.correct;
       document.getElementById('stat-words-wrong').textContent = userStats.tests.words.wrong;
       document.getElementById('stat-alphabet-correct').textContent = userStats.tests.alphabet.correct;
@@ -1776,22 +1743,26 @@ ML = `✅ ${modeText}:<br><span style="color: var(--gold-light); font-size: 1.1e
         wordsListContainer.innerHTML = '<ul style="padding-left: 20px; line-height: 1.8;">' + wordsHtml + '</ul>';
       }
 
-      // Блок статуса подписки в профиле
-      let profileSubBox = document.getElementById('profile-subscription-status-box');
-      if (!profileSubBox) {
+      let profilesSubBox = document.getElementById('profile-subscription-status-box');
+      if (!profilesSubBox) {
         const profileScreen = document.getElementById('screen-profile');
         const headerEl = profileScreen.querySelector('.lesson-header');
         
-        profileSubBox = document.createElement('div');
-        profileSubBox.id = 'profile-subscription-status-box';
-        profileSubBox.className = 'tajweed-content-box';
-        profileSubBox.style.marginBottom = '16px';
-        profileSubBox.style.textAlign = 'center';
+        profilesSubBox = document.createElement('div');
+        profilesSubBox.id = 'profile-subscription-status-box';
+        profilesSubBox.className = 'tajweed-content-box';
+        profilesSubBox.style.marginBottom = '16px';
+        profilesSubBox.style.textAlign = 'center';
         
-        headerEl.after(profileSubBox);
+        headerEl.after(profilesSubBox);
       }
 
-      profileSubBox.innerHTML = `<h3 style="margin-bottom: 8px;">⏳ Статус доступа</h3><p style="color: var(--text-secondary);">Загрузка данных подписки...</p>`;
+      profilesSubBox.innerHTML = `
+        <div style="text-align: center; padding: 5px 0;">
+            <h3 style="margin-bottom: 8px; color: var(--gold-light);">⏳ Статус доступа</h3>
+            <p style="opacity: 0.8; font-size: 0.95em;">Загрузка данных подписки...</p>
+        </div>
+      `;
 
       try {
         let userId = 12345678;
@@ -1799,37 +1770,6 @@ ML = `✅ ${modeText}:<br><span style="color: var(--gold-light); font-size: 1.1e
             userId = window.Telegram.WebApp.initDataUnsafe.user.id;
         }
 
-        // Добавляем контроллер прерывания (таймаут 6 секунд), чтобы блок не висел вечно
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 6000);
-
-        const response = await fetch(`/api/subscription?user_id=${userId}`, {
-         сигагнал: controller.signal // или signal: controller.signal
-    });
-        clearTimeout(timeoutId);
-
-        const data = await response.json();
-
-        if (data && data.active) {
-        // Меняем заголовок в зависимости от того, триал это или купленная подписка
-        const titleText = data.is_trial ? "✨ Статус подписки" : "👑 Премиум-доступ";
-        const modeText = data.is_trial ? "Пробный период активен до" : "Подписка активна до";
-        const [datePart, timePart] = data.expires_at.split(" ");
-        
-        profilesSubBox.innerHTML = `
-        <div style="text-align: center; padding: 5px 0;">
-            <h3 style="margin-bottom: 8px; color: var(--gold-light);">⏳ Статус доступа</h3>
-            <p style="opacity: 0.8; font-size: 0.95em;">Загрузка данных подписки...</p>
-        </div>
-    `;
-
-    try {
-        let userId = 12345678;
-        if (window.Telegram?.WebApp?.initDataUnsafe?.user?.id) {
-            userId = window.Telegram.WebApp.initDataUnsafe.user.id;
-        }
-
-        // Таймер на 4 секунды, чтобы запрос не висел вечно
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 4000);
 
@@ -1865,14 +1805,14 @@ ML = `✅ ${modeText}:<br><span style="color: var(--gold-light); font-size: 1.1e
                 </div>
             `;
         }
-    } catch (error) {
-        // Если сервер не ответил за 4 секунды или упал — показываем аккуратный статус без зависания
+      } catch (error) {
         profilesSubBox.innerHTML = `
             <div style="text-align: center; padding: 5px 0;">
                 <h3 style="margin-bottom: 8px; color: var(--gold-light);">✨ Статус подписки</h3>
                 <p style="color: var(--text-secondary); font-size: 0.95em;">Не удалось получить данные с сервера.</p>
             </div>
         `;
+      }
     }
 
 
@@ -2017,10 +1957,9 @@ ML = `✅ ${modeText}:<br><span style="color: var(--gold-light); font-size: 1.1e
         const now = audioCtx.currentTime;
 
         if (isCorrect) {
-          // Приятный восходящий аккорд (правильно)
           osc.type = 'sine';
-          osc.frequency.setValueAtTime(587.33, now); // Нота Ре (D5)
-          osc.frequency.setValueAtTime(880, now + 0.08); // Нота Ля (A5)
+          osc.frequency.setValueAtTime(587.33, now);
+          osc.frequency.setValueAtTime(880, now + 0.08);
           
           gain.gain.setValueAtTime(0.15, now);
           gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
@@ -2028,10 +1967,9 @@ ML = `✅ ${modeText}:<br><span style="color: var(--gold-light); font-size: 1.1e
           osc.start(now);
           osc.stop(now + 0.3);
         } else {
-          // Мягкий глухой сигнал (неправильно)
           osc.type = 'triangle';
-          osc.frequency.setValueAtTime(220, now); // Низкая нота
-          osc.frequency.setValueAtTime(185, now + 0.1); // Чуть ниже
+          osc.frequency.setValueAtTime(220, now);
+          osc.frequency.setValueAtTime(185, now + 0.1);
           
           gain.gain.setValueAtTime(0.15, now);
           gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
@@ -2058,12 +1996,12 @@ ML = `✅ ${modeText}:<br><span style="color: var(--gold-light); font-size: 1.1e
       if (selected === correct) {
         score++;
         userStats.tests[currentQuizType].correct = score;
-        playQuizSound(true); // Проигрываем приятный звук правильного ответа
+        playQuizSound(true);
       } else {
         btn.classList.add('wrong');
         wrongAnswersCount++;
         userStats.tests[currentQuizType].wrong = wrongAnswersCount;
-        playQuizSound(false); // Проигрываем мягкий звук ошибки
+        playQuizSound(false);
       }
       saveUserStats();
 
@@ -2194,7 +2132,6 @@ ML = `✅ ${modeText}:<br><span style="color: var(--gold-light); font-size: 1.1e
       localStorage.setItem('app_font_scale', scaleValue);
     }
 
-    // Единственный стабильный и безопасный блок запуска, работающий при открытии с любой кнопки
     window.addEventListener('DOMContentLoaded', () => {
       loadAppData();
       
@@ -2224,21 +2161,6 @@ ML = `✅ ${modeText}:<br><span style="color: var(--gold-light); font-size: 1.1e
         }
         if (chk) chk.checked = true;
       });
-
-      // Мягкая фоновая проверка подписки
-      let userId = 12345678;
-      if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
-        userId = window.Telegram.WebApp.initDataUnsafe.user.id;
-      }
-      
-      fetch(`https://arabiabot-production.up.railway.app/api/check-subscription/${userId}`)
-        .then(res => res.json())
-        .then(data => {
-          if (data && data.active === false) {
-            showScreen('screen-subscription');
-          }
-        })
-        .catch(err => console.log("Проверка подписки отложена:", err));
     });
   </script>
 </body>
