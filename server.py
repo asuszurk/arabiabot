@@ -1,5 +1,7 @@
+import os
 import asyncio
 from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
 import sqlite3
 from datetime import datetime, timedelta
 from aiogram import Bot, Dispatcher, types
@@ -14,6 +16,14 @@ WEB_APP_URL = "https://arabiabot-production.up.railway.app"
 
 # === НАСТРОЙКИ FASTAPI ===
 app = FastAPI()
+DB_NAME = "learning_bot.db"
+
+@app.get("/", response_class=HTMLResponse)
+async def serve_index():
+    if os.path.exists("index.html"):
+        with open("index.html", "r", encoding="utf-8") as f:
+            return f.read()
+    return "<h1>Index.html not found</h1>"
 DB_NAME = "learning_bot.db"
 
 def init_db():
