@@ -78,7 +78,8 @@ async def check_subscription(user_id: int = Query(...)):
         return {"active": False, "message": "Subscription expired"}
 
 # Эндпоинт для создания платежа через ЮKassa
-@app.post("/api/create-payment")
+# Эндпоинт для создания платежа через ЮKassa
+@app.get("/api/create-payment")
 async def create_payment(user_id: int):
     payment = Payment.create({
         "amount": {
