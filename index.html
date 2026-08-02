@@ -1774,11 +1774,15 @@
             const [datePart, fullTimePart] = data.expires_at.split(" ");
             const timePart = fullTimePart ? fullTimePart.substring(0, 5) : "";
             
+            // Превращаем "2026-08-05" в "05.08.2026"
+            const [year, month, day] = datePart.split("-");
+            const formattedDate = `${day}.${month}.${year}`;
+            
             profilesSubBox.innerHTML = `
                 <div style="text-align: center; padding: 5px 0;">
                     <h3 style="margin-bottom: 10px; color: var(--gold-light); font-size: 1.15em;">${titleText}</h3>
                     <p style="margin-bottom: 6px; font-weight: 500; opacity: 0.9; font-size: 0.95em;">${modeText}:</p>
-                    <div style="color: var(--gold-light); font-size: 1.2em; font-weight: bold; letter-spacing: 0.5px;">${datePart}</div>
+                    <div style="color: var(--gold-light); font-size: 1.2em; font-weight: bold; letter-spacing: 0.5px;">${formattedDate}</div>
                     <div style="color: var(--gold-light); opacity: 0.75; font-size: 0.85em; margin-top: 2px;">в ${timePart}</div>
                 </div>
             `;
