@@ -2,12 +2,14 @@ import os
 from fastapi import FastAPI, Query
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
-import sqlite3
+import psycopg2
 from datetime import datetime, timedelta
 from yookassa import Configuration, Payment
 
 app = FastAPI()
-DB_NAME = "learning_bot.db"
+
+# Получаем ссылку на облачную базу данных из переменных окружения Railway
+DATABASE_URL = os.environ.get("DATABASE_URL")
 
 # Настройка учетных данных ЮKassa
 Configuration.account_id = "1423542"
@@ -17,23 +19,28 @@ Configuration.secret_key = "live_4QYOa6BsX-p1hqoL1WS0vB6z6SamezpbjUDIUduOzSk"
 if os.path.exists("alphabet"):
     app.mount("/alphabet", StaticFiles(directory="alphabet"), name="alphabet")
 
-# Подключаем раздачу статики для файлов с данными (words.json, tajweed.json и др.)
+# Подключаем раздачу статики для файлов с данными
 if os.path.exists("data"):
     app.mount("/data", StaticFiles(directory="data"), name="data")
 
+def get_db_connection():
+    return psycopg2.connect(DATABASE_URL, sslmode='require')
+
 def init_db():
-    conn = sqlite3.connect(DB_NAME)
+    conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS subscriptions (
-            user_id INTEGER PRIMARY KEY, 
+            user_id BIGINT PRIMARY KEY, 
             expires_at TEXT, 
             status TEXT
         )
     """)
     conn.commit()
+    cursor.close()
     conn.close()
 
+# Инициализируем таблицу при старте
 init_db()
 
 @app.get("/", response_class=HTMLResponse)
@@ -45,22 +52,24 @@ async def serve_index():
 
 @app.get("/api/subscription")
 async def check_subscription(user_id: int = Query(...)):
-    conn = sqlite3.connect(DB_NAME)
+    conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT expires_at, status FROM subscriptions WHERE user_id = ?", (user_id,))
+    cursor.execute("SELECT expires_at, status FROM subscriptions WHERE user_id = %s", (user_id,))
     row = cursor.fetchone()
 
     if not row:
         expires_at = datetime.now() + timedelta(days=3)
         expires_str = expires_at.strftime("%Y-%m-%d %H:%M:%S")
-        cursor.execute("INSERT INTO subscriptions (user_id, expires_at, status) VALUES (?, ?, 'trial')", (user_id, expires_str))
+        cursor.execute("INSERT INTO subscriptions (user_id, expires_at, status) VALUES (%s, %s, 'trial')", (user_id, expires_str))
         conn.commit()
+        cursor.close()
         conn.close()
         
         return {"active": True, "expires_at": expires_str, "is_trial": True}
 
     expires_at_str, status = row
     dt_obj = datetime.strptime(expires_at_str, "%Y-%m-%d %H:%M:%S")
+    cursor.close()
     conn.close()
     
     if dt_obj > datetime.now():
