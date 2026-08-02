@@ -1467,9 +1467,8 @@
         const response = await fetch(`/api/create-payment?user_id=${userId}`);
         const data = await response.json();
         
-        console._log('Ответ от сервера оплаты:', data); // Поможет увидеть структуру в логах браузера
+        console.log('Ответ от сервера оплаты:', data); // Исправлено с _log на log
 
-        // Ищем ссылку на оплату в разных возможных вариантах ответа
         const paymentUrl = data.confirmation_url || data.confirmation?.confirmation_url || data.url;
 
         if (paymentUrl) {
