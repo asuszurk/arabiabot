@@ -1,5 +1,5 @@
 import os
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 import psycopg2
@@ -78,7 +78,6 @@ async def check_subscription(user_id: int = Query(...)):
         return {"active": False, "message": "Subscription expired"}
 
 # Эндпоинт для создания платежа через ЮKassa
-# Эндпоинт для создания платежа через ЮKassa
 @app.get("/api/create-payment")
 async def create_payment(user_id: int):
     payment = Payment.create({
@@ -90,6 +89,8 @@ async def create_payment(user_id: int):
             "type": "redirect",
             "return_url": "https://t.me/aribia2026_bot"
         },
+        # Автоматический вебхук-адрес для уведомлений от ЮKassa
+        "notification_url": "https://arabiabot-production.up.railway.app/api/yookassa-webhook",
         "capture": True,
         "description": f"Оплата подписки ArabiaBot (User ID: {user_id})",
         "metadata": {
@@ -97,3 +98,49 @@ async def create_payment(user_id: int):
         }
     })
     return {"confirmation_url": payment.confirmation.confirmation_url}
+
+# Эндпоинт для приема вебхуков (уведомлений) от ЮKassa об успешной оплате
+@app.post("/api/yookassa-webhook")
+async def yookassa_webhook(request: Request):
+    event_json = await request.json()
+    
+    # Проверяем, что платеж успешно завершен
+    if event_json.get("event") == "payment.succeeded":
+        payment_object = event_json.get("object", {})
+        metadata = payment_object.get("metadata", {})
+        user_id = metadata.get("user_id")
+        
+        if user_id:
+            user_id = int(user_id)
+            
+            conn = get_db_connection()
+            cursor = conn.cursor()
+            
+            # Проверяем текущий срок подписки в базе
+            cursor.execute("SELECT expires_at FROM subscriptions WHERE user_id = %s", (user_id,))
+            row = cursor.fetchone()
+            
+            now = datetime.now()
+            if row and row[0]:
+                current_expires = datetime.strptime(row[0], "%Y-%m-%d %H:%M:%S")
+                # Если подписка еще активна, суммируем дни, иначе отсчитываем от текущего момента
+                base_date = current_expires if current_expires > now else now
+            else:
+                base_date = now
+                
+            new_expires = base_date + timedelta(days=30)
+            new_expires_str = new_expires.strftime("%Y-%m-%d %H:%M:%S")
+            
+            # Продлеваем или создаем премиум-подписку на 30 дней
+            cursor.execute("""
+                INSERT INTO subscriptions (user_id, expires_at, status) 
+                VALUES (%s, %s, 'active')
+                ON CONFLICT (user_id) 
+                DO UPDATE SET expires_at = EXCLUDED.expires_at, status = 'active'
+            """, (user_id, new_expires_str))
+            
+            conn.commit()
+            cursor.close()
+            conn.close()
+            
+    return {"status": "ok"}
