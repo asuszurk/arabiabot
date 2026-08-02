@@ -1457,8 +1457,23 @@
       showScreen('screen-subscription');
     }
 
-    function paySubscription() {
-      alert("Переход на страницу оплаты (500 руб.). После успешной оплаты подписка активируется автоматически!");
+    async function paySubscription() {
+      let userId = 12345678;
+      if (window.Telegram?.WebApp?.initDataUnsafe?.user?.id) {
+          userId = window.Telegram.WebApp.initDataUnsafe.user.id;
+      }
+
+      try {
+          const response = await fetch(`/api/create-payment?user_id=${userId}`, {
+              method: 'POST'
+          });
+          const data = await response.json();
+          if (data.confirmation_url) {
+              window.location.href = data.confirmation_url;
+          }
+      } catch (e) {
+          alert("Не удалось создать платеж. Попробуйте позже.");
+      }
     }
 
     async function loadAppData() {
