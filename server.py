@@ -4,9 +4,14 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 import sqlite3
 from datetime import datetime, timedelta
+from yookassa import Configuration, Payment
 
 app = FastAPI()
 DB_NAME = "learning_bot.db"
+
+# Настройка учетных данных ЮKassa
+Configuration.account_id = "1423542"
+Configuration.secret_key = "live_4QYOa6BsX-p1hqoL1WS0vB6z6SamezpbjUDIUduOzSk"
 
 # Подключаем раздачу статики для видео и других ассетов алфавита
 if os.path.exists("alphabet"):
@@ -38,7 +43,6 @@ async def serve_index():
             return f.read()
     return "<h1>Index.html not found</h1>"
 
-# Исправлен путь на /api/subscription, чтобы совпадать с запросом из index.html
 @app.get("/api/subscription")
 async def check_subscription(user_id: int = Query(...)):
     conn = sqlite3.connect(DB_NAME)
@@ -53,18 +57,33 @@ async def check_subscription(user_id: int = Query(...)):
         conn.commit()
         conn.close()
         
-        # Возвращаем дату в формате с дефисами для фронтенда
         return {"active": True, "expires_at": expires_str, "is_trial": True}
 
     expires_at_str, status = row
-    
-    # Парсим строку из базы
     dt_obj = datetime.strptime(expires_at_str, "%Y-%m-%d %H:%M:%S")
-    
-    # Для отображения пользователю можно оставить с точками, но в ответе лучше передавать исходную строку или раздельно
     conn.close()
     
     if dt_obj > datetime.now():
         return {"active": True, "expires_at": expires_at_str, "is_trial": (status == 'trial')}
     else:
         return {"active": False, "message": "Subscription expired"}
+
+# Эндпоинт для создания платежа через ЮKassa
+@app.post("/api/create-payment")
+async def create_payment(user_id: int):
+    payment = Payment.create({
+        "amount": {
+            "value": "500.00",
+            "currency": "RUB"
+        },
+        "confirmation": {
+            "type": "redirect",
+            "return_url": "https://t.me/aribia2026_bot"
+        },
+        "capture": True,
+        "description": f"Оплата подписки ArabiaBot (User ID: {user_id})",
+        "metadata": {
+            "user_id": user_id
+        }
+    })
+    return {"confirmation_url": payment.confirmation.confirmation_url}
