@@ -1458,23 +1458,27 @@
     }
 
     async function paySubscription() {
-      let userId = 12345678;
-      if (window.Telegram?.WebApp?.initDataUnsafe?.user?.id) {
-          userId = window.Telegram.WebApp.initDataUnsafe.user.id;
-      }
-
-      try {
-          const response = await fetch(`/api/create-payment?user_id=${userId}`, {
-              method: 'POST'
-          });
-          const data = await response.json();
-          if (data.confirmation_url) {
-              window.location.href = data.confirmation_url;
-          }
-      } catch (e) {
-          alert("Не удалось создать платеж. Попробуйте позже.");
-      }
+    let userId = 12345678;
+    if (window.Telegram?.WebApp?.initDataUnsafe?.user?.id) {
+        userId = window.Telegram.WebApp.initDataUnsafe.user.id;
     }
+
+    try {
+        const response = await fetch(`/api/create-payment?user_id=${userId}`);
+        const data = await response.json();
+        
+        if (data.confirmation_url) {
+            // ЗАМЕНИТЬ СТАРЫЙ ПЕРЕХОД НА ЭТОТ БЛОК:
+            if (window.Telegram && window.Telegram.WebApp) {
+                window.Telegram.WebApp.openLink(data.confirmation_url);
+            } else {
+                window.location.href = data.confirmation_url;
+            }
+        }
+    } catch (error) {
+        console.error('Ошибка создания платежа:', error);
+    }
+}
 
     async function loadAppData() {
       try {
