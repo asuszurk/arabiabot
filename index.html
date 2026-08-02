@@ -1467,13 +1467,19 @@
         const response = await fetch(`/api/create-payment?user_id=${userId}`);
         const data = await response.json();
         
-        if (data.confirmation_url) {
-            // ЗАМЕНИТЬ СТАРЫЙ ПЕРЕХОД НА ЭТОТ БЛОК:
-            if (window.Telegram && window.Telegram.WebApp) {
-                window.Telegram.WebApp.openLink(data.confirmation_url);
+        console._log('Ответ от сервера оплаты:', data); // Поможет увидеть структуру в логах браузера
+
+        // Ищем ссылку на оплату в разных возможных вариантах ответа
+        const paymentUrl = data.confirmation_url || data.confirmation?.confirmation_url || data.url;
+
+        if (paymentUrl) {
+            if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.openLink) {
+                window.Telegram.WebApp.openLink(paymentUrl);
             } else {
-                window.location.href = data.confirmation_url;
+                window.location.href = paymentUrl;
             }
+        } else {
+            alert('Не удалось получить ссылку на оплату от сервера.');
         }
     } catch (error) {
         console.error('Ошибка создания платежа:', error);
