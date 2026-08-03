@@ -85,6 +85,7 @@
       display: block;
     }
 
+    /* Премиальная шапка */
     .header-arch {
       position: relative;
       background: radial-gradient(circle at 50% 0%, #16364f 0%, #0a192f 80%);
@@ -127,12 +128,17 @@
       align-items: center;
       justify-content: center;
       font-size: 16px;
+      transition: all 0.2s;
+    }
+    .header-btn:active {
+      transform: scale(0.92);
     }
 
     .header-title {
       font-size: calc(26px * var(--base-font-scale));
       font-weight: 700;
       color: var(--gold-light);
+      letter-spacing: 0.5px;
       margin-bottom: 4px;
     }
 
@@ -142,6 +148,7 @@
       font-weight: 500;
     }
 
+    /* Меню карточки */
     .menu-grid {
       display: flex;
       flex-direction: column;
@@ -156,6 +163,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
       cursor: pointer;
       transition: all 0.25s ease;
     }
@@ -163,6 +172,10 @@
     .menu-card:hover {
       border-color: var(--card-border-hover);
       transform: translateY(-2px);
+    }
+
+    .menu-card:active {
+      transform: scale(0.98);
     }
 
     .menu-card-left {
@@ -181,6 +194,7 @@
       align-items: center;
       justify-content: center;
       font-size: 24px;
+      flex-shrink: 0;
     }
 
     .menu-title {
@@ -202,6 +216,7 @@
       opacity: 0.7;
     }
 
+    /* Нижняя панель навигации (TabBar) */
     .tabbar {
       position: fixed;
       bottom: 0; left: 0; right: 0;
@@ -213,6 +228,7 @@
       justify-content: space-around;
       align-items: center;
       z-index: 1000;
+      padding-bottom: env(safe-area-inset-bottom);
     }
 
     .tab-item {
@@ -224,6 +240,8 @@
       color: var(--text-secondary);
       cursor: pointer;
       font-size: calc(11px * var(--base-font-scale));
+      font-weight: 500;
+      transition: color 0.2s;
       gap: 4px;
       width: 60px;
     }
@@ -240,7 +258,6 @@
       position: relative;
       top: -16px;
     }
-
     .tab-center-btn {
       width: 56px;
       height: 56px;
@@ -251,11 +268,16 @@
       align-items: center;
       justify-content: center;
       font-size: 24px;
+      box-shadow: 0 6px 15px rgba(212, 175, 55, 0.4);
       cursor: pointer;
       color: #071520;
-      box-shadow: 0 6px 15px rgba(212, 175, 55, 0.4);
+      transition: transform 0.2s;
+    }
+    .tab-center-btn:active {
+      transform: scale(0.95);
     }
 
+    /* Внутренние элементы */
     .lesson-header {
       display: flex;
       align-items: center;
@@ -272,52 +294,16 @@
       width: 38px;
       height: 38px;
       border-radius: 50%;
+      font-size: calc(16px * var(--base-font-scale));
       cursor: pointer;
       color: var(--gold-primary);
       display: flex;
       align-items: center;
       justify-content: center;
     }
-
-    .main-button {
-      width: 100%;
-      background: linear-gradient(135deg, var(--gold-primary), #b89728);
-      color: #071520;
-      border: none;
-      padding: 15px;
-      border-radius: var(--radius-md);
-      font-size: calc(15px * var(--base-font-scale));
-      font-weight: 700;
-      cursor: pointer;
-      text-align: center;
-      margin-top: 10px;
-      margin-bottom: 20px;
+    .back-button:active {
+      transform: scale(0.92);
     }
-
-    .tajweed-level-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      padding: 16px 20px;
-      border-radius: var(--radius-md);
-      margin-bottom: 10px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-weight: 600;
-    }
-
-    .tajweed-content-box {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      padding: 22px;
-      border-radius: var(--radius-lg);
-      margin-bottom: 16px;
-      line-height: 1.65;
-    }
-
-    .sub-screen { display: none; }
-    .sub-screen.active { display: block; }
 
     .alphabet-grid {
       display: grid;
@@ -333,7 +319,191 @@
       padding: 14px 8px;
       text-align: center;
       cursor: pointer;
+      transition: transform 0.1s, border-color 0.2s;
     }
+    .alphabet-card:active {
+      transform: scale(0.95);
+    }
+
+    .main-button {
+      width: 100%;
+      background: linear-gradient(135deg, var(--gold-primary), #b89728);
+      color: #071520;
+      border: none;
+      padding: 15px;
+      border-radius: var(--radius-md);
+      font-size: calc(15px * var(--base-font-scale));
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 6px 15px rgba(212, 175, 55, 0.3);
+    }
+    .main-button:active {
+      transform: scale(0.98);
+    }
+
+    .tajweed-level-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      margin-bottom: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s;
+      font-weight: 600;
+      font-size: calc(15px * var(--base-font-scale));
+    }
+    .tajweed-level-card:hover {
+      border-color: var(--card-border-hover);
+    }
+
+    .tajweed-content-box {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 22px;
+      border-radius: var(--radius-lg);
+      margin-bottom: 16px;
+      line-height: 1.65;
+    }
+    .tajweed-content-box h3 {
+      color: var(--gold-light);
+      margin-bottom: 14px;
+      font-size: calc(19px * var(--base-font-scale));
+      font-weight: 700;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 8px;
+    }
+    .tajweed-content-box h4 {
+      margin: 16px 0 6px 0;
+      font-size: calc(15px * var(--base-font-scale));
+      color: var(--text-primary);
+      font-weight: 700;
+    }
+    .tajweed-content-box p, .tajweed-content-box li {
+      font-size: calc(14.5px * var(--base-font-scale));
+      color: var(--text-secondary);
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+    .tajweed-content-box ul {
+      padding-left: 20px;
+      margin-bottom: 12px;
+    }
+
+    .example-box {
+      background: rgba(214, 48, 49, 0.1);
+      border-left: 4px solid var(--accent-red);
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin: 10px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .example-content { flex: 1; }
+    .example-arabic {
+      color: var(--accent-red);
+      font-size: calc(20px * var(--base-font-scale));
+      font-weight: bold;
+      direction: rtl;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+    .example-text {
+      font-size: calc(14px * var(--base-font-scale));
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    .speak-btn {
+      background: var(--accent-red);
+      color: white;
+      border: none;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0; margin-left: 10px;
+      box-shadow: 0 2px 6px rgba(214, 48, 49, 0.3);
+    }
+    .speak-btn:active { transform: scale(0.9); }
+
+    .coming-soon-box {
+      text-align: center;
+      padding: 20px 16px;
+      margin-top: 16px;
+      background: rgba(212, 175, 55, 0.05);
+      border: 2px dashed var(--card-border);
+      border-radius: var(--radius-md);
+    }
+    .coming-soon-icon { font-size: 24px; margin-bottom: 6px; }
+    .coming-soon-text { font-size: calc(14px * var(--base-font-scale)); font-weight: 600; color: var(--gold-light); }
+
+    /* Чекбоксы для изучения */
+    .learn-check-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--card-border);
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--gold-light);
+      font-size: calc(14px * var(--base-font-scale));
+    }
+    .learn-check-label input {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--gold-primary);
+      cursor: pointer;
+    }
+
+    /* Викторина */
+    .quiz-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 22px;
+      border-radius: var(--radius-lg);
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .quiz-progress {
+      font-size: calc(13px * var(--base-font-scale));
+      color: var(--text-secondary);
+      margin-bottom: 12px; font-weight: 600;
+    }
+    .quiz-question {
+      font-size: calc(17px * var(--base-font-scale));
+      font-weight: bold; margin-bottom: 16px;
+      color: var(--text-primary); line-height: 1.5;
+    }
+    .quiz-target {
+      font-size: calc(32px * var(--base-font-scale));
+      font-weight: bold; color: var(--gold-light);
+      margin-bottom: 20px; direction: rtl;
+    }
+    .quiz-options {
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .quiz-option-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      padding: 14px; border-radius: var(--radius-md);
+      font-size: calc(14.5px * var(--base-font-scale));
+      font-weight: 600; color: var(--text-primary);
+      cursor: pointer; transition: all 0.2s; text-align: left;
+    }
+    .quiz-option-btn:active { transform: scale(0.98); }
+    .quiz-option-btn.correct { background: var(--accent-green) !important; color: white !important; border-color: var(--accent-green) !important; }
+    .quiz-option-btn.wrong { background: var(--accent-red) !important; color: white !important; border-color: var(--accent-red) !important; }
+
+    .sub-screen { display: none; }
+    .sub-screen.active { display: block; }
 
     .modal {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -347,13 +517,18 @@
       background: #0f2334; border: 1px solid var(--card-border);
       color: var(--text-primary); width: 100%; max-width: 400px;
       border-radius: var(--radius-lg); padding: 24px; position: relative;
-      text-align: center;
+      text-align: center; box-shadow: 0 15px 30px rgba(0,0,0,0.4);
     }
     .modal-close {
       position: absolute; top: 14px; right: 14px;
       background: rgba(255,255,255,0.1); border: none;
       width: 32px; height: 32px; border-radius: 50%;
-      cursor: pointer; color: var(--text-secondary);
+      font-size: 16px; cursor: pointer; display: flex;
+      align-items: center; justify-content: center; color: var(--text-secondary);
+    }
+    .modal-video {
+      width: 100%; border-radius: var(--radius-md);
+      margin-top: 12px; background: black; max-height: 260px;
     }
   </style>
 </head>
@@ -361,8 +536,10 @@
 
   <div class="container">
 
-    <!-- ГЛАВНЫЙ ЭКРАН -->
+    <!-- ================= ГЛАВНЫЙ ЭКРАН ================= -->
     <div id="screen-home" class="screen active">
+      
+      <!-- Шапка -->
       <div class="header-arch">
         <div class="header-top-actions">
           <button class="header-btn" onclick="openSettings()" title="Настройки">⚙️</button>
@@ -371,7 +548,10 @@
         <div class="header-subtitle">السَّلَامُ عَلَيْكُمْ, <span id="user-name">Гость</span>!</div>
       </div>
 
+      <!-- Главное меню -->
       <div class="menu-grid">
+        
+        <!-- 1. Арабский алфавит -->
         <div class="menu-card" onclick="openAlphabet()">
           <div class="menu-card-left">
             <div class="menu-icon-box">📚</div>
@@ -383,6 +563,7 @@
           <span class="menu-arrow">›</span>
         </div>
 
+        <!-- 2. Правила Таджвида -->
         <div class="menu-card" onclick="checkAccessAndOpen('screen-tajweed')">
           <div class="menu-card-left">
             <div class="menu-icon-box">📖</div>
@@ -394,6 +575,7 @@
           <span class="menu-arrow">›</span>
         </div>
 
+        <!-- 3. Слова и фразы -->
         <div class="menu-card" onclick="checkAccessAndOpen('screen-words-phrases')">
           <div class="menu-card-left">
             <div class="menu-icon-box">🗣️</div>
@@ -405,6 +587,7 @@
           <span class="menu-arrow">›</span>
         </div>
 
+        <!-- 4. Практика и Тесты -->
         <div class="menu-card" onclick="checkAccessAndOpen('screen-quiz')">
           <div class="menu-card-left">
             <div class="menu-icon-box">⚡</div>
@@ -415,113 +598,859 @@
           </div>
           <span class="menu-arrow">›</span>
         </div>
+
       </div>
     </div>
 
-    <!-- ЭКРАН ТАДЖВИДА -->
+
+    <!-- ================= ЭКРАН ПРАВИЛ ТАДЖВИДА ================= -->
     <div id="screen-tajweed" class="screen">
-      <div class="lesson-header">
-        <button class="back-button" onclick="goHome()">←</button>
-        <span>Правила Таджвида</span>
-        <span>📖</span>
+      <div id="tajweed-menu" class="sub-screen active">
+        <div class="lesson-header">
+          <button class="back-button" onclick="goHome()">←</button>
+          <span>Правила Таджвида</span>
+          <span>📖</span>
+        </div>
+        <p style="color: var(--text-secondary); margin-bottom: 16px; font-size: calc(14px * var(--base-font-scale)); font-weight: 500;">Выберите уровень для изучения:</p>
+        
+        <div class="tajweed-level-card" onclick="showTajweedLevel(1)"><span>Уровень 1. Базовые знаки: Сукун</span><span class="menu-arrow">›</span></div>
+        <div class="tajweed-level-card" onclick="showTajweedLevel(2)"><span>Уровень 2. Базовые знаки: Танвин</span><span class="menu-arrow">›</span></div>
+        <div class="tajweed-level-card" onclick="showTajweedLevel(3)"><span>Уровень 3. Правило Изхар</span><span class="menu-arrow">›</span></div>
+        <div class="tajweed-level-card" onclick="showTajweedLevel(4)"><span>Уровень 4. Правило Идгам с гунной</span><span class="menu-arrow">›</span></div>
+        <div class="tajweed-level-card" onclick="showTajweedLevel(5)"><span>Уровень 5. Правило Идгам без гунны</span><span class="menu-arrow">›</span></div>
+        <div class="tajweed-level-card" onclick="showTajweedLevel(6)"><span>Уровень 6. Правило Иклаб</span><span class="menu-arrow">›</span></div>
+        <div class="tajweed-level-card" onclick="showTajweedLevel(7)"><span>Уровень 7. Правило Ихфа</span><span class="menu-arrow">›</span></div>
+        <div class="tajweed-level-card" onclick="showTajweedLevel(8)"><span>Уровень 8. Естественный Мадд</span><span class="menu-arrow">›</span></div>
+        <div class="tajweed-level-card" onclick="showTajweedLevel(9)"><span>Уровень 9. Мадд Муттасиль</span><span class="menu-arrow">›</span></div>
+        <div class="tajweed-level-card" onclick="showTajweedLevel(10)"><span>Уровень 10. Мадд Мунфасиль</span><span class="menu-arrow">›</span></div>
+        <div class="tajweed-level-card" onclick="showTajweedLevel(11)"><span>Уровень 11. Мим Сакина: Ихфа Шафави</span><span class="menu-arrow">›</span></div>
+        <div class="tajweed-level-card" onclick="showTajweedLevel(12)"><span>Уровень 12. Мим Сакина: Идгам Мисли</span><span class="menu-arrow">›</span></div>
+        <div class="tajweed-level-card" onclick="showTajweedLevel(13)"><span>Уровень 13. Мим Сакина: Изхар Шафави</span><span class="menu-arrow">›</span></div>
+        <div class="tajweed-level-card" onclick="showTajweedLevel(14)"><span>Уровень 14. Буква «Ра»: Твердое чтение</span><span class="menu-arrow">›</span></div>
+        <div class="tajweed-level-card" onclick="showTajweedLevel(15)"><span>Уровень 15. Буква «Ра»: Мягкое чтение</span><span class="menu-arrow">›</span></div>
+        <div class="tajweed-level-card" onclick="showTajweedLevel(16)"><span>Уровень 16. Имя Аллаха: Твердый «Лям»</span><span class="menu-arrow">›</span></div>
+        <div class="tajweed-level-card" onclick="showTajweedLevel(17)"><span>Уровень 17. Имя Аллаха: Мягкий «Лям»</span><span class="menu-arrow">›</span></div>
+        <div class="tajweed-level-card" onclick="showTajweedLevel(18)"><span>Уровень 18. Правило Калькаля</span><span class="menu-arrow">›</span></div>
+        <div class="tajweed-level-card" onclick="showTajweedLevel(19)"><span>Уровень 19. Правило «Лям Шамсия»</span><span class="menu-arrow">›</span></div>
+        <div class="tajweed-level-card" onclick="showTajweedLevel(20)"><span>Уровень 20. Правило «Лям Камария»</span><span class="menu-arrow">›</span></div>
+        <div class="tajweed-level-card" onclick="showTajweedLevel(21)"><span>Уровень 21. Правило Мадд Лазим</span><span class="menu-arrow">›</span></div>
+        <div class="tajweed-level-card" onclick="showTajweedLevel(22)"><span>Уровень 22. Правило Сэкт</span><span class="menu-arrow">›</span></div>
+        <div class="tajweed-level-card" onclick="showTajweedLevel(23)"><span>Уровень 23. Правило Сыля Сугра</span><span class="menu-arrow">›</span></div>
+        <div class="tajweed-level-card" onclick="showTajweedLevel(24)"><span>Уровень 24. Правило Сыля Кубра</span><span class="menu-arrow">›</span></div>
+        <div class="tajweed-level-card" onclick="showTajweedLevel(25)"><span>Уровень 25. Правило Мадд Ат-Тамкин</span><span class="menu-arrow">›</span></div>
+        <div class="tajweed-level-card" onclick="showTajweedLevel(26)"><span>Уровень 26. Остановка: Временный сукун</span><span class="menu-arrow">›</span></div>
+        <div class="tajweed-level-card" onclick="showTajweedLevel(27)"><span>Уровень 27. Остановка на Танвине-фатхе</span><span class="menu-arrow">›</span></div>
+        <div class="tajweed-level-card" onclick="showTajweedLevel(28)"><span>Уровень 28. Остановка на «Та-марбута»</span><span class="menu-arrow">›</span></div>
+        <div class="tajweed-level-card" onclick="showTajweedLevel(29)"><span>Уровень 29. Знаки остановок в Коране</span><span class="menu-arrow">›</span></div>
+
+        <button class="main-button" onclick="goHome()" style="margin-top: 14px;">Назад в меню</button>
       </div>
-      <div class="tajweed-content-box">
-        <h3>Разделы Таджвида</h3>
-        <p>Здесь будут отображаться уроки по правилам чтения Корана.</p>
+
+      <!-- Уровень 1 -->
+      <div id="tajweed-level-1" class="sub-screen">
+        <div class="lesson-header"><button class="back-button" onclick="showTajweedMenu()">←</button><span>Уровень 1</span><span>📖</span></div>
+        <div class="tajweed-content-box">
+          <h3>Базовые знаки: Сукун</h3>
+          <h4>Что это за правило:</h4>
+          <p>Сукун (ْ) — это маленький кружочек над буквой. Он означает, что у буквы нет никакой гласной (ни «а», ни «и», ни «у»). Буква читается коротко и глухо, как чистый согласный звук.</p>
+          <h4>Примеры из Корана:</h4>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">مَنْ</div><div class="example-text">[ман] (буква нун с сукуном).</div></div><button class="speak-btn" onclick="speakText('مَنْ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">قُلْ</div><div class="example-text">[қул] (буква лям с сукуном).</div></div><button class="speak-btn" onclick="speakText('قُلْ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">أَنْ</div><div class="example-text">[ан] (чистый согласный звук на конце).</div></div><button class="speak-btn" onclick="speakText('أَنْ')">🔊</button></div>
+
+          <label class="learn-check-label"><input type="checkbox" id="check-tajweed-1" onchange="toggleLearnItem('tajweed', 1, 'Уровень 1. Сукун', this.checked)"> Отметить как выученное ✅</label>
+        </div>
+        <button class="main-button" onclick="showTajweedMenu()">К списку уровней</button>
       </div>
-      <button class="main-button" onclick="goHome()">Назад в меню</button>
+
+      <!-- Уровень 2 -->
+      <div id="tajweed-level-2" class="sub-screen">
+        <div class="lesson-header"><button class="back-button" onclick="showTajweedMenu()">←</button><span>Уровень 2</span><span>📖</span></div>
+        <div class="tajweed-content-box">
+          <h3>Базовые знаки: Танвин</h3>
+          <h4>Что это за правило:</h4>
+          <p>Танвин — это двойные значки сверху или снизу буквы (ً ٍ ٌ). Танвин всегда звучит на конце слова как добавленный звук «н», даже если отдельной буквы «н» там нет.</p>
+          <h4>Примеры из Корана:</h4>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">كِتَابٌ</div><div class="example-text">[китабун] (двойная дамма дает звук «н» в конце).</div></div><button class="speak-btn" onclick="speakText('كِتَابٌ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">عَلِيمٌ</div><div class="example-text">[‘алимун] (танвин на конце читается как «н»).</div></div><button class="speak-btn" onclick="speakText('عَلِيمٌ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">رَحِيمٍ</div><div class="example-text">[рахимин] (двойная кясра звучит как «ин»).</div></div><button class="speak-btn" onclick="speakText('رَحِيمٍ')">🔊</button></div>
+
+          <label class="learn-check-label"><input type="checkbox" id="check-tajweed-2" onchange="toggleLearnItem('tajweed', 2, 'Уровень 2. Танвин', this.checked)"> Отметить как выученное ✅</label>
+        </div>
+        <button class="main-button" onclick="showTajweedMenu()">К списку уровней</button>
+      </div>
+
+      <!-- Уровень 3 -->
+      <div id="tajweed-level-3" class="sub-screen">
+        <div class="lesson-header"><button class="back-button" onclick="showTajweedMenu()">←</button><span>Уровень 3</span><span>📖</span></div>
+        <div class="tajweed-content-box">
+          <h3>Правило Изхар (Чистое произношение звука «Н» с горловыми буквами)</h3>
+          <h4>Что это за правило:</h4>
+          <p>Если на конце слова стоит звук «н» (с сукуном или танвин), а следующее слово начинается с одной из 6 горловых букв (ء, ه, ع, ح, غ, خ), звук «н» произносится максимально чисто и четко, без задержки в носу.</p>
+          <h4>Примеры из Корана:</h4>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">مِنْ حَوَلكُم</div><div class="example-text">[мин хавалькум] (нун с сукуном перед горловой ح).</div></div><button class="speak-btn" onclick="speakText('مِنْ حَوَلكُم')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">عَلِيمٌ حَكِيمٌ</div><div class="example-text">[‘алимун хакимун] (танвин перед ح).</div></div><button class="speak-btn" onclick="speakText('عَلِيمٌ حَكِيمٌ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">مَنْ أَهْلِ</div><div class="example-text">[ман ахли] (нун перед хамзой ء).</div></div><button class="speak-btn" onclick="speakText('مَنْ أَهْلِ')">🔊</button></div>
+
+          <label class="learn-check-label"><input type="checkbox" id="check-tajweed-3" onchange="toggleLearnItem('tajweed', 3, 'Уровень 3. Изхар', this.checked)"> Отметить как выученное ✅</label>
+        </div>
+        <button class="main-button" onclick="showTajweedMenu()">К списку уровней</button>
+      </div>
+
+      <!-- Уровень 4 -->
+      <div id="tajweed-level-4" class="sub-screen">
+        <div class="lesson-header"><button class="back-button" onclick="showTajweedMenu()">←</button><span>Уровень 4</span><span>📖</span></div>
+        <div class="tajweed-content-box">
+          <h3>Правило Идгам с гунной (Слияние с носовым звуком)</h3>
+          <h4>Что это за правило:</h4>
+          <p>Если после звука «н» (или танвина) идет одна из четырех букв: ي, ن, م, و (собираются в слово йаному), звук «н» растворяется в следующей букве, а в носу появляется долгий гудящий звук (гунна).</p>
+          <h4>Примеры из Корана:</h4>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">مِنْ مَالٍ</div><div class="example-text">[миммалин] (нун растворяется в م с удвоением).</div></div><button class="speak-btn" onclick="speakText('مِنْ مَالٍ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">مِنْ وَلِيٍّ</div><div class="example-text">[мим-валийин] (нун сливается с و).</div></div><button class="speak-btn" onclick="speakText('مِنْ وَلِيٍّ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">إِنْ نَشَأْ</div><div class="example-text">[ин-наша‘] (слияние нун с ن).</div></div><button class="speak-btn" onclick="speakText('إِنْ نَشَأْ')">🔊</button></div>
+
+          <label class="learn-check-label"><input type="checkbox" id="check-tajweed-4" onchange="toggleLearnItem('tajweed', 4, 'Уровень 4. Идгам с гунной', this.checked)"> Отметить как выученное ✅</label>
+        </div>
+        <button class="main-button" onclick="showTajweedMenu()">К списку уровней</button>
+      </div>
+
+      <!-- Уровень 5 -->
+      <div id="tajweed-level-5" class="sub-screen">
+        <div class="lesson-header"><button class="back-button" onclick="showTajweedMenu()">←</button><span>Уровень 5</span><span>📖</span></div>
+        <div class="tajweed-content-box">
+          <h3>Правило Идгам без гунны (Чистое слияние)</h3>
+          <h4>Что это за правило:</h4>
+          <p>Если после звука «н» (или танвина) стоят буквы ر или ل, звук «н» полностью исчезает, переходя в эти буквы без задержки в носу.</p>
+          <h4>Примеры из Корана:</h4>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">وَلَمْ يَكُنْ لَهُ</div><div class="example-text">[ва лам якун ляху] (нун сливается с ل чисто).</div></div><button class="speak-btn" onclick="speakText('وَلَمْ يَكُنْ لَهُ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">مِنْ رَبِّهِمْ</div><div class="example-text">[мир-раббихим] (нун растворяется в ر).</div></div><button class="speak-btn" onclick="speakText('مِنْ رَبِّهِمْ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">هُدًى لِلْمُتَّقِينَ</div><div class="example-text">[худан лиль-муттақин] (танвин переходит в ل).</div></div><button class="speak-btn" onclick="speakText('هُدًى لِلْمُتَّقِينَ')">🔊</button></div>
+
+          <label class="learn-check-label"><input type="checkbox" id="check-tajweed-5" onchange="toggleLearnItem('tajweed', 5, 'Уровень 5. Идгам без гунны', this.checked)"> Отметить как выученное ✅</label>
+        </div>
+        <button class="main-button" onclick="showTajweedMenu()">К списку уровней</button>
+      </div>
+
+      <!-- Уровень 6 -->
+      <div id="tajweed-level-6" class="sub-screen">
+        <div class="lesson-header"><button class="back-button" onclick="showTajweedMenu()">←</button><span>Уровень 6</span><span>📖</span></div>
+        <div class="tajweed-content-box">
+          <h3>Правило Иклаб (Превращение нун в мим)</h3>
+          <h4>Что это за правило:</h4>
+          <p>Если после звука «н» (или танвина) стоит только буква ب (ба), звук «н» стирается, а губы автоматически производят звук мягкого «м» с задержкой в носу.</p>
+          <h4>Примеры из Корана:</h4>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">مَنْ بَعْدُ</div><div class="example-text">[мам-ба‘ду] (нун перед ب превращается в «м»).</div></div><button class="speak-btn" onclick="speakText('مَنْ بَعْدُ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">سَمِيعٌ بَصِيرٌ</div><div class="example-text">[‘алимун-басыр] (танвин перед ب звучит как «м»).</div></div><button class="speak-btn" onclick="speakText('سَمِيعٌ بَصِيرٌ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">أَنْبِئْهُمْ</div><div class="example-text">[амбиихум] (превращение нун внутри слова).</div></div><button class="speak-btn" onclick="speakText('أَنْبِئْهُمْ')">🔊</button></div>
+
+          <label class="learn-check-label"><input type="checkbox" id="check-tajweed-6" onchange="toggleLearnItem('tajweed', 6, 'Уровень 6. Иклаб', this.checked)"> Отметить как выученное ✅</label>
+        </div>
+        <button class="main-button" onclick="showTajweedMenu()">К списку уровней</button>
+      </div>
+
+      <!-- Уровень 7 -->
+      <div id="tajweed-level-7" class="sub-screen">
+        <div class="lesson-header"><button class="back-button" onclick="showTajweedMenu()">←</button><span>Уровень 7</span><span>📖</span></div>
+        <div class="tajweed-content-box">
+          <h3>Правило Ихфа (Маскировка звука «Н»)</h3>
+          <h4>Что это за правило:</h4>
+          <p>Самое частое правило. Если после звука «н» (или танвина) идет любая из оставшихся 15 согласных букв, звук «н» произносится не до конца — язык не прижимается к нёбу, а звук уходит в нос.</p>
+          <h4>Примеры из Корана:</h4>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">أَنْتُمْ</div><div class="example-text">[антум] (нун маскируется перед ت).</div></div><button class="speak-btn" onclick="speakText('أَنْتُمْ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">مَنْ جَاءَ</div><div class="example-text">[ман-джаа] (носовой полузвук перед ج).</div></div><button class="speak-btn" onclick="speakText('مَنْ جَاءَ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">عَنْ صِلَاتِهِمْ</div><div class="example-text">[ан-сылятихим] (маскировка перед ص).</div></div><button class="speak-btn" onclick="speakText('عَنْ صِلَاتِهِمْ')">🔊</button></div>
+
+          <label class="learn-check-label"><input type="checkbox" id="check-tajweed-7" onchange="toggleLearnItem('tajweed', 7, 'Уровень 7. Ихфа', this.checked)"> Отметить как выученное ✅</label>
+        </div>
+        <button class="main-button" onclick="showTajweedMenu()">К списку уровней</button>
+      </div>
+
+      <!-- Уровень 8 -->
+      <div id="tajweed-level-8" class="sub-screen">
+        <div class="lesson-header"><button class="back-button" onclick="showTajweedMenu()">←</button><span>Уровень 8</span><span>📖</span></div>
+        <div class="tajweed-content-box">
+          <h3>Правило Естественного Мадда (Простое удлинение)</h3>
+          <h4>Что это за правило:</h4>
+          <p>Если в слове идет долгий звук «а», «у» или «и», создаваемый буквами-помощниками (ا, و, ي), его нужно тянуть ровно на 2 счета (без преград).</p>
+          <h4>Примеры из Корана:</h4>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">قَالَ</div><div class="example-text">[қа-а-ля] (буква ا тянет фатху на 2 счета).</div></div><button class="speak-btn" onclick="speakText('قَالَ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">قُولُوا</div><div class="example-text">[қуулуу] (буквы و тянут домму).</div></div><button class="speak-btn" onclick="speakText('قُولُوا')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">فِي</div><div class="example-text">[фии] (буква ي тянет кясру).</div></div><button class="speak-btn" onclick="speakText('فِي')">🔊</button></div>
+
+          <label class="learn-check-label"><input type="checkbox" id="check-tajweed-8" onchange="toggleLearnItem('tajweed', 8, 'Уровень 8. Естественный Мадд', this.checked)"> Отметить как выученное ✅</label>
+        </div>
+        <button class="main-button" onclick="showTajweedMenu()">К списку уровней</button>
+      </div>
+
+      <!-- Уровень 9 -->
+      <div id="tajweed-level-9" class="sub-screen">
+        <div class="lesson-header"><button class="back-button" onclick="showTajweedMenu()">←</button><span>Уровень 9</span><span>📖</span></div>
+        <div class="tajweed-content-box">
+          <h3>Правило Мадд Муттасиль (Слитный долгий мадд)</h3>
+          <h4>Что это за правило:</h4>
+          <p>Если буква долгого мадда и специальный знак хамза (ء) находятся внутри одного слова, звук обязательно растягивается сильнее — на 4 или 5 счетов.</p>
+          <h4>Примеры из Корана:</h4>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">جَاءَ</div><div class="example-text">[джааааъ] (долгий мадд и хамза в одном слове).</div></div><button class="speak-btn" onclick="speakText('جَاءَ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">السَّمَاءُ</div><div class="example-text">[ас-самааау] (удлинение на 4 счета).</div></div><button class="speak-btn" onclick="speakText('السَّمَاءُ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">سِيءَ</div><div class="example-text">[сиии-а] (долгий мадд с хамзой).</div></div><button class="speak-btn" onclick="speakText('سِيءَ')">🔊</button></div>
+
+          <label class="learn-check-label"><input type="checkbox" id="check-tajweed-9" onchange="toggleLearnItem('tajweed', 9, 'Уровень 9. Мадд Муттасиль', this.checked)"> Отметить как выученное ✅</label>
+        </div>
+        <button class="main-button" onclick="showTajweedMenu()">К списку уровней</button>
+      </div>
+
+      <!-- Уровень 10 -->
+      <div id="tajweed-level-10" class="sub-screen">
+        <div class="lesson-header"><button class="back-button" onclick="showTajweedMenu()">←</button><span>Уровень 10</span><span>📖</span></div>
+        <div class="tajweed-content-box">
+          <h3>Правило Мадд Мунфасиль (Раздельный долгий мадд)</h3>
+          <h4>Что это за правило:</h4>
+          <p>Если буква долгого мадда стоит на конце первого слова, а хамза (ء) начинается в следующем слове, звук тянется на 4–5 счетов.</p>
+          <h4>Примеры из Корана:</h4>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">فِي أَمْوَالِهِمْ</div><div class="example-text">[фиии амвалихим] (стык долгой буквы и хамзы).</div></div><button class="speak-btn" onclick="speakText('فِي أَمْوَالِهِمْ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">بِمَا أُنْزِلَ</div><div class="example-text">[бимааа унзиля] (раздельное удлинение).</div></div><button class="speak-btn" onclick="speakText('بِمَا أُنْزِلَ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">قَالُوا آمَنَّا</div><div class="example-text">[қалууу аманна] (растяжение на стыке слов).</div></div><button class="speak-btn" onclick="speakText('قَالُوا آمَنَّا')">🔊</button></div>
+
+          <label class="learn-check-label"><input type="checkbox" id="check-tajweed-10" onchange="toggleLearnItem('tajweed', 10, 'Уровень 10. Мадд Мунфасиль', this.checked)"> Отметить как выученное ✅</label>
+        </div>
+        <button class="main-button" onclick="showTajweedMenu()">К списку уровней</button>
+      </div>
+
+      <!-- Уровень 11 -->
+      <div id="tajweed-level-11" class="sub-screen">
+        <div class="lesson-header"><button class="back-button" onclick="showTajweedMenu()">←</button><span>Уровень 11</span><span>📖</span></div>
+        <div class="tajweed-content-box">
+          <h3>Правило Мим Сакина: Ихфа Шафави (Губное сокрытие)</h3>
+          <h4>Что это за правило:</h4>
+          <p>Если буква م (мим) с сукуном стоит перед буквой ب, губы смыкаются не до конца, создавая легкий носовой звук на 2 счета.</p>
+          <h4>Примеры из Корана:</h4>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">رَبُّهُمْ بِهِمْ</div><div class="example-text">[раббухум-бихим] (мим маскируется перед ب).</div></div><button class="speak-btn" onclick="speakText('رَبُّهُمْ بِهِمْ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">تَرْمِيهِمْ بِحِجَارَةٍ</div><div class="example-text">[тармихим-бихижаратин] (неполное смыкание губ).</div></div><button class="speak-btn" onclick="speakText('تَرْمِيهِمْ بِحِجَارَةٍ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">اعْتَصِمْ بِاللَّهِ</div><div class="example-text">[‘а‘тасым-би-Ллях] (мягкий переход мим в ба).</div></div><button class="speak-btn" onclick="speakText('اعْتَصِمْ بِاللَّهِ')">🔊</button></div>
+
+          <label class="learn-check-label"><input type="checkbox" id="check-tajweed-11" onchange="toggleLearnItem('tajweed', 11, 'Уровень 11. Мим Сакина: Ихфа Шафави', this.checked)"> Отметить как выученное ✅</label>
+        </div>
+        <button class="main-button" onclick="showTajweedMenu()">К списку уровней</button>
+      </div>
+
+      <!-- Уровень 12 -->
+      <div id="tajweed-level-12" class="sub-screen">
+        <div class="lesson-header"><button class="back-button" onclick="showTajweedMenu()">←</button><span>Уровень 12</span><span>📖</span></div>
+        <div class="tajweed-content-box">
+          <h3>Правило Мим Сакина: Идгам Мисли (Губное слияние)</h3>
+          <h4>Что это за правило:</h4>
+          <p>Если после م с сукуном идет обычная движущаяся م, первая мим полностью растворяется во второй, образуя единую сдвоенную мим с долгим звуком в носу.</p>
+          <h4>Примеры из Корана:</h4>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">لَكُمْ مَا كَسَبْتُمْ</div><div class="example-text">[лакум-ма касабтум] (слияние двух мим).</div></div><button class="speak-btn" onclick="speakText('لَكُمْ مَا كَسَبْتُمْ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">أَنْتُمْ مُؤْمِنُونَ</div><div class="example-text">[антум-муъминуун] (слияние звуков между словами).</div></div><button class="speak-btn" onclick="speakText('أَنْتُمْ مُؤْمِنُونَ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">مِنْ حَطَمَةٍ مُوقَدَةٍ</div><div class="example-text">[мим-хатаматиль-муқадах] (мим переходит в мим).</div></div><button class="speak-btn" onclick="speakText('مِنْ حَطَمَةٍ مُوقَدَةٍ')">🔊</button></div>
+
+          <label class="learn-check-label"><input type="checkbox" id="check-tajweed-12" onchange="toggleLearnItem('tajweed', 12, 'Уровень 12. Мим Сакина: Идгам Мисли', this.checked)"> Отметить как выученное ✅</label>
+        </div>
+        <button class="main-button" onclick="showTajweedMenu()">К списку уровней</button>
+      </div>
+
+      <!-- Уровень 13 -->
+      <div id="tajweed-level-13" class="sub-screen">
+        <div class="lesson-header"><button class="back-button" onclick="showTajweedMenu()">←</button><span>Уровень 13</span><span>📖</span></div>
+        <div class="tajweed-content-box">
+          <h3>Правило Мим Сакина: Изхар Шафави (Четкое чтение мим)</h3>
+          <h4>Что это за правило:</h4>
+          <p>Если после م с сукуном идет любая буква (кроме ب و م), мим произносится максимально быстро, твердо и четко, без ухода в нос.</p>
+          <h4>Примеры из Корана:</h4>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">أَمْ لَمْ تُنذِرْهُمْ</div><div class="example-text">[ам лам тунзирхум] (мим четкая перед ل).</div></div><button class="speak-btn" onclick="speakText('أَمْ لَمْ تُنذِرْهُمْ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">عَلَيْهِمْ غَيْرِ</div><div class="example-text">[‘алайхим гайри] (чистый звук мим перед غ).</div></div><button class="speak-btn" onclick="speakText('عَلَيْهِمْ غَيْرِ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">أَمْ خَلَقْنَا</div><div class="example-text">[ам халякна] (быстрое чтение мим).</div></div><button class="speak-btn" onclick="speakText('أَمْ خَلَقْنَا')">🔊</button></div>
+
+          <label class="learn-check-label"><input type="checkbox" id="check-tajweed-13" onchange="toggleLearnItem('tajweed', 13, 'Уровень 13. Мим Сакина: Изхар Шафави', this.checked)"> Отметить как выученное ✅</label>
+        </div>
+        <button class="main-button" onclick="showTajweedMenu()">К списку уровней</button>
+      </div>
+
+      <!-- Уровень 14 -->
+      <div id="tajweed-level-14" class="sub-screen">
+        <div class="lesson-header"><button class="back-button" onclick="showTajweedMenu()">←</button><span>Уровень 14</span><span>📖</span></div>
+        <div class="tajweed-content-box">
+          <h3>Правила буквы «Ра»: Твердое чтение (Тафхим)</h3>
+          <h4>Что это за правило:</h4>
+          <p>Буква ر (ра) читается твердо, глубоко и раскатисто, если на ней стоит огласовка фатха (а) или дамма (у).</p>
+          <h4>Примеры из Корана:</h4>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">رَبُّكَ</div><div class="example-text">[раббук] (ра с фатхой звучит твердо).</div></div><button class="speak-btn" onclick="speakText('رَبُّكَ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">رُزِقْنَا</div><div class="example-text">[рузикна] (ра с даммой плотная).</div></div><button class="speak-btn" onclick="speakText('رُزِقْنَا')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">الرَّحْمَنِ</div><div class="example-text">[Ар-Рахман] (твердое раскатистое ра).</div></div><button class="speak-btn" onclick="speakText('الرَّحْمَنِ')">🔊</button></div>
+
+          <label class="learn-check-label"><input type="checkbox" id="check-tajweed-14" onchange="toggleLearnItem('tajweed', 14, 'Уровень 14. Буква Ра: Твердое чтение', this.checked)"> Отметить как выученное ✅</label>
+        </div>
+        <button class="main-button" onclick="showTajweedMenu()">К списку уровней</button>
+      </div>
+
+      <!-- Уровень 15 -->
+      <div id="tajweed-level-15" class="sub-screen">
+        <div class="lesson-header"><button class="back-button" onclick="showTajweedMenu()">←</button><span>Уровень 15</span><span>📖</span></div>
+        <div class="tajweed-content-box">
+          <h3>Правила буквы «Ра»: Мягкое чтение (Таркик)</h3>
+          <h4>Что это за правило:</h4>
+          <p>Буква ر (ра) читается мягко и легко, если на ней стоит огласовка кясра (и).</p>
+          <h4>Примеры из Корана:</h4>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">رِجَالٌ</div><div class="example-text">[риджалюн] (ра с кясрой звучит мягко).</div></div><button class="speak-btn" onclick="speakText('رِجَالٌ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">بِرِزْقٍ</div><div class="example-text">[биризкын] (мягкая ра из-за нижней огласовки).</div></div><button class="speak-btn" onclick="speakText('بِرِزْقٍ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">فِرْعَوْنَ</div><div class="example-text">[Фир‘ауна] (ра с сукуном после кясры).</div></div><button class="speak-btn" onclick="speakText('فِرْعَوْنَ')">🔊</button></div>
+
+          <label class="learn-check-label"><input type="checkbox" id="check-tajweed-15" onchange="toggleLearnItem('tajweed', 15, 'Уровень 15. Буква Ра: Мягкое чтение', this.checked)"> Отметить как выученное ✅</label>
+        </div>
+        <button class="main-button" onclick="showTajweedMenu()">К списку уровней</button>
+      </div>
+
+      <!-- Уровень 16 -->
+      <div id="tajweed-level-16" class="sub-screen">
+        <div class="lesson-header"><button class="back-button" onclick="showTajweedMenu()">←</button><span>Уровень 16</span><span>📖</span></div>
+        <div class="tajweed-content-box">
+          <h3>Правила имени Аллаха: Твердый «Лям» (Тафхим)</h3>
+          <h4>Что это за правило:</h4>
+          <p>В слове «Аллах» буква ل (лям) звучит весомо и твердо, если перед ней стоит буква с фатхой (а) или даммой (у).</p>
+          <h4>Примеры из Корана:</h4>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">قَالَ اللَّهُ</div><div class="example-text">[қаля-Ллах] (твердый лям после фатхи).</div></div><button class="speak-btn" onclick="speakText('قَالَ اللَّهُ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">هُوَ اللَّهُ</div><div class="example-text">[хува-Ллах] (твердый лям после даммы).</div></div><button class="speak-btn" onclick="speakText('هُوَ اللَّهُ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">نَصْرُ اللَّهِ</div><div class="example-text">[насру-Ллях] (весомый звук лям).</div></div><button class="speak-btn" onclick="speakText('نَصْرُ اللَّهِ')">🔊</button></div>
+
+          <label class="learn-check-label"><input type="checkbox" id="check-tajweed-16" onchange="toggleLearnItem('tajweed', 16, 'Уровень 16. Имя Аллаха: Твердый Лям', this.checked)"> Отметить как выученное ✅</label>
+        </div>
+        <button class="main-button" onclick="showTajweedMenu()">К списку уровней</button>
+      </div>
+
+      <!-- Уровень 17 -->
+      <div id="tajweed-level-17" class="sub-screen">
+        <div class="lesson-header"><button class="back-button" onclick="showTajweedMenu()">←</button><span>Уровень 17</span><span>📖</span></div>
+        <div class="tajweed-content-box">
+          <h3>Правила имени Аллаха: Мягкий «Лям» (Таркик)</h3>
+          <h4>Что это за правило:</h4>
+          <p>В слове «Аллах» буква ل (лям) звучит мягко и легко, если перед ней стоит буква с кясрой (и).</p>
+          <h4>Примеры из Корана:</h4>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">بِسْمِ اللَّهِ</div><div class="example-text">[бисми-Ллях] (мягкий лям после кясры).</div></div><button class="speak-btn" onclick="speakText('بِسْمِ اللَّهِ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">فِي دِينِ اللَّهِ</div><div class="example-text">[фи дини-Ллях] (легкое произношение).</div></div><button class="speak-btn" onclick="speakText('فِي دِينِ اللَّهِ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">قُلِ اللَّهُمَّ</div><div class="example-text">[қули-Ллахумма] (мягкий лям).</div></div><button class="speak-btn" onclick="speakText('قُلِ اللَّهُمَّ')">🔊</button></div>
+
+          <label class="learn-check-label"><input type="checkbox" id="check-tajweed-17" onchange="toggleLearnItem('tajweed', 17, 'Уровень 17. Имя Аллаха: Мягкий Лям', this.checked)"> Отметить как выученное ✅</label>
+        </div>
+        <button class="main-button" onclick="showTajweedMenu()">К списку уровней</button>
+      </div>
+
+      <!-- Уровень 18 -->
+      <div id="tajweed-level-18" class="sub-screen">
+        <div class="lesson-header"><button class="back-button" onclick="showTajweedMenu()">←</button><span>Уровень 18</span><span>📖</span></div>
+        <div class="tajweed-content-box">
+          <h3>Правило Калькаля (Эффект эха)</h3>
+          <h4>Что это за правило:</h4>
+          <p>Если на одной из пяти букв кода «Кутбу джад» (ق, ط, ب, ج, د) стоит сукун, голос делает короткий упругий толчок, создавая микро-эхо.</p>
+          <h4>Примеры из Корана:</h4>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">الْفَلَقِ</div><div class="example-text">[аль-фаляк] (отчетливое эхо на букве ق при остановке).</div></div><button class="speak-btn" onclick="speakText('الْفَلَقِ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">أَحَدٌ</div><div class="example-text">[ахад] (упругий отскок на букве د).</div></div><button class="speak-btn" onclick="speakText('أَحَدٌ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">الْبُرُوجِ</div><div class="example-text">[аль-бурудж] (легкое эхо на букве ج).</div></div><button class="speak-btn" onclick="speakText('الْبُرُوجِ')">🔊</button></div>
+
+          <label class="learn-check-label"><input type="checkbox" id="check-tajweed-18" onchange="toggleLearnItem('tajweed', 18, 'Уровень 18. Калькаля', this.checked)"> Отметить как выученное ✅</label>
+        </div>
+        <button class="main-button" onclick="showTajweedMenu()">К списку уровней</button>
+      </div>
+
+      <!-- Уровень 19 -->
+      <div id="tajweed-level-19" class="sub-screen">
+        <div class="lesson-header"><button class="back-button" onclick="showTajweedMenu()">←</button><span>Уровень 19</span><span>📖</span></div>
+        <div class="tajweed-content-box">
+          <h3>Правило «Лям Шамсия» (Солнечные буквы)</h3>
+          <h4>Что это за правило:</h4>
+          <p>Если перед словом с артиклем ال (аль) идет солнечная буква (14 штук), звук ل полностью исчезает, а первая буква слова получает удвоение.</p>
+          <h4>Примеры из Корана:</h4>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">الشَّمْسُ</div><div class="example-text">[аш-шамсу] (лям не читается, ش удваивается).</div></div><button class="speak-btn" onclick="speakText('الشَّمْسُ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">النَّاسُ</div><div class="example-text">[ан-насу] (слияние с буквой ن).</div></div><button class="speak-btn" onclick="speakText('النَّاسُ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">التَّوَّابُ</div><div class="example-text">[ат-таввабу] (пропуск звука лям перед ت).</div></div><button class="speak-btn" onclick="speakText('التَّوَّابُ')">🔊</button></div>
+
+          <label class="learn-check-label"><input type="checkbox" id="check-tajweed-19" onchange="toggleLearnItem('tajweed', 19, 'Уровень 19. Лям Шамсия', this.checked)"> Отметить как выученное ✅</label>
+        </div>
+        <button class="main-button" onclick="showTajweedMenu()">К списку уровней</button>
+      </div>
+
+      <!-- Уровень 20 -->
+      <div id="tajweed-level-20" class="sub-screen">
+        <div class="lesson-header"><button class="back-button" onclick="showTajweedMenu()">←</button><span>Уровень 20</span><span>📖</span></div>
+        <div class="tajweed-content-box">
+          <h3>Правило «Лям Камария» (Лунные буквы)</h3>
+          <h4>Что это за правило:</h4>
+          <p>Если перед словом с артиклем ال идет лунная буква, звук ل читается четко и звонко с сукуном.</p>
+          <h4>Примеры из Корана:</h4>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">الْقَمَرُ</div><div class="example-text">[аль-қамару] (четкий звук лям с сукуном).</div></div><button class="speak-btn" onclick="speakText('الْقَمَرُ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">الْجَنَّةُ</div><div class="example-text">[аль-джаннат] (звонкое чтение артикля перед ج).</div></div><button class="speak-btn" onclick="speakText('الْجَنَّةُ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">الْكِتَابُ</div><div class="example-text">[аль-китабу] (четкая лям перед ك).</div></div><button class="speak-btn" onclick="speakText('الْكِتَابُ')">🔊</button></div>
+
+          <label class="learn-check-label"><input type="checkbox" id="check-tajweed-20" onchange="toggleLearnItem('tajweed', 20, 'Уровень 20. Лям Камария', this.checked)"> Отметить как выученное ✅</label>
+        </div>
+        <button class="main-button" onclick="showTajweedMenu()">К списку уровней</button>
+      </div>
+
+      <!-- Уровень 21 -->
+      <div id="tajweed-level-21" class="sub-screen">
+        <div class="lesson-header"><button class="back-button" onclick="showTajweedMenu()">←</button><span>Уровень 21</span><span>📖</span></div>
+        <div class="tajweed-content-box">
+          <h3>Правило Мадд Лазим (Обязательный долгий мадд на 6 счетов)</h3>
+          <h4>Что это за правило:</h4>
+          <p>Если после долгой буквы в слове или букве в начале суры идет сукун или удвоение (шадда), этот звук всегда тянется ровно на 6 счетов.</p>
+          <h4>Примеры из Корана:</h4>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">الْحَاقَّةُ</div><div class="example-text">[аль-хаааакку] (растяжение на 6 счетов перед шаддой).</div></div><button class="speak-btn" onclick="speakText('الْحَاقَّةُ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">ضَّالِّينَ</div><div class="example-text">[ад-дооооллиин] (долгий мадд перед удвоенной буквой).</div></div><button class="speak-btn" onclick="speakText('ضَّالِّينَ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">الم</div><div class="example-text">[Алифф-лааам-миим] (буквы в начале сур с долготой 6 счетов).</div></div><button class="speak-btn" onclick="speakText('الم')">🔊</button></div>
+
+          <label class="learn-check-label"><input type="checkbox" id="check-tajweed-21" onchange="toggleLearnItem('tajweed', 21, 'Уровень 21. Мадд Лазим', this.checked)"> Отметить как выученное ✅</label>
+        </div>
+        <button class="main-button" onclick="showTajweedMenu()">К списку уровней</button>
+      </div>
+
+      <!-- Уровень 22 -->
+      <div id="tajweed-level-22" class="sub-screen">
+        <div class="lesson-header"><button class="back-button" onclick="showTajweedMenu()">←</button><span>Уровень 22</span><span>📖</span></div>
+        <div class="tajweed-content-box">
+          <h3>Правило Сэкт (Короткая пауза без вдоха)</h3>
+          <h4>Что это за правило:</h4>
+          <p>В четырех особых местах Корана чтец делает мгновенную молчаливую остановку голоса (на 1-2 счета) без набора воздуха в легкие.</p>
+          <h4>Примеры из Корана:</h4>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">عِوَجًا ۜ قَيِّمًا</div><div class="example-text">[‘иваджан ۜ қоййима] (пауза в суре Аль-Кахф).</div></div><button class="speak-btn" onclick="speakText('عِوَجًا قَيِّمًا')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">مَرْقَدِنَا ۜ هَٰذَا</div><div class="example-text">[марқдина ۜ хаза] (пауза в суре Йа Син).</div></div><button class="speak-btn" onclick="speakText('مَرْقَدِنَا هَٰذَا')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">مَالِيَهْ ۜ هَلَكَ</div><div class="example-text">[малиях ۜ халяка] (пауза в суре Аль-Мутаффифин).</div></div><button class="speak-btn" onclick="speakText('مَالِيَهْ هَلَكَ')">🔊</button></div>
+
+          <label class="learn-check-label"><input type="checkbox" id="check-tajweed-22" onchange="toggleLearnItem('tajweed', 22, 'Уровень 22. Сэкт', this.checked)"> Отметить как выученное ✅</label>
+        </div>
+        <button class="main-button" onclick="showTajweedMenu()">К списку уровней</button>
+      </div>
+
+      <!-- Уровень 23 -->
+      <div id="tajweed-level-23" class="sub-screen">
+        <div class="lesson-header"><button class="back-button" onclick="showTajweedMenu()">←</button><span>Уровень 23</span><span>📖</span></div>
+        <div class="tajweed-content-box">
+          <h3>Правило Сыля Сугра (Маленькое продление местоимения)</h3>
+          <h4>Что это за правило:</h4>
+          <p>Если местоименая буква ه (ха) стоит между двумя живыми гласными, она превращается в долгий звук «у» или «и» ровно на 2 счета.</p>
+          <h4>Примеры из Корана:</h4>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">إِنَّهُ كَانَ</div><div class="example-text">[иннахуу кяна] (местоимение тянется 2 счета).</div></div><button class="speak-btn" onclick="speakText('إِنَّهُ كَانَ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">بِهِ بَصِيرًا</div><div class="example-text">[бихии басыран] (долгий звук «и» на местоимении).</div></div><button class="speak-btn" onclick="speakText('بِهِ بَصِيرًا')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">أَنَّ مَالَهُ أَخْلَدَهُ</div><div class="example-text">[малахуу ахлядаху] (продление ха).</div></div><button class="speak-btn" onclick="speakText('أَنَّ مَالَهُ أَخْلَدَهُ')">🔊</button></div>
+
+          <label class="learn-check-label"><input type="checkbox" id="check-tajweed-23" onchange="toggleLearnItem('tajweed', 23, 'Уровень 23. Сыля Сугра', this.checked)"> Отметить как выученное ✅</label>
+        </div>
+        <button class="main-button" onclick="showTajweedMenu()">К списку уровней</button>
+      </div>
+
+      <!-- Уровень 24 -->
+      <div id="tajweed-level-24" class="sub-screen">
+        <div class="lesson-header"><button class="back-button" onclick="showTajweedMenu()">←</button><span>Уровень 24</span><span>📖</span></div>
+        <div class="tajweed-content-box">
+          <h3>Правило Сыля Кубра (Большое продление местоимения)</h3>
+          <h4>Что это за правило:</h4>
+          <p>Если после местоимения ه идет хамза (ء) со следующего слова, это местоимение растягивается сильнее — на 4 или 5 счетов.</p>
+          <h4>Примеры из Корана:</h4>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">عِنْدَهُ إِلَّا</div><div class="example-text">[‘индахууу илля] (растяжение местоимения перед хамзой).</div></div><button class="speak-btn" onclick="speakText('عِنْدَهُ إِلَّا')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">لَهُ أَخْلَدَهُ</div><div class="example-text">[лахууу ахлядаху] (большой мадд для местоимения).</div></div><button class="speak-btn" onclick="speakText('لَهُ أَخْلَدَهُ')">🔊</button></div>
+
+          <label class="learn-check-label"><input type="checkbox" id="check-tajweed-24" onchange="toggleLearnItem('tajweed', 24, 'Уровень 24. Сыля Кубра', this.checked)"> Отметить как выученное ✅</label>
+        </div>
+        <button class="main-button" onclick="showTajweedMenu()">К списку уровней</button>
+      </div>
+
+      <!-- Уровень 25 -->
+      <div id="tajweed-level-25" class="sub-screen">
+        <div class="lesson-header"><button class="back-button" onclick="showTajweedMenu()">←</button><span>Уровень 25</span><span>📖</span></div>
+        <div class="tajweed-content-box">
+          <h3>Правило Мадд Ат-Тамкин (Укрепляющий мадд)</h3>
+          <h4>Что это за правило:</h4>
+          <p>При встрече двух одинаковых букв (например, двух ي), одна из которых с огласовкой, а вторая с сукуном, первая «укрепляется» легким удлинением на 2 счета.</p>
+          <h4>Примеры из Корана:</h4>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">النَّبِيِّينَ</div><div class="example-text">[ан-набиййиин] (укрепление звука ي).</div></div><button class="speak-btn" onclick="speakText('النَّبِيِّينَ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">الَّذِينَ يُؤْمِنُونَ</div><div class="example-text">[аллязина юъминуун] (разделение гласных).</div></div><button class="speak-btn" onclick="speakText('الَّذِينَ يُؤْمِنُونَ')">🔊</button></div>
+
+          <label class="learn-check-label"><input type="checkbox" id="check-tajweed-25" onchange="toggleLearnItem('tajweed', 25, 'Уровень 25. Мадд Ат-Тамкин', this.checked)"> Отметить как выученное ✅</label>
+        </div>
+        <button class="main-button" onclick="showTajweedMenu()">К списку уровней</button>
+      </div>
+
+      <!-- Уровень 26 -->
+      <div id="tajweed-level-26" class="sub-screen">
+        <div class="lesson-header"><button class="back-button" onclick="showTajweedMenu()">←</button><span>Уровень 26</span><span>📖</span></div>
+        <div class="tajweed-content-box">
+          <h3>Правила остановки: Временный сукун (Ас-Сукун аль-‘Арид)</h3>
+          <h4>Что это за правило:</h4>
+          <p>Когда вы останавливаетесь на конце аята, последняя огласовка буквы заменяется на искусственный сукун, а предшествующий мадд можно тянуть на 2, 4 или 6 счетов.</p>
+          <h4>Примеры из Корана:</h4>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">الْرَّحِيمِ</div><div class="example-text">[Ар-Рахиим] (при остановке последняя буква получает сукун).</div></div><button class="speak-btn" onclick="speakText('الرَّحِيمِ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">الْعَالَمِينَ</div><div class="example-text">[аль-‘алямиин] (плавное затухание долгой гласной).</div></div><button class="speak-btn" onclick="speakText('الْعَالَمِينَ')">🔊</button></div>
+
+          <label class="learn-check-label"><input type="checkbox" id="check-tajweed-26" onchange="toggleLearnItem('tajweed', 26, 'Уровень 26. Временный сукун', this.checked)"> Отметить как выученное ✅</label>
+        </div>
+        <button class="main-button" onclick="showTajweedMenu()">К списку уровней</button>
+      </div>
+
+      <!-- Уровень 27 -->
+      <div id="tajweed-level-27" class="sub-screen">
+        <div class="lesson-header"><button class="back-button" onclick="showTajweedMenu()">←</button><span>Уровень 27</span><span>📖</span></div>
+        <div class="tajweed-content-box">
+          <h3>Правила остановки на Танвине-фатхе (Мадд Ивад)</h3>
+          <h4>Что это за правило:</h4>
+          <p>Если вы останавливаетесь на слове с танвином-фатхой (двойная черта сверху), этот танвин перестает быть звуком «н» и превращается в простое долгое «а» на 2 счета.</p>
+          <h4>Примеры из Корана:</h4>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">سَمِيعاً بَصِيراً</div><div class="example-text">[сами‘ан басыыра] (остановка превращает танвин в долгое «а»).</div></div><button class="speak-btn" onclick="speakText('سَمِيعاً بَصِيراً')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">حَكِيماً</div><div class="example-text">[хакимаа] (долгий звук «а» на конце при остановке).</div></div><button class="speak-btn" onclick="speakText('حَكِيماً')">🔊</button></div>
+
+          <label class="learn-check-label"><input type="checkbox" id="check-tajweed-27" onchange="toggleLearnItem('tajweed', 27, 'Уровень 27. Остановка на Танвине-фатхе', this.checked)"> Отметить как выученное ✅</label>
+        </div>
+        <button class="main-button" onclick="showTajweedMenu()">К списку уровней</button>
+      </div>
+
+      <!-- Уровень 28 -->
+      <div id="tajweed-level-28" class="sub-screen">
+        <div class="lesson-header"><button class="back-button" onclick="showTajweedMenu()">←</button><span>Уровень 28</span><span>📖</span></div>
+        <div class="tajweed-content-box">
+          <h3>Правила остановки на букве «Та-марбута» (ة)</h3>
+          <h4>Что это за правило:</h4>
+          <p>Если на конце слова стоит особая круглая буква ة (та-марбута) с любой огласовкой, то при остановке она теряет звук «т» и превращается в мягкий выдох «х».</p>
+          <h4>Примеры из Корана:</h4>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">رَحْمَةً</div><div class="example-text">[рахмах] (при остановке читается мягкий выдох «х»).</div></div><button class="speak-btn" onclick="speakText('رَحْمَةً')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">الْجَنَّةُ</div><div class="example-text">[аль-джаннах] (превращение буквы та в ха).</div></div><button class="speak-btn" onclick="speakText('الْجَنَّةُ')">🔊</button></div>
+
+          <label class="learn-check-label"><input type="checkbox" id="check-tajweed-28" onchange="toggleLearnItem('tajweed', 28, 'Уровень 28. Остановка на Та-марбута', this.checked)"> Отметить как выученное ✅</label>
+        </div>
+        <button class="main-button" onclick="showTajweedMenu()">К списку уровней</button>
+      </div>
+
+      <!-- Уровень 29 -->
+      <div id="tajweed-level-29" class="sub-screen">
+        <div class="lesson-header"><button class="back-button" onclick="showTajweedMenu()">←</button><span>Уровень 29</span><span>📖</span></div>
+        <div class="tajweed-content-box">
+          <h3>Все знаки остановок и продолжения чтения в Коране</h3>
+          <h4>Что это за правило:</h4>
+          <p>Специальные знаки препинания в арабском тексте, регулирующие дыхание чтеца и сохраняющие правильный смысл слов Всевышнего.</p>
+          
+          <div class="example-box">
+            <div class="example-text"><strong>Знак م (Обязательная остановка — Лазим):</strong> Обязательная остановка, чтобы отделить один смысл от другого.</div>
+            <div class="example-arabic" style="font-size:16px;">إِنَّمَا يَسْتَجِيبُ الَّذِينَ يَسْمَعُونَ ۘ وَالْمَوْتَىٰ يَبْعَثُهُمُ اللَّهُ ثُمَّ إِلَيْهِ يُرْجَعُونَ</div>
+          </div>
+
+          <div class="example-box">
+            <div class="example-text"><strong>Знак لا (Запрещенная остановка):</strong> Ставится в том месте, где есть непрерывный смысл.</div>
+            <div class="example-arabic" style="font-size:16px;">وَالَّذِي جَاءَ بِالصِّدْقِ وَصَدَّقَ بِهِ ۙ أُولَئِكَ هُمُ الْمُتَّقُونَ</div>
+          </div>
+
+          <div class="example-box">
+            <div class="example-text"><strong>Знак ج (Допустимая остановка):</strong> Можно остановиться, можно продолжить.</div>
+            <div class="example-arabic" style="font-size:16px;">الَّذِي خَلَقَ الْمَوْتَ وَالْحَيَاةَ لِيَبْلُوَكُمْ أَيُّكُمْ أَحْسَنُ عَمَلًا ۚ وَهُوَ الْعَزِيزُ الْغَفُورُ</div>
+          </div>
+
+          <div class="example-box">
+            <div class="example-text"><strong>Знак قلى (Остановка предпочтительнее):</strong> Можно продолжить, но остановка лучше.</div>
+            <div class="example-arabic" style="font-size:16px;">فَإِنْ قَاتَلُوكُمْ فَاقْتُلُوهُمْ ۗ كَذَلِكَ جَزَاءُ الْكَافِرِينَ</div>
+          </div>
+
+          <div class="example-box">
+            <div class="example-text"><strong>Знак صلى (Продолжение предпочтительнее):</strong> Можно остановиться, но лучше продолжить из-за тесной связи смыслов.</div>
+            <div class="example-arabic" style="font-size:16px;">الَّذِي خَلَقَ سَبْعَ سَمَاوَاتٍ طِبَاقًا ۖ مَا تَرَى فِي خَلْقِ الرَّحْمَنِ مِنْ تَفَاوُتٍ ۖ فَارْجِعِ الْبَصَرَ هَلْ تَرَى مِنْ فُطُورٍ</div>
+          </div>
+
+          <div class="example-box">
+            <div class="example-text"><strong>Знаки трех точек ∴ ∴ (Муадака / Рука):</strong> Остановка в одном из двух мест (можно вообще не останавливаться).</div>
+            <div class="example-arabic" style="font-size:16px;">ذَلِكَ الْكِتَابُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِلْمُتَّقِينَ</div>
+          </div>
+
+          <label class="learn-check-label"><input type="checkbox" id="check-tajweed-29" onchange="toggleLearnItem('tajweed', 29, 'Уровень 29. Знаки остановок в Коране', this.checked)"> Отметить как выученное ✅</label>
+        </div>
+        <button class="main-button" onclick="showTajweedMenu()">К списку уровней</button>
+      </div>
+
     </div>
 
-    <!-- ЭКРАН АЛФАВИТА -->
+
+    <!-- ================= ЭКРАН АЛФАВИТА ================= -->
     <div id="screen-alphabet" class="screen">
       <div class="lesson-header">
         <button class="back-button" onclick="goHome()">←</button>
         <span>Алфавит</span>
         <span>📚</span>
       </div>
+
+      <div style="font-size: calc(14px * var(--base-font-scale)); color: var(--text-secondary); margin-bottom: 16px; direction: rtl; text-align: right; font-weight: 500;">
+        Нажмите на букву для просмотра разбора
+      </div>
+
       <div class="alphabet-grid" style="direction: rtl;">
-        <div class="alphabet-card" onclick="openAlphabet()"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">ا</div><div>Алиф</div></div>
-        <div class="alphabet-card"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">ب</div><div>Ба</div></div>
+        <div class="alphabet-card" onclick="openAlifInfo()"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">ا</div><div style="font-size: calc(12px * var(--base-font-scale)); color: var(--text-secondary); font-weight: 600;">Алиф</div></div>
+        <div class="alphabet-card" onclick="openLetterModal('Ба (ب)', 'Губы смыкаются плотно', 'alphabet/ba.mp4')"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">ب</div><div style="font-size: calc(12px * var(--base-font-scale)); color: var(--text-secondary); font-weight: 600;">Ба</div></div>
+        <div class="alphabet-card" onclick="openLetterModal('Та (ت)', 'Кончик языка у корней зубов', 'alphabet/ta.mp4')"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">ت</div><div style="font-size: calc(12px * var(--base-font-scale)); color: var(--text-secondary); font-weight: 600;">Та</div></div>
+        <div class="alphabet-card" onclick="openLetterModal('Са (ث)', 'Межзубный мягкий звук', 'alphabet/ca.mp4')"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">ث</div><div style="font-size: calc(12px * var(--base-font-scale)); color: var(--text-secondary); font-weight: 600;">Са</div></div>
+        <div class="alphabet-card" onclick="openLetterModal('Джим (ج)', 'Средняя часть языка к нёбу', 'alphabet/ja.mp4')"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">ج</div><div style="font-size: calc(12px * var(--base-font-scale)); color: var(--text-secondary); font-weight: 600;">Джим</div></div>
+        <div class="alphabet-card" onclick="openLetterModal('Хьа (ح)', 'Выдох из средней части гортани', 'alphabet/hha.mp4')"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">ح</div><div style="font-size: calc(12px * var(--base-font-scale)); color: var(--text-secondary); font-weight: 600;">Хьа</div></div>
+        <div class="alphabet-card" onclick="openLetterModal('Хо (خ)', 'Глубокий горловой звук', 'alphabet/kha.mp4')"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">خ</div><div style="font-size: calc(12px * var(--base-font-scale)); color: var(--text-secondary); font-weight: 600;">Хо</div></div>
+        <div class="alphabet-card" onclick="openLetterModal('Даль (د)', 'Язык у зубов', 'alphabet/dal.mp4')"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">د</div><div style="font-size: calc(12px * var(--base-font-scale)); color: var(--text-secondary); font-weight: 600;">Даль</div></div>
+        <div class="alphabet-card" onclick="openLetterModal('Заль (ذ)', 'Межзубный звонкий звук', 'alphabet/zal.mp4')"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">ذ</div><div style="font-size: calc(12px * var(--base-font-scale)); color: var(--text-secondary); font-weight: 600;">Заль</div></div>
+        <div class="alphabet-card" onclick="openLetterModal('Ро (ر)', 'Язык дрожит у альвеол', 'alphabet/ro.mp4')"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">ر</div><div style="font-size: calc(12px * var(--base-font-scale)); color: var(--text-secondary); font-weight: 600;">Ро</div></div>
+        <div class="alphabet-card" onclick="openLetterModal('За (ز)', 'Звонкий свистящий звук', 'alphabet/za.mp4')"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">ز</div><div style="font-size: calc(12px * var(--base-font-scale)); color: var(--text-secondary); font-weight: 600;">За</div></div>
+        <div class="alphabet-card" onclick="openLetterModal('Син (س)', 'Свистящий глухой звук', 'alphabet/sin.mp4')"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">س</div><div style="font-size: calc(12px * var(--base-font-scale)); color: var(--text-secondary); font-weight: 600;">Син</div></div>
+        <div class="alphabet-card" onclick="openLetterModal('Шин (ش)', 'Язык поднимается к нёбу', 'alphabet/shin.mp4')"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">ش</div><div style="font-size: calc(12px * var(--base-font-scale)); color: var(--text-secondary); font-weight: 600;">Шин</div></div>
+        <div class="alphabet-card" onclick="openLetterModal('Сод (ص)', 'Тяжелый свистящий звук', 'alphabet/sod.mp4')"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">ص</div><div style="font-size: calc(12px * var(--base-font-scale)); color: var(--text-secondary); font-weight: 600;">Сод</div></div>
+        <div class="alphabet-card" onclick="openLetterModal('Дод (ض)', 'Боковая часть языка', 'alphabet/dod.mp4')"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">ض</div><div style="font-size: calc(12px * var(--base-font-scale)); color: var(--text-secondary); font-weight: 600;">Дод</div></div>
+        <div class="alphabet-card" onclick="openLetterModal('То (ط)', 'Твердый взрывной звук', 'alphabet/to.mp4')"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">ط</div><div style="font-size: calc(12px * var(--base-font-scale)); color: var(--text-secondary); font-weight: 600;">То</div></div>
+        <div class="alphabet-card" onclick="openLetterModal('Зо (ظ)', 'Твердый межзубный звук', 'alphabet/zo.mp4')"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">ظ</div><div style="font-size: calc(12px * var(--base-font-scale)); color: var(--text-secondary); font-weight: 600;">Зо</div></div>
+        <div class="alphabet-card" onclick="openLetterModal('Айн (ع)', 'Горловой сжатый звук', 'alphabet/aayn.mp4')"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">ع</div><div style="font-size: calc(12px * var(--base-font-scale)); color: var(--text-secondary); font-weight: 600;">Айн</div></div>
+        <div class="alphabet-card" onclick="openLetterModal('Гойн (غ)', 'Горловой мягкий хрип', 'alphabet/goyn.mp4')"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">غ</div><div style="font-size: calc(12px * var(--base-font-scale)); color: var(--text-secondary); font-weight: 600;">Гойн</div></div>
+        <div class="alphabet-card" onclick="openLetterModal('Фа (ف)', 'Зубы касаются губы', 'alphabet/fa.mp4')"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">ف</div><div style="font-size: calc(12px * var(--base-font-scale)); color: var(--text-secondary); font-weight: 600;">Фа</div></div>
+        <div class="alphabet-card" onclick="openLetterModal('Къоф (ق)', 'Корень языка с мягким нёбом', 'alphabet/kof.mp4')"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">ق</div><div style="font-size: calc(12px * var(--base-font-scale)); color: var(--text-secondary); font-weight: 600;">Къоф</div></div>
+        <div class="alphabet-card" onclick="openLetterModal('Каф (ك)', 'Задняя часть языка к нёбу', 'alphabet/kaf.mp4')"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">ك</div><div style="font-size: calc(12px * var(--base-font-scale)); color: var(--text-secondary); font-weight: 600;">Каф</div></div>
+        <div class="alphabet-card" onclick="openLetterModal('Лям (ل)', 'Края языка у десен', 'alphabet/lam.mp4')"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">ل</div><div style="font-size: calc(12px * var(--base-font-scale)); color: var(--text-secondary); font-weight: 600;">Лям</div></div>
+        <div class="alphabet-card" onclick="openLetterModal('Мим (م)', 'Губы сомкнуты, носовой звук', 'alphabet/mim.mp4')"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">م</div><div style="font-size: calc(12px * var(--base-font-scale)); color: var(--text-secondary); font-weight: 600;">Мим</div></div>
+        <div class="alphabet-card" onclick="openLetterModal('Нун (ن)', 'Кончик языка у зубов', 'alphabet/nun.mp4')"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">ن</div><div style="font-size: calc(12px * var(--base-font-scale)); color: var(--text-secondary); font-weight: 600;">Нун</div></div>
+        <div class="alphabet-card" onclick="openLetterModal('Х1а (ه)', 'Легкий выдох', 'alphabet/ha.mp4')"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">ه</div><div style="font-size: calc(12px * var(--base-font-scale)); color: var(--text-secondary); font-weight: 600;">Х1а</div></div>
+        <div class="alphabet-card" onclick="openLetterModal('Вау (و)', 'Губы округляются в трубку', 'alphabet/uau.mp4')"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">و</div><div style="font-size: calc(12px * var(--base-font-scale)); color: var(--text-secondary); font-weight: 600;">Вау</div></div>
+        <div class="alphabet-card" onclick="openLetterModal('Хамза (ء)', 'Горловой ударный звук', 'alphabet/hamza.mp4')"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">ء</div><div style="font-size: calc(12px * var(--base-font-scale)); color: var(--text-secondary); font-weight: 600;">Хамза</div></div>
+        <div class="alphabet-card" onclick="openLetterModal('Йа (ي)', 'Средняя часть языка к нёбу', 'alphabet/ya.mp4')"><div style="font-size: 28px; font-weight: bold; color: var(--gold-light);">ي</div><div style="font-size: calc(12px * var(--base-font-scale)); color: var(--text-secondary); font-weight: 600;">Йа</div></div>
       </div>
+
       <button class="main-button" onclick="goHome()">Назад в меню</button>
     </div>
 
-    <!-- ЭКРАН СЛОВА И ФРАЗЫ -->
+
+    <!-- ================= ЭКРАН: СЛОВА И ФРАЗЫ ================= -->
     <div id="screen-words-phrases" class="screen">
-      <div class="lesson-header">
-        <button class="back-button" onclick="goHome()">←</button>
-        <span>Слова и фразы</span>
-        <span>🗣️</span>
+      <div id="wp-menu" class="sub-screen active">
+        <div class="lesson-header">
+          <button class="back-button" onclick="goHome()">←</button>
+          <span>Слова и фразы</span>
+          <span>🗣️</span>
+        </div>
+        <p style="color: var(--text-secondary); margin-bottom: 16px; font-size: calc(14px * var(--base-font-scale)); font-weight: 500;">Выберите категорию:</p>
+        
+        <div class="tajweed-level-card" onclick="showWpSub('words')">
+          <span>📖 Отдельные слова</span>
+          <span class="menu-arrow">›</span>
+        </div>
+        <div class="tajweed-level-card" onclick="showWpSub('phrases')">
+          <span>💬 Полезные фразы</span>
+          <span class="menu-arrow">›</span>
+        </div>
+
+        <button class="main-button" onclick="goHome()" style="margin-top: 14px;">Назад в меню</button>
       </div>
-      <div class="tajweed-content-box" id="dynamic-words-container">
-        <h3>Полезная лексика</h3>
-        <p>Загрузка слов...</p>
+
+      <!-- Слова -->
+      <div id="wp-sub-words" class="sub-screen">
+        <div class="lesson-header">
+          <button class="back-button" onclick="showWpMenu()">←</button>
+          <span>Слова</span>
+          <span>📖</span>
+        </div>
+        <div class="tajweed-content-box">
+          <h3>Популярные арабские слова</h3>
+          <div id="dynamic-words-container"></div>
+        </div>
+        <button class="main-button" onclick="showWpMenu()">К категориям</button>
       </div>
-      <button class="main-button" onclick="goHome()">Назад в меню</button>
+
+      <!-- Фразы -->
+      <div id="wp-sub-phrases" class="sub-screen">
+        <div class="lesson-header">
+          <button class="back-button" onclick="showWpMenu()">←</button>
+          <span>Фразы</span>
+          <span>💬</span>
+        </div>
+        <div class="tajweed-content-box">
+          <h3>Полезные фразы</h3>
+          <div id="dynamic-phrases-container"></div>
+        </div>
+        <button class="main-button" onclick="showWpMenu()">К категориям</button>
+      </div>
     </div>
 
-    <!-- ЭКРАН ТЕСТОВ -->
+
+    <!-- ================= ЭКРАН: ПРАКТИКА И ТЕСТЫ ================= -->
     <div id="screen-quiz" class="screen">
-      <div class="lesson-header">
-        <button class="back-button" onclick="goHome()">←</button>
-        <span>Практика и Тесты</span>
-        <span>⚡</span>
+      <div id="quiz-menu" class="sub-screen active">
+        <div class="lesson-header">
+          <button class="back-button" onclick="goHome()">←</button>
+          <span>Практика и Тесты</span>
+          <span>⚡</span>
+        </div>
+        <p style="color: var(--text-secondary); margin-bottom: 16px; font-size: calc(14px * var(--base-font-scale)); font-weight: 500;">Выберите тему для проверки знаний (по 10 вопросов):</p>
+        
+        <div class="tajweed-level-card" onclick="startQuiz('words')">
+          <span>📖 Тест по словам и фразам</span>
+          <span class="menu-arrow">›</span>
+        </div>
+        <div class="tajweed-level-card" onclick="startQuiz('alphabet')">
+          <span>📚 Тест по буквам алфавита</span>
+          <span class="menu-arrow">›</span>
+        </div>
+        <div class="tajweed-level-card" onclick="startQuiz('tajweed')">
+          <span>📜 Тест по правилам Таджвида</span>
+          <span class="menu-arrow">›</span>
+        </div>
+
+        <button class="main-button" onclick="goHome()" style="margin-top: 14px;">Назад в меню</button>
       </div>
-      <div class="tajweed-content-box">
-        <h3>Тестирование</h3>
-        <p>Раздел тестов готов к работе.</p>
+
+      <div id="quiz-game" class="sub-screen">
+        <div class="lesson-header">
+          <button class="back-button" onclick="quitQuiz()">←</button>
+          <span id="quiz-header-title">Тест</span>
+          <span>⚡</span>
+        </div>
+
+        <div class="quiz-card">
+          <div class="quiz-progress" id="quiz-progress-text">Вопрос 1 из 10</div>
+          <div class="quiz-question" id="quiz-question-text">Вопрос</div>
+          <div class="quiz-target" id="quiz-target-word"></div>
+          
+          <div class="quiz-options" id="quiz-options-container"></div>
+        </div>
+
+        <button class="main-button" id="quiz-next-btn" style="display: none;" onclick="nextQuizQuestion()">Следующий вопрос</button>
       </div>
-      <button class="main-button" onclick="goHome()">Назад в меню</button>
+
+      <div id="quiz-results" class="sub-screen">
+        <div class="lesson-header">
+          <button class="back-button" onclick="quitQuiz()">←</button>
+          <span>Результаты</span>
+          <span>🏆</span>
+        </div>
+
+        <div class="quiz-card" style="padding: 30px 20px;">
+          <div id="quiz-medal-icon" style="font-size: 56px; margin-bottom: 10px;">🥇</div>
+          <h3 id="quiz-result-title" style="color: var(--gold-light); margin-bottom: 8px; font-size: calc(20px * var(--base-font-scale));">Золотая медаль!</h3>
+          <p id="quiz-score-text" style="font-size: calc(16px * var(--base-font-scale)); font-weight: bold; margin-bottom: 10px;">Вы ответили правильно на 9 из 10 (90%)</p>
+          <p id="quiz-motivation-text" style="color: var(--text-secondary); font-size: calc(14px * var(--base-font-scale)); margin-bottom: 20px;">Великолепный результат! ماشاء الله</p>
+          
+          <button class="main-button" onclick="restartCurrentQuiz()" style="margin-bottom: 10px;">Пройти еще раз</button>
+          <button class="back-button" onclick="quitQuiz()" style="width: 100%; border-radius: var(--radius-md); height: auto; padding: 14px; color: var(--text-primary); background: transparent; border-color: var(--card-border);">К выбору тестов</button>
+        </div>
+      </div>
     </div>
 
-    <!-- ЭКРАН ПРОФИЛЯ -->
+
+    <!-- ================= ЭКРАН: ПРОФИЛЬ ================= -->
     <div id="screen-profile" class="screen">
       <div class="lesson-header">
         <button class="back-button" onclick="goHome()">←</button>
         <span>Профиль и прогресс</span>
         <span>👤</span>
       </div>
-      <div class="tajweed-content-box" id="profile-subscription-status-box" style="text-align: center;">
-        <h3>Статус доступа</h3>
-        <p>Загрузка...</p>
-      </div>
-      <div class="tajweed-content-box">
-        <h3>Статистика тестов</h3>
-        <p>Правильных ответов: <span id="stat-words-correct">0</span></p>
-      </div>
-      <button class="main-button" onclick="goHome()">На главную</button>
-    </div>
 
-    <!-- ЭКРАН ПОДПИСКИ -->
-    <div id="screen-subscription" class="screen">
-      <div class="lesson-header">
-        <button class="back-button" onclick="goHome()">←</button>
-        <span>Премиум-подписка</span>
-        <span>👑</span>
+      <!-- Блок статуса подписки в профиле -->
+      <div class="tajweed-content-box" id="profile-subscription-status-box" style="margin-bottom: 16px; text-align: center;">
+        <h3 style="margin-bottom: 8px;">✨ Статус доступа</h3>
+        <p style="color: var(--text-secondary);">Загрузка данных подписки...</p>
       </div>
-      <div class="tajweed-content-box" style="text-align: center;">
-        <h3>Премиум-доступ на 30 дней</h3>
-        <p style="margin: 15px 0;">Оформите подписку за 500 ₽ / месяц.</p>
-        <button class="main-button" onclick="paySubscription()">Оплатить</button>
+
+      <div class="tajweed-content-box" style="margin-bottom: 16px;">
+        <h3 style="margin-bottom: 12px;">📊 Статистика тестов</h3>
+        <p style="margin-bottom: 8px;"><strong>Слова и фразы:</strong> Правильно: <span id="stat-words-correct" style="color: var(--accent-green);">0</span> | Неправильно: <span id="stat-words-wrong" style="color: var(--accent-red);">0</span></p>
+        <p style="margin-bottom: 8px;"><strong>Алфавит:</strong> Правильно: <span id="stat-alphabet-correct" style="color: var(--accent-green);">0</span> | Неправильно: <span id="stat-alphabet-wrong" style="color: var(--accent-red);">0</span></p>
+        <p><strong>Таджвид:</strong> Правильно: <span id="stat-tajweed-correct" style="color: var(--accent-green);">0</span> | Неправильно: <span id="stat-tajweed-wrong" style="color: var(--accent-red);">0</span></p>
       </div>
+
+      <div class="tajweed-content-box" style="margin-bottom: 16px;">
+        <h3 style="margin-bottom: 12px;">📖 Выученные правила Таджвида</h3>
+        <div id="profile-tajweed-list" style="color: var(--text-secondary); font-size: 14px;">
+          Вы пока не отметили ни одного правила таджвида.
+        </div>
+      </div>
+
+      <div class="tajweed-content-box">
+        <h3 style="margin-bottom: 12px;">🗣️ Выученные слова и фразы</h3>
+        <div id="profile-words-list" style="color: var(--text-secondary); font-size: 14px;">
+          Вы пока не отметили ни одного слова или фразы.
+        </div>
+      </div>
+
+      <button class="main-button" onclick="goHome()" style="margin-top: 14px;">На главную</button>
     </div>
 
   </div>
 
-  <!-- НИЖНЯЯ ПАНЕЛЬ НАВИГАЦИИ -->
+  <!-- ================= ЭКРАН: ПОДПИСКА ================= -->
+  <div class="screen" id="screen-subscription">
+    <div class="lesson-header">
+        <button class="back-button" onclick="goHome()">←</button>
+        <span>Премиум-подписка</span>
+        <span>👑</span>
+    </div>
+
+    <div class="tajweed-content-box" style="text-align: center; padding: 25px 20px; margin-top: 20px;">
+        <div style="font-size: 45px; margin-bottom: 12px;">🌟</div>
+        
+        <h3 style="color: var(--gold-light); margin-bottom: 15px; font-size: 1.2em;">Премиум-доступ на 30 дней</h3>
+        
+        <p style="opacity: 0.9; margin-bottom: 25px; line-height: 1.5; font-size: 0.95em;">
+            Оформите подписку за <b style="color: var(--gold-light);">500 ₽ / месяц</b>, чтобы получить полный доступ ко всем уровням таджвида и словарям школы ArabiaBot.
+        </p>
+
+        <button class="main-button" onclick="paySubscription()" style="width: 100%; padding: 14px; font-size: 1.1em; font-weight: bold; border-radius: 12px; cursor: pointer;">
+            Оплатить
+        </button>
+    </div>
+  </div>
+
+
+  <!-- НИЖНЯЯ ПАНЕЛЬ НАВИГАЦИИ (TabBar) -->
   <nav class="tabbar">
     <button class="tab-item active" onclick="goHome()">
       <span class="tab-icon">🏠</span>
       <span>Главная</span>
     </button>
+    
     <div class="tab-item-center">
       <div class="tab-center-btn" onclick="openSubscription()" title="Подписка">👑</div>
     </div>
+
     <button class="tab-item" onclick="showScreen('screen-profile'); renderProfileStats();">
       <span class="tab-icon">👤</span>
       <span>Профиль</span>
     </button>
   </nav>
+
+
+  <!-- МОДАЛКА АЛФАВИТА -->
+  <div id="letterModal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div id="modalLetterTitle" style="font-size: calc(20px * var(--base-font-scale)); font-weight: bold; color: var(--gold-light); margin-bottom: 4px;">Буква</div>
+      <div id="modalLetterDesc" style="font-size: calc(13px * var(--base-font-scale)); color: var(--text-secondary); margin-bottom: 12px; font-weight: 500;">Описание</div>
+      
+      <video id="modalVideo" class="modal-video" controls playsinline></video>
+
+      <div id="alifInfoContent" style="display: none; text-align: left; background: rgba(255,255,255,0.05); padding: 16px; border-radius: 12px; font-size: calc(14px * var(--base-font-scale)); line-height: 1.5; color: var(--text-primary); font-weight: 500;">
+        <p style="margin: 0 0 10px 0; font-weight: bold; color: var(--gold-light);">Особенности буквы Алиф:</p>
+        <p style="margin: 0 0 8px 0;">• Не имеет собственного фиксированного звука.</p>
+        <p style="margin: 0 0 8px 0;">• Подстраивается под огласовки, удлиняя соответствующий звук.</p>
+        <p style="margin: 0;">• Служит устойчивой подставкой для буквы Хамза (ء).</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- МОДАЛЬНОЕ ОКНО НАСТРОЕК -->
+  <div id="settings-modal" class="modal">
+    <div class="modal-content">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h3 style="margin: 0; font-size: 18px; color: var(--gold-light);">⚙️ Настройки</h3>
+        <button onclick="closeSettings()" class="modal-close" style="position:static;">✕</button>
+      </div>
+
+      <p style="margin: 0 0 8px; font-weight: bold; font-size: 14px; text-align: left;">Цветовая тема:</p>
+      <div style="display: flex; gap: 8px; margin-bottom: 20px;">
+        <button onclick="setTheme('dark')" style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid var(--card-border); background: #071520; color: #fff; cursor: pointer; font-size: 13px; font-weight: 600;">Ночь</button>
+        <button onclick="setTheme('green')" style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid var(--card-border); background: #071f14; color: #fff; cursor: pointer; font-size: 13px; font-weight: 600;">Изумруд</button>
+        <button onclick="setTheme('light')" style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid #ccc; background: #fff; color: #000; cursor: pointer; font-size: 13px; font-weight: 600;">Светлая</button>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <p style="margin: 0; font-weight: bold; font-size: 14px;">Размер шрифта:</p>
+        <span id="font-percentage" style="font-size: 13px; font-weight: bold; color: var(--gold-light);">100%</span>
+      </div>
+      <input type="range" id="font-slider" min="0.7" max="1.4" step="0.05" value="1" oninput="changeFontSize(this.value)" style="width: 100%; cursor: pointer; accent-color: var(--gold-primary);">
+    </div>
+  </div>
+
 
   <script>
     function openSubscription() {
@@ -533,21 +1462,26 @@
       if (window.Telegram?.WebApp?.initDataUnsafe?.user?.id) {
           userId = window.Telegram.WebApp.initDataUnsafe.user.id;
       }
+
       try {
           const response = await fetch(`/api/create-payment?user_id=${userId}`);
           const data = await response.json();
+          
+          console.log('Ответ от сервера оплаты:', data);
+
           const paymentUrl = data.confirmation_url || data.confirmation?.confirmation_url || data.url;
+
           if (paymentUrl) {
-              if (window.Telegram?.WebApp?.openLink) {
+              if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.openLink) {
                   window.Telegram.WebApp.openLink(paymentUrl);
               } else {
                   window.location.href = paymentUrl;
               }
           } else {
-              alert('Не удалось получить ссылку на оплату.');
+              alert('Не удалось получить ссылку на оплату от сервера.');
           }
       } catch (error) {
-          console.error('Ошибка платежа:', error);
+          console.error('Ошибка создания платежа:', error);
       }
     }
 
@@ -556,14 +1490,16 @@
       if (window.Telegram?.WebApp?.initDataUnsafe?.user?.id) {
           userId = window.Telegram.WebApp.initDataUnsafe.user.id;
       }
+
       try {
           const response = await fetch(`/api/subscription?user_id=${userId}`);
           const data = await response.json();
+
           if (data && data.active) {
               showScreen(screenId);
           } else {
               showScreen('screen-subscription');
-              alert('Срок бесплатного доступа истек. Оформите подписку.');
+              alert('Срок бесплатного доступа истек. Пожалуйста, оформите подписку для продолжения.');
           }
       } catch (error) {
           console.error('Ошибка проверки подписки:', error);
@@ -571,16 +1507,139 @@
       }
     }
 
+    async function loadAppData() {
+      try {
+        const wordsResponse = await fetch('data/words.json');
+        await wordsResponse.json();
+
+        const tajweedResponse = await fetch('data/tajweed.json');
+        await tajweedResponse.json();
+      } catch (error) {
+        console.log("Локальные файлы данных не обнаружены или загрузка пропущена:", error);
+      }
+    }
+
+    // Безопасная инициализация Telegram WebApp
     const tg = window.Telegram ? window.Telegram.WebApp : null;
     if (tg && typeof tg.expand === 'function') {
       tg.expand();
     }
-    if (tg?.initDataUnsafe?.user?.first_name) {
+
+    if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
       const userNameEl = document.getElementById('user-name');
-      if (userNameEl) userNameEl.textContent = tg.initDataUnsafe.user.first_name;
+      if (userNameEl && tg.initDataUnsafe.user.first_name) {
+        userNameEl.textContent = tg.initDataUnsafe.user.first_name;
+      }
+    }
+
+    function speakText(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'ar-SA';
+        utterance.rate = 0.9;
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    function playClickSound() {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        const now = audioCtx.currentTime;
+        
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(600, now);
+        osc.frequency.exponentialRampToValueAtTime(800, now + 0.05);
+        
+        gain.gain.setValueAtTime(0.08, now); 
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+        
+        osc.start(now);
+        osc.stop(now + 0.1);
+      } catch (e) {
+        console.log("Аудио не поддерживается:", e);
+      }
+    }
+
+    // Функция для динамической загрузки и отрисовки слов и фраз из words.json
+    async function loadAndRenderWordsAndPhrases() {
+        try {
+            const response = await fetch('data/words.json?v=' + new Date().getTime());
+            const data = await response.json();
+
+            // 1. Рендерим слова
+            const wordsContainer = document.getElementById('dynamic-words-container');
+            if (wordsContainer && data.words) {
+                let wordsHtml = '';
+                data.words.forEach((item, index) => {
+                    const isChecked = userStats.learnedItems['word_' + index] ? 'checked' : '';
+                    wordsHtml += `
+                        <div class="example-box" style="${index > 0 ? 'margin-top: 16px;' : ''}">
+                            <div class="example-content">
+                                <div class="example-arabic">${item.arabic}</div>
+                                <div class="example-text">${item.translation}</div>
+                            </div>
+                            <button class="speak-btn" onclick="speakText('${item.arabic.replace(/'/g, "\\'")}')">🔊</button>
+                        </div>
+                        <label class="learn-check-label">
+                            <input type="checkbox" id="check-word-${index}" ${isChecked} onchange="toggleLearnItem('word', ${index}, '${item.arabic} - ${item.translation.split('[')[0].trim()}', this.checked)"> 
+                            Отметить как выученное ✅
+                        </label>
+                    `;
+                });
+                // Добавляем плашку в самый конец списка слов
+                wordsHtml += `
+                    <div class="coming-soon-box" style="margin-top: 24px;">
+                        <div class="coming-soon-icon">✨</div>
+                        <div class="coming-soon-text">Со временем здесь будут пополняться новые слова!</div>
+                    </div>
+                `;
+                wordsContainer.innerHTML = wordsHtml;
+            }
+
+            // 2. Рендерим фразы
+            const phrasesContainer = document.getElementById('dynamic-phrases-container');
+            if (phrasesContainer && data.phrases) {
+                let phrasesHtml = '';
+                data.phrases.forEach((item, index) => {
+                    const isChecked = userStats.learnedItems['phrase_' + index] ? 'checked' : '';
+                    phrasesHtml += `
+                        <div class="example-box" style="${index > 0 ? 'margin-top: 16px;' : ''}">
+                            <div class="example-content">
+                                <div class="example-arabic">${item.arabic}</div>
+                                <div class="example-text">${item.translation}</div>
+                            </div>
+                            <button class="speak-btn" onclick="speakText('${item.arabic.replace(/'/g, "\\'")}')">🔊</button>
+                        </div>
+                        <label class="learn-check-label">
+                            <input type="checkbox" id="check-phrase-${index}" ${isChecked} onchange="toggleLearnItem('phrase', ${index}, '${item.arabic} - ${item.translation.split('[')[0].trim()}', this.checked)"> 
+                            Отметить как выученное ✅
+                        </label>
+                    `;
+                });
+                // Добавляем плашку в самый конец списка фраз
+                phrasesHtml += `
+                    <div class="coming-soon-box" style="margin-top: 24px;">
+                        <div class="coming-soon-icon">✨</div>
+                        <div class="coming-soon-text">Со временем здесь будут пополняться новые фразы!</div>
+                    </div>
+                `;
+                phrasesContainer.innerHTML = phrasesHtml;
+            }
+
+        } catch (error) {
+            console.error("Ошибка при загрузке данных из JSON:", error);
+        }
     }
 
     function showScreen(screenId) {
+      playClickSound();
       document.querySelectorAll('.screen').forEach(screen => {
         screen.classList.remove('active');
       });
@@ -592,24 +1651,536 @@
 
     function goHome() {
       showScreen('screen-home');
+      showTajweedMenu();
+      showWpMenu();
+      quitQuiz();
+      closeModal();
     }
 
     function openAlphabet() {
       showScreen('screen-alphabet');
     }
 
+    function showTajweedMenu() {
+      document.querySelectorAll('#screen-alphabet ~ .sub-screen, #screen-tajweed .sub-screen').forEach(el => {
+        el.classList.remove('active');
+      });
+      const tm = document.getElementById('tajweed-menu');
+      if (tm) tm.classList.add('active');
+    }
+
+    function showTajweedLevel(levelNum) {
+      document.querySelectorAll('#screen-tajweed .sub-screen').forEach(el => {
+        el.classList.remove('active');
+      });
+      const levelEl = document.getElementById('tajweed-level-' + levelNum);
+      if (levelEl) {
+        levelEl.classList.add('active');
+      }
+    }
+
+    function showWpMenu() {
+      document.querySelectorAll('#screen-words-phrases .sub-screen').forEach(el => {
+        el.classList.remove('active');
+      });
+      const wm = document.getElementById('wp-menu');
+      if (wm) wm.classList.add('active');
+    }
+
+    function showWpSub(subName) {
+      document.querySelectorAll('#screen-words-phrases .sub-screen').forEach(el => {
+        el.classList.remove('active');
+      });
+      const subEl = document.getElementById('wp-sub-' + subName);
+      if (subEl) {
+        subEl.classList.add('active');
+      }
+      loadAndRenderWordsAndPhrases();
+    }
+
+    /* ================= СИСТЕМА ПРОФИЛЯ И ГАЛОЧЕК ================= */
     let userStats = JSON.parse(localStorage.getItem('app_user_stats')) || {
-      tests: { words: { correct: 0, wrong: 0 } },
+      tests: {
+        words: { correct: 0, wrong: 0 },
+        alphabet: { correct: 0, wrong: 0 },
+        tajweed: { correct: 0, wrong: 0 }
+      },
       learnedItems: {}
     };
 
-    function renderProfileStats() {
-      const statEl = document.getElementById('stat-words-correct');
-      if (statEl) statEl.textContent = userStats.tests.words.correct;
+    function saveUserStats() {
+      localStorage.setItem('app_user_stats', JSON.stringify(userStats));
+    }
+
+    function toggleLearnItem(category, id, title, isChecked) {
+      const key = category + '_' + id;
+      if (isChecked) {
+        userStats.learnedItems[key] = { title: title, type: category === 'tajweed' ? 'tajweed' : 'word' };
+      } else {
+        delete userStats.learnedItems[key];
+      }
+      saveUserStats();
+    }
+
+    async function renderProfileStats() {
+      document.getElementById('stat-words-correct').textContent = userStats.tests.words.correct;
+      document.getElementById('stat-words-wrong').textContent = userStats.tests.words.wrong;
+      document.getElementById('stat-alphabet-correct').textContent = userStats.tests.alphabet.correct;
+      document.getElementById('stat-alphabet-wrong').textContent = userStats.tests.alphabet.wrong;
+      document.getElementById('stat-tajweed-correct').textContent = userStats.tests.tajweed.correct;
+      document.getElementById('stat-tajweed-wrong').textContent = userStats.tests.tajweed.wrong;
+
+      const tajweedListContainer = document.getElementById('profile-tajweed-list');
+      const wordsListContainer = document.getElementById('profile-words-list');
+
+      let tajweedHtml = '';
+      let wordsHtml = '';
+
+      const keys = Object.keys(userStats.learnedItems);
+      keys.forEach(k => {
+        const item = userStats.learnedItems[k];
+        if (item.type === 'tajweed') {
+          tajweedHtml += `<li>${item.title}</li>`;
+        } else {
+          wordsHtml += `<li>${item.title}</li>`;
+        }
+      });
+
+      if (tajweedHtml === '') {
+        tajweedListContainer.innerHTML = 'Вы пока не отметили ни одного правила таджвида.';
+      } else {
+        tajweedListContainer.innerHTML = '<ul style="padding-left: 20px; line-height: 1.8;">' + tajweedHtml + '</ul>';
+      }
+
+      if (wordsHtml === '') {
+        wordsListContainer.innerHTML = 'Вы пока не отметили ни одного слова или фразы.';
+      } else {
+        wordsListContainer.innerHTML = '<ul style="padding-left: 20px; line-height: 1.8;">' + wordsHtml + '</ul>';
+      }
+
+      let profilesSubBox = document.getElementById('profile-subscription-status-box');
+      if (!profilesSubBox) {
+        const profileScreen = document.getElementById('screen-profile');
+        const headerEl = profileScreen.querySelector('.lesson-header');
+        
+        profilesSubBox = document.createElement('div');
+        profilesSubBox.id = 'profile-subscription-status-box';
+        profilesSubBox.className = 'tajweed-content-box';
+        profilesSubBox.style.marginBottom = '16px';
+        profilesSubBox.style.textAlign = 'center';
+        
+        headerEl.after(profilesSubBox);
+      }
+
+      profilesSubBox.innerHTML = `
+        <div style="text-align: center; padding: 5px 0;">
+            <h3 style="margin-bottom: 8px; color: var(--gold-light);">⏳ Статус доступа</h3>
+            <p style="opacity: 0.8; font-size: 0.95em;">Загрузка данных подписки...</p>
+        </div>
+      `;
+
+      try {
+        let userId = 12345678;
+        if (window.Telegram?.WebApp?.initDataUnsafe?.user?.id) {
+            userId = window.Telegram.WebApp.initDataUnsafe.user.id;
+        }
+
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 4000);
+
+        const response = await fetch(`/api/subscription?user_id=${userId}`, {
+            signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+
+        if (!response.ok) {
+            throw new Error('Server error');
+        }
+
+        const data = await response.json();
+
+        if (data && data.active) {
+            const titleText = data.is_trial ? "✨ Статус подписки" : "👑 Премиум-доступ";
+            const modeText = data.is_trial ? "Пробный период активен до" : "Подписка активна до";
+            const [datePart, fullTimePart] = data.expires_at.split(" ");
+            const timePart = fullTimePart ? fullTimePart.substring(0, 5) : "";
+            
+            const [year, month, day] = datePart.split("-");
+            const formattedDate = `${day}.${month}.${year}`;
+            
+            profilesSubBox.innerHTML = `
+                <div style="text-align: center; padding: 5px 0;">
+                    <h3 style="margin-bottom: 10px; color: var(--gold-light); font-size: 1.15em;">${titleText}</h3>
+                    <p style="margin-bottom: 6px; font-weight: 500; opacity: 0.9; font-size: 0.95em;">${modeText}:</p>
+                    <div style="color: var(--gold-light); font-size: 1.2em; font-weight: bold; letter-spacing: 0.5px;">${formattedDate}</div>
+                    <div style="color: var(--gold-light); opacity: 0.75; font-size: 0.85em; margin-top: 2px;">в ${timePart}</div>
+                </div>
+            `;
+        } else {
+            profilesSubBox.innerHTML = `
+                <div style="text-align: center; padding: 5px 0;">
+                    <h3 style="margin-bottom: 8px; color: var(--gold-light);">✨ Статус подписки</h3>
+                    <p style="color: #ff6b6b; font-weight: 500;">❌ Период доступа истек.</p>
+                </div>
+            `;
+        }
+      } catch (error) {
+        profilesSubBox.innerHTML = `
+            <div style="text-align: center; padding: 5px 0;">
+                <h3 style="margin-bottom: 8px; color: var(--gold-light);">✨ Статус подписки</h3>
+                <p style="color: var(--text-secondary); font-size: 0.95em;">Не удалось получить данные с сервера.</p>
+            </div>
+        `;
+      }
+    }
+
+
+    /* ================= БАЗА ТЕСТОВ ================= */
+    const quizData = {
+      words: [
+        { q: "كِتَابٌ", a: "Книга", pool: ["Книга", "Ручка", "Тетрадь", "Бумага"] },
+        { q: "قَلَمٌ", a: "Ручка", pool: ["Ручка", "Карандаш", "Книга", "Линейка"] },
+        { q: "بَيْتٌ", a: "Дом", pool: ["Дом", "Комната", "Дверь", "Стена"] },
+        { q: "قَمَرٌ", a: "Луна", pool: ["Луна", "Солнце", "Звезда", "Небо"] },
+        { q: "شَمْسٌ", a: "Солнце", pool: ["Солнце", "Луна", "Свет", "День"] },
+        { q: "مَاءٌ", a: "Вода", pool: ["Вода", "Река", "Море", "Дождь"] },
+        { q: "بَابٌ", a: "Дверь", pool: ["Дверь", "Окно", "Ключ", "Стена"] },
+        { q: "وَلَدٌ", a: "Мальчик", pool: ["Мальчик", "Девочка", "Мужчина", "Ребенок"] },
+        { q: "بِنْتٌ", a: "Девочка", pool: ["Девочка", "Мальчик", "Женщина", "Дочь"] },
+        { q: "قَهْوَةٌ", a: "Кофе", pool: ["Кофе", "Чай", "Вода", "Молоко"] },
+        { q: "جَمَلٌ", a: "Верблюд", pool: ["Верблюд", "Лошадь", "Корова", "Баран"] },
+        { q: "زَهْرَةٌ", a: "Цветок", pool: ["Цветок", "Дерево", "Трава", "Лист"] },
+        { q: "سَفِينَةٌ", a: "Корабль", pool: ["Корабль", "Лодка", "Самолет", "Машина"] },
+        { q: "شَجَرَةٌ", a: "Дерево", pool: ["Дерево", "Цветок", "Трава", "Лист"] },
+        { q: "تُفَّاحَةٌ", a: "Яблоко", pool: ["Яблоко", "Груша", "Банан", "Апельсин"] },
+        { q: "مِفْتَاحٌ", a: "Ключ", pool: ["Ключ", "Замок", "Дверь", "Окно"] },
+        { q: "مَدِينَةٌ", a: "Город", pool: ["Город", "Деревня", "Страна", "Улица"] },
+        { q: "طَبِيبٌ", a: "Врач", pool: ["Врач", "Учитель", "Инженер", "Повар"] },
+        { q: "قِطَّةٌ", a: "Кошка", pool: ["Кошка", "Собака", "Лев", "Тигр"] },
+        { q: "كَلْبٌ", a: "Собака", pool: ["Собака", "Кошка", "Волк", "Лиса"] }
+      ],
+      alphabet: [
+        { q: "ا", a: "Алиф", pool: ["Алиф", "Айн", "Лям", "Тамбута"] },
+        { q: "ب", a: "Ба", pool: ["Ба", "Та", "Са", "Нун"] },
+        { q: "ت", a: "Та", pool: ["Та", "Ба", "Са", "Даль"] },
+        { q: "ث", a: "Са", pool: ["Са", "Ба", "Та", "Зо"] },
+        { q: "ج", a: "Джим", pool: ["Джим", "Ха", "Хо", "Заль"] },
+        { q: "ح", a: "Хьа", pool: ["Хьа", "Хо", "Джим", "Ха"] },
+        { q: "خ", a: "Хо", pool: ["Хо", "Хьа", "Джим", "Гейн"] },
+        { q: "د", a: "Даль", pool: ["Даль", "Заль", "Ро", "За"] },
+        { q: "ر", a: "Ро", pool: ["Ро", "За", "Даль", "Лям"] },
+        { q: "س", a: "Син", pool: ["Син", "Шин", "Сод", "За"] },
+        { q: "ش", a: "Шин", pool: ["Шин", "Син", "Сод", "Дод"] },
+        { q: "م", a: "Мим", pool: ["Мим", "Нун", "Лям", "Вау"] }
+      ],
+      tajweed: [
+        { q: "Что означает знак Сукун (ْ) над буквой?", a: "Отсутствие гласной звука (чистый согласный)", pool: ["Отсутствие гласной звука (чистый согласный)", "Удвоение согласного звука", "Долгое звучание гласной на 2 счета", "Носовой оттенок звука"] },
+        { q: "Что такое Танвин (ً ٍ ٌ)?", a: "Двойные значки, дающие звук «н» в конце слова", pool: ["Двойные значки, дающие звук «н» в конце слова", "Маленький кружочек над буквой", "Знак обязательной остановки в Коране", "Огласовка удвоения"] },
+        { q: "Какое правило работает при встрече нун сукуна с горловыми буквами (ء ه ع ح غ خ)?", a: "Изхар (чистое произношение без гунны)", pool: ["Изхар (чистое произношение без гунны)", "Идгам с гунной", "Ихфа (маскировка звука)", "Иклаб (превращение в мим)"] },
+        { q: "Что делает правило Иклаб при встрече нун сукуна с буквой ب?", a: "Превращает звук нун в мягкий мим с гунной", pool: ["Превращает звук нун в мягкий мим с гунной", "Полностью стирает звук нун", "Дает эффект эха (калькаля)", "Удлиняет звук на 6 счетов"] },
+        { q: "Что такое Калькаля на буквах (ق ط ب ج د)?", a: "Эффект упругого эха или микро-отскока при сукуне", pool: ["Эффект упругого эха или микро-отскока при сукуне", "Долгое вытягивание гласной", "Носовое гудение на 2 счета", "Мягкое придыхание"] },
+        { q: "Как ведут себя Солнечные буквы после артикля ال?", a: "Звук лям пропадает, а первая буква слова удваивается", pool: ["Звук лям пропадает, а первая буква слова удваивается", "Звук лям читается звонко и твердо", "Буквы полностью исчезают из чтения", "Дают обязательный мадд на 6 счетов"] },
+        { q: "Что означает обязательный знак остановки (م) в тексте Корана?", a: "Строгая остановка для разделения смыслов", pool: ["Строгая остановка для разделения смыслов", "Остановка категорически запрещена", "Остановка по желанию чтеца", "Короткая пауза без набора воздуха"] },
+        { q: "Что происходит с круглой буквой «Та-марбута» (ة) при остановке в конце?", a: "Она теряет звук «т» и превращается в выдох «х»", pool: ["Она теряет звук «т» и превращается в выдох «х»", "Она читается как твердая буква «т»", "Она полностью игнорируется чтецом", "Она превращается в долгую гласную"] },
+        { q: "Как читается буква Ра (ر) при наличии огласовки кясра (رِ)?", a: "Мягко (Таркик)", pool: ["Мягко (Таркик)", "Твердо (Тафхим)", "С эффектом калькаля", "С долгим носовым звуком"] },
+        { q: "Что означает знак запрещенной остановки (لا) в Коране?", a: "Нельзя останавливаться из-за непрерывности смысла", pool: ["Нельзя останавливаться из-за непрерывности смысла", "Остановка обязательна для перевода духа", "Знак отмены предыдущего правила", "Указание на смену темы аята"] },
+        { q: "Какая буква входит в состав солнечных букв, вызывающих ассимиляцию артикля?", a: "Буква Шин (ش)", pool: ["Буква Шин (ش)", "Буква Каф (ك)", "Буква Мим (م)", "Буква Ба (ب)"] },
+        { q: "Сколько счетов длится обязательный мадд (Мадд Лазим)?", a: "Ровно 6 счетов", pool: ["Ровно 6 счетов", "Ровно 2 счета", "От 4 до 5 счетов", "1 счет (мгновенно)"] }
+      ]
+    };
+
+    let currentQuizType = 'words';
+    let currentQuestions = [];
+    let currentIndex = 0;
+    let score = 0;
+    let wrongAnswersCount = 0;
+    let answered = false;
+
+    function startQuiz(type) {
+      currentQuizType = type;
+      userStats.tests[type].correct = 0;
+      userStats.tests[type].wrong = 0;
+      saveUserStats();
+
+      const poolSource = quizData[type];
+      currentQuestions = [...poolSource].sort(() => 0.5 - Math.random()).slice(0, 10);
+      currentIndex = 0;
+      score = 0;
+      wrongAnswersCount = 0;
+
+      document.getElementById('quiz-menu').classList.remove('active');
+      document.getElementById('quiz-results').classList.remove('active');
+      document.getElementById('quiz-game').classList.add('active');
+
+      if (type === 'words') {
+        document.getElementById('quiz-header-title').textContent = 'Тест: Слова и фразы';
+      } else if (type === 'alphabet') {
+        document.getElementById('quiz-header-title').textContent = 'Тест: Алфавит';
+      } else {
+        document.getElementById('quiz-header-title').textContent = 'Тест: Таджвид';
+      }
+
+      loadQuizQuestion();
+    }
+
+    function quitQuiz() {
+      document.getElementById('quiz-game').classList.remove('active');
+      document.getElementById('quiz-results').classList.remove('active');
+      document.getElementById('quiz-menu').classList.add('active');
+    }
+
+    function restartCurrentQuiz() {
+      startQuiz(currentQuizType);
+    }
+
+    function loadQuizQuestion() {
+      answered = false;
+      document.getElementById('quiz-next-btn').style.display = 'none';
+      
+      const item = currentQuestions[currentIndex];
+      document.getElementById('quiz-progress-text').textContent = `Вопрос ${currentIndex + 1} из ${currentQuestions.length}`;
+      document.getElementById('quiz-question-text').textContent = item.q;
+      document.getElementById('quiz-target-word').textContent = "";
+
+      let options = [item.a];
+      const otherPool = item.pool.filter(ans => ans !== item.a);
+      otherPool.sort(() => 0.5 - Math.random());
+      
+      for(let i = 0; i < Math.min(3, otherPool.length); i++) {
+        options.push(otherPool[i]);
+      }
+      options.sort(() => 0.5 - Math.random());
+
+      const container = document.getElementById('quiz-options-container');
+      container.innerHTML = '';
+      
+      options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'quiz-option-btn';
+        btn.textContent = opt;
+        btn.onclick = () => checkQuizAnswer(btn, opt, item.a);
+        container.appendChild(btn);
+      });
+    }
+
+    function playQuizSound(isCorrect) {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        const now = audioCtx.currentTime;
+
+        if (isCorrect) {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(587.33, now);
+          osc.frequency.setValueAtTime(880, now + 0.08);
+          
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+          
+          osc.start(now);
+          osc.stop(now + 0.3);
+        } else {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(220, now);
+          osc.frequency.setValueAtTime(185, now + 0.1);
+          
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+          
+          osc.start(now);
+          osc.stop(now + 0.25);
+        }
+      } catch (e) {
+        console.log("Звук не поддерживается браузером:", e);
+      }
+    }
+
+    function checkQuizAnswer(btn, selected, correct) {
+      if (answered) return;
+      answered = true;
+
+      const allBtns = document.querySelectorAll('.quiz-option-btn');
+      allBtns.forEach(b => {
+        if (b.textContent === correct) {
+          b.classList.add('correct');
+        }
+      });
+
+      if (selected === correct) {
+        score++;
+        userStats.tests[currentQuizType].correct = score;
+        playQuizSound(true);
+      } else {
+        btn.classList.add('wrong');
+        wrongAnswersCount++;
+        userStats.tests[currentQuizType].wrong = wrongAnswersCount;
+        playQuizSound(false);
+      }
+      saveUserStats();
+
+      document.getElementById('quiz-next-btn').style.display = 'block';
+    }
+
+    function nextQuizQuestion() {
+      currentIndex++;
+      if (currentIndex < currentQuestions.length) {
+        loadQuizQuestion();
+      } else {
+        document.getElementById('quiz-game').classList.remove('active');
+        document.getElementById('quiz-results').classList.add('active');
+
+        const total = currentQuestions.length;
+        const percentage = Math.round((score / total) * 100);
+
+        document.getElementById('quiz-score-text').textContent = `Вы ответили правильно на ${score} из ${total} (${percentage}%)`;
+
+        const medalIconEl = document.getElementById('quiz-medal-icon');
+        const resultTitleEl = document.getElementById('quiz-result-title');
+        const motivationEl = document.getElementById('quiz-motivation-text');
+
+        if (percentage >= 70) {
+          medalIconEl.textContent = "🥇";
+          resultTitleEl.textContent = "Золотая медаль!";
+          motivationEl.textContent = "Великолепный результат! Отличное усвоение материала ماشاء الله";
+        } else if (percentage >= 50 && percentage < 70) {
+          medalIconEl.textContent = "🥈";
+          resultTitleEl.textContent = "Серебряная медаль!";
+          motivationEl.textContent = "Хороший результат! Но есть куда расти, повтори материал.";
+        } else if (percentage >= 30 && percentage < 50) {
+          medalIconEl.textContent = "🥉";
+          resultTitleEl.textContent = "Бронзовая медаль (3 место)";
+          motivationEl.textContent = "Неплохо, но рекомендуется уделить внимание повторению уроков.";
+        } else {
+          medalIconEl.textContent = "❌";
+          resultTitleEl.textContent = "Не сдал";
+          motivationEl.textContent = "К сожалению, правильных ответов меньше 30%. Пройди материал заново и попробуй снова!";
+        }
+      }
+    }
+
+    const modal = document.getElementById('letterModal');
+    const modalVideo = document.getElementById('modalVideo');
+    const modalLetterTitle = document.getElementById('modalLetterTitle');
+    const modalLetterDesc = document.getElementById('modalLetterDesc');
+    const alifInfoContent = document.getElementById('alifInfoContent');
+
+    function openLetterModal(letterName, description, videoUrl) {
+      playClickSound();
+      if (modalLetterTitle) modalLetterTitle.textContent = letterName;
+      if (modalLetterDesc) modalLetterDesc.textContent = description;
+      
+      if (modalVideo) {
+        modalVideo.style.display = 'block';
+        modalVideo.src = videoUrl;
+        modalVideo.load();
+        modalVideo.play().catch(e => console.log("Автозапуск заблокирован:", e));
+      }
+      
+      if (alifInfoContent) alifInfoContent.style.display = 'none';
+      if (modal) modal.classList.add('active');
+    }
+
+    function openAlifInfo() {
+      if (modalLetterTitle) modalLetterTitle.textContent = "Алиф (ا)";
+      if (modalLetterDesc) modalLetterDesc.textContent = "Особая буква алфавита";
+
+      if (modalVideo) {
+        modalVideo.style.display = 'none';
+        modalVideo.pause();
+        modalVideo.currentTime = 0;
+        modalVideo.src = "";
+      }
+
+      if (alifInfoContent) alifInfoContent.style.display = 'block';
+      if (modal) modal.classList.add('active');
+    }
+
+    function closeModal() {
+      if (modal) modal.classList.remove('active');
+      if (modalVideo) {
+        modalVideo.pause();
+        modalVideo.currentTime = 0;
+        modalVideo.src = "";
+      }
+    }
+
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          closeModal();
+        }
+      });
+    }
+
+    function setTheme(themeName) {
+      document.body.classList.remove('theme-light', 'theme-green');
+      if (themeName === 'light') {
+        document.body.classList.add('theme-light');
+      } else if (themeName === 'green') {
+        document.body.classList.add('theme-green');
+      }
+      localStorage.setItem('app_theme', themeName);
+      closeSettings();
+    }
+
+    function openSettings() {
+      document.getElementById('settings-modal').classList.add('active');
+    }
+
+    function closeSettings() {
+      document.getElementById('settings-modal').classList.remove('active');
+    }
+
+    document.querySelectorAll('.modal').forEach(m => {
+      m.addEventListener('click', (e) => {
+        if (e.target === m) {
+          m.classList.remove('active');
+        }
+      });
+    });
+
+    function changeFontSize(scaleValue) {
+      document.documentElement.style.setProperty('--base-font-scale', scaleValue);
+      const percent = Math.round(scaleValue * 100);
+      document.getElementById('font-percentage').textContent = percent + '%';
+      localStorage.setItem('app_font_scale', scaleValue);
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      // Инициализация
+      loadAndRenderWordsAndPhrases();
+      loadAppData();
+      
+      const savedTheme = localStorage.getItem('app_theme');
+      if (savedTheme) {
+        setTheme(savedTheme);
+      }
+
+      const savedScale = localStorage.getItem('app_font_scale');
+      if (savedScale) {
+        document.getElementById('font-slider').value = savedScale;
+        changeFontSize(savedScale);
+      }
+
+      // Восстановление чекбоксов
+      Object.keys(userStats.learnedItems).forEach(key => {
+        const parts = key.split('_');
+        const cat = parts[0];
+        const id = parts.slice(1).join('_');
+        let chk = null;
+        if (cat === 'tajweed') {
+          chk = document.getElementById('check-tajweed-' + id);
+        } else if (cat === 'word') {
+          chk = document.getElementById('check-word-' + id);
+        } else if (cat === 'phrase') {
+          chk = document.getElementById('check-phrase-' + id);
+        }
+        if (chk) chk.checked = true;
+      });
     });
   </script>
 </body>
