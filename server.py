@@ -43,11 +43,18 @@ def init_db():
 # Инициализируем таблицу при старте
 init_db()
 
+from fastapi.responses import HTMLResponse, Response
+
 @app.get("/", response_class=HTMLResponse)
 async def serve_index():
     if os.path.exists("index.html"):
         with open("index.html", "r", encoding="utf-8") as f:
-            return f.read()
+            content = f.read()
+        # Возвращаем HTML с заголовками, чтобы браузер не кешировал его
+        return Response(content=content, media_type="text/html", headers={
+            "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+            "Pragma": "no-cache"
+        })
     return "<h1>Index.html not found</h1>"
 
 @app.get("/api/subscription")
