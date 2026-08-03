@@ -1457,53 +1457,54 @@
     }
 
     async function paySubscription() {
-    let userId = 12345678;
-    if (window.Telegram?.WebApp?.initDataUnsafe?.user?.id) {
-        userId = window.Telegram.WebApp.initDataUnsafe.user.id;
+      let userId = 12345678;
+      if (window.Telegram?.WebApp?.initDataUnsafe?.user?.id) {
+          userId = window.Telegram.WebApp.initDataUnsafe.user.id;
+      }
+
+      try {
+          const response = await fetch(`/api/create-payment?user_id=${userId}`);
+          const data = await response.json();
+          
+          console.log('Ответ от сервера оплаты:', data);
+
+          const paymentUrl = data.confirmation_url || data.confirmation?.confirmation_url || data.url;
+
+          if (paymentUrl) {
+              if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.openLink) {
+                  window.Telegram.WebApp.openLink(paymentUrl);
+              } else {
+                  window.location.href = paymentUrl;
+              }
+          } else {
+              alert('Не удалось получить ссылку на оплату от сервера.');
+          }
+      } catch (error) {
+          console.error('Ошибка создания платежа:', error);
+      }
     }
 
-async function checkAccessAndOpen(screenId) {
-        let userId = 12345678;
-        if (window.Telegram?.WebApp?.initDataUnsafe?.user?.id) {
-            userId = window.Telegram.WebApp.initDataUnsafe.user.id;
-        }
+    async function checkAccessAndOpen(screenId) {
+      let userId = 12345678;
+      if (window.Telegram?.WebApp?.initDataUnsafe?.user?.id) {
+          userId = window.Telegram.WebApp.initDataUnsafe.user.id;
+      }
 
-        try {
-            const response = await fetch(`/api/subscription?user_id=${userId}`);
-            const data = await response.json();
+      try {
+          const response = await fetch(`/api/subscription?user_id=${userId}`);
+          const data = await response.json();
 
-            if (data && data.active) {
-                showScreen(screenId);
-            } else {
-                showScreen('screen-subscription');
-                alert('Срок бесплатного доступа истек. Пожалуйста, оформите подписку для продолжения.');
-            }
-        } catch (error) {
-            console.error('Ошибка проверки подписки:', error);
-            showScreen(screenId);
-        }
+          if (data && data.active) {
+              showScreen(screenId);
+          } else {
+              showScreen('screen-subscription');
+              alert('Срок бесплатного доступа истек. Пожалуйста, оформите подписку для продолжения.');
+          }
+      } catch (error) {
+          console.error('Ошибка проверки подписки:', error);
+          showScreen(screenId);
+      }
     }
-    try {
-        const response = await fetch(`/api/create-payment?user_id=${userId}`);
-        const data = await response.json();
-        
-        console.log('Ответ от сервера оплаты:', data); // Исправлено с _log на log
-
-        const paymentUrl = data.confirmation_url || data.confirmation?.confirmation_url || data.url;
-
-        if (paymentUrl) {
-            if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.openLink) {
-                window.Telegram.WebApp.openLink(paymentUrl);
-            } else {
-                window.location.href = paymentUrl;
-            }
-        } else {
-            alert('Не удалось получить ссылку на оплату от сервера.');
-        }
-    } catch (error) {
-        console.error('Ошибка создания платежа:', error);
-    }
-}
 
     async function loadAppData() {
       try {
@@ -1591,7 +1592,6 @@ async function checkAccessAndOpen(screenId) {
                         </label>
                     `;
                 });
-                // Добавляем плашку в самый конец списка слов
                 wordsHtml += `
                     <div class="coming-soon-box" style="margin-top: 24px;">
                         <div class="coming-soon-icon">✨</div>
@@ -1621,7 +1621,6 @@ async function checkAccessAndOpen(screenId) {
                         </label>
                     `;
                 });
-                // Добавляем плашку в самый конец списка фраз
                 phrasesHtml += `
                     <div class="coming-soon-box" style="margin-top: 24px;">
                         <div class="coming-soon-icon">✨</div>
@@ -1803,7 +1802,6 @@ async function checkAccessAndOpen(screenId) {
             const [datePart, fullTimePart] = data.expires_at.split(" ");
             const timePart = fullTimePart ? fullTimePart.substring(0, 5) : "";
             
-            // Превращаем "2026-08-05" в "05.08.2026"
             const [year, month, day] = datePart.split("-");
             const formattedDate = `${day}.${month}.${year}`;
             
