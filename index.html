@@ -555,34 +555,58 @@
         <div class="header-subtitle">السَّلَامُ عَلَيْكُمْ, <span id="user-name">Гость</span>!</div>
       </div>
 
-      <!-- ================= ГЛАВНЫЙ ЭКРАН ================= -->
-    <div id="screen-home" class="screen active">
-      
-      <!-- Шапка -->
-      <div class="header-arch">
-        <div class="header-top-actions">
-          <button class="header-btn" onclick="openSettings()" title="Настройки">⚙️</button>
-        </div>
-        <div class="header-title">arabiabot</div>
-        <div class="header-subtitle">السَّلَامُ عَلَيْكُمْ, <span id="user-name">Гость</span>!</div>
-      </div>
-
       <!-- Главное меню -->
       <div class="menu-grid">
         
         <!-- 1. Арабский алфавит -->
-        <div class="menu-card" onclick="openAlphabet()">...</div>
+        <div class="menu-card" onclick="openAlphabet()">
+          <div class="menu-card-left">
+            <div class="menu-icon-box">📚</div>
+            <div>
+              <div class="menu-title">Арабский алфавит</div>
+              <div class="menu-subtitle">Буквы и артикуляция</div>
+            </div>
+          </div>
+          <span class="menu-arrow">›</span>
+        </div>
 
         <!-- 2. Правила Таджвида -->
-        <div class="menu-card" onclick="checkAccessAndOpen('screen-tajweed')">...</div>
+        <div class="menu-card" onclick="checkAccessAndOpen('screen-tajweed')">
+          <div class="menu-card-left">
+            <div class="menu-icon-box">📖</div>
+            <div>
+              <div class="menu-title">Правила Таджвида</div>
+              <div class="menu-subtitle">Основы чтения Корана</div>
+            </div>
+          </div>
+          <span class="menu-arrow">›</span>
+        </div>
 
         <!-- 3. Слова и фразы -->
-        <div class="menu-card" onclick="checkAccessAndOpen('screen-words-phrases')">...</div>
+        <div class="menu-card" onclick="checkAccessAndOpen('screen-words-phrases')">
+          <div class="menu-card-left">
+            <div class="menu-icon-box">🗣️</div>
+            <div>
+              <div class="menu-title">Слова и фразы</div>
+              <div class="menu-subtitle">Полезная лексика и выражения</div>
+            </div>
+          </div>
+          <span class="menu-arrow">›</span>
+        </div>
 
         <!-- 4. Практика и Тесты -->
-        <div class="menu-card" onclick="checkAccessAndOpen('screen-quiz')">...</div>
+        <div class="menu-card" onclick="checkAccessAndOpen('screen-quiz')">
+          <div class="menu-card-left">
+            <div class="menu-icon-box">⚡</div>
+            <div>
+              <div class="menu-title">Практика и Тесты</div>
+              <div class="menu-subtitle">Закрепление знаний</div>
+            </div>
+          </div>
+          <span class="menu-arrow">›</span>
+        </div>
 
-        <!-- 5. Тренажер чтения (теперь она здесь, внутри menu-grid) -->
+        <!-- 5. Тренажер чтения -->
         <div class="menu-card" onclick="showScreen('screen-audio-trainer')">
           <div class="menu-card-left">
             <div class="menu-icon-box">🎙️</div>
@@ -594,8 +618,8 @@
           <span class="menu-arrow">›</span>
         </div>
 
-      </div> <!-- Закрывается .menu-grid -->
-    </div> <!-- Закрывается #screen-home -->
+      </div>
+    </div>
 
 
     <!-- ================= ЭКРАН ПРАВИЛ ТАДЖВИДА ================= -->
