@@ -861,7 +861,7 @@
           <p>Если после م с сукуном идет обычная движущаяся م, первая мим полностью растворяется во второй, образуя единую сдвоенную мим с долгим звуком в носу.</p>
           <h4>Примеры из Корана:</h4>
           <div class="example-box"><div class="example-content"><div class="example-arabic">لَكُمْ مَا كَسَبْتُمْ</div><div class="example-text">[лакум-ма касабтум] (слияние двух мим).</div></div><button class="speak-btn" onclick="speakText('لَكُمْ مَا كَسَبْتُمْ')">🔊</button></div>
-          <div class="example-box"><div class="example-content"><div class="example-arabic">أَنْتُمْ مُؤْمِنُونَ</div><div class="example-text">[антум-муъминуун] (слияние звуков между словами).</div></div><button class="speak-btn" onclick="speakText('أَنْتُمْ مُؤْمِنُونَ')">🔊</button></div>
+          <div class="example-box"><div class="example-content"><div class="example-arabic">أَنْتُمْ مُؤْمِنُونَ</div><div class="example-text">[ан-муъминуун] (слияние звуков между словами).</div></div><button class="speak-btn" onclick="speakText('أَنْتُمْ مُؤْمِنُونَ')">🔊</button></div>
           <div class="example-box"><div class="example-content"><div class="example-arabic">مِنْ حَطَمَةٍ مُوقَدَةٍ</div><div class="example-text">[мим-хатаматиль-муқадах] (мим переходит в мим).</div></div><button class="speak-btn" onclick="speakText('مِنْ حَطَمَةٍ مُوقَدَةٍ')">🔊</button></div>
 
           <label class="learn-check-label"><input type="checkbox" id="check-tajweed-12" onchange="toggleLearnItem('tajweed', 12, 'Уровень 12. Мим Сакина: Идгам Мисли', this.checked)"> Отметить как выученное ✅</label>
@@ -1385,7 +1385,7 @@
     </div>
 
 
-    <!-- ================= ЭКРАН: ТРЕНАЖЕР ЧТЕНИЯ И ЗАПИСИ ================= -->
+    <!-- ================= ЭКРАН: ТРЕНАЖЕР ЧТЕНИЯ ================= -->
     <div id="screen-audio-trainer" class="screen">
       <div class="lesson-header">
         <button class="back-button" onclick="goHome()">←</button>
@@ -1393,28 +1393,24 @@
         <span>🎙️</span>
       </div>
 
-      <!-- Стили для подсветки таджвида -->
       <style>
-        .tajweed-madd { color: #ff7675; font-weight: bold; } /* Красный: Удлинение (Мадд) */
-        .tajweed-ghunna { color: #55efc4; font-weight: bold; } /* Зеленый: Носовой звук (Гунна / Ихфа) */
-        .tajweed-qalqalah { color: #74b9ff; font-weight: bold; } /* Синий: Эхо (Калькаля) */
+        .tajweed-madd { color: #ff7675; font-weight: bold; }
+        .tajweed-ghunna { color: #55efc4; font-weight: bold; }
+        .tajweed-qalqalah { color: #74b9ff; font-weight: bold; }
         .tajweed-normal { color: var(--gold-light); }
       </style>
 
-      <!-- Карточка с сурой -->
       <div class="tajweed-content-box" style="text-align: center; padding: 20px;">
         <h3 style="margin-bottom: 8px; color: var(--gold-light);">Сура 1: Аль-Фатиха (Открывающая)</h3>
         <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 12px;">Чтец: Шейх Айман Суэйд</p>
         
-        <!-- Легенда цветов таджвида -->
         <div style="display: flex; justify-content: center; gap: 12px; font-size: 11px; margin-bottom: 16px; flex-wrap: wrap;">
           <span><span style="color: #ff7675;">■</span> Мадд (тянем)</span>
           <span><span style="color: #55efc4;">■</span> Гунна (в нос)</span>
           <span><span style="color: #74b9ff;">■</span> Калькаля (эхо)</span>
         </div>
 
-        <!-- Текст суры Аль-Фатиха с цветным таджвидом -->
-        <div style="font-family: 'Amiri Quran', serif; font-size: calc(22px * var(--base-font-scale)); direction: rtl; line-height: 2.3; margin-bottom: 20px; background: rgba(0,0,0,0.25); padding: 18px; border-radius: 12px; text-align: right;">
+        <div style="font-family: 'Amiri Quran', serif; font-size: calc(24px * var(--base-font-scale)); direction: rtl; line-height: 2.3; margin-bottom: 20px; background: rgba(0,0,0,0.25); padding: 18px; border-radius: 12px; text-align: right;">
           <span class="tajweed-normal">بِسْمِ </span><span class="tajweed-normal">اللَّهِ </span><span class="tajweed-normal">الرَّحْمَ</span><span class="tajweed-madd">ـنِ </span><span class="tajweed-normal">الرَّحِي</span><span class="tajweed-madd">مِ</span> <br>
           <span class="tajweed-normal">الْحَمْدُ </span><span class="tajweed-normal">لِلَّهِ </span><span class="tajweed-normal">رَبِّ </span><span class="tajweed-normal">الْعَالَمِي</span><span class="tajweed-madd">نَ</span> <br>
           <span class="tajweed-normal">الرَّحْمَ</span><span class="tajweed-madd">ـنِ </span><span class="tajweed-normal">الرَّحِي</span><span class="tajweed-madd">مِ</span> <br>
@@ -1424,23 +1420,21 @@
           <span class="tajweed-normal">صِرَاطَ </span><span class="tajweed-normal">الَّذِينَ </span><span class="tajweed-normal">أَنْعَمْتَ </span><span class="tajweed-normal">عَلَيْهِمْ </span><span class="tajweed-normal">غَيْرِ </span><span class="tajweed-normal">الْمَغْضُوبِ </span><span class="tajweed-normal">عَلَيْهِمْ </span><span class="tajweed-normal">وَلَا </span><span class="tajweed-normal">الضَّالِّي</span><span class="tajweed-madd">نَ</span>
         </div>
 
-        <!-- Кнопка прослушивания шейха -->
-        <button class="main-button" onclick="playSheikhAudio()" style="margin-bottom: 12px; background: linear-gradient(135deg, #00b894, #00cec9); color: white;">
+        <!-- Кнопка управления чтецом (воспроизведение / пауза) -->
+        <button id="sheikh-play-btn" class="main-button" onclick="toggleSheikhAudio()" style="margin-bottom: 12px; background: linear-gradient(135deg, #00b894, #00cec9); color: white;">
           🔊 Слушать чтеца (Айман Суэйд)
         </button>
-
-        <audio id="sheikh-audio" src="https://everyayah.com/data/Ayman_Sowaid_64kbps/001001.mp3" preload="auto"></audio>
       </div>
 
       <!-- Блок диктофона для записи пользователя -->
       <div class="tajweed-content-box" style="text-align: center; padding: 20px; margin-top: 16px;">
-        <h3 style="margin-bottom: 10px; color: var(--gold-light);">🎙️ Ваш диктофон</h3>
+        <h3 style="margin-bottom: 10px; color: var(--gold-light);">🎙️ Ваш диктофон (до 5 записей)</h3>
         <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 16px;">
-          Нажмите запись, прочитайте суру вслух, соблюдая цветные правила, затем прослушайте себя.
+          Запишите своё чтение, прослушайте и сравните с чтецом. Записи сохраняются автоматически.
         </p>
 
         <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 15px;">
-          <button id="start-rec-btn" class="main-button" onclick="startRecording()" style="margin: 0; background: var(--accent-red); color: white;">
+          <button id="start-rec-btn" class="main-button" onclick="startRecording()" style="margin: 0; background: var(--accent-red, #ff7675); color: white;">
             🔴 Запись
           </button>
           <button id="stop-rec-btn" class="main-button" onclick="stopRecording()" style="margin: 0; background: #636e72; color: white; display: none;">
@@ -1448,23 +1442,11 @@
           </button>
         </div>
 
-        <div id="user-audio-container" style="display: none; margin-top: 15px; border-top: 1px dashed var(--card-border); padding-top: 15px;">
-          <p style="font-size: 13px; color: var(--gold-light); margin-bottom: 8px; font-weight: 600;">Ваша запись:</p>
-          <audio id="user-audio-player" controls style="width: 100%;"></audio>
+        <!-- Список сохраненных записей -->
+        <div id="recordings-list-container" style="margin-top: 15px;">
+          <!-- Сюда динамически выводятся записи пользователя -->
         </div>
       </div>
-
-      <button class="main-button" onclick="goHome()" style="margin-top: 20px;">На главную</button>
-    </div>
-
-      <div class="tajweed-content-box" style="text-align: center; padding: 25px 20px;">
-        <h3 style="margin-bottom: 12px; color: var(--gold-light);">🎙️ Практика произношения</h3>
-        <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;">
-          Здесь будет выбор сур, плеер чтецов и диктофон для записи вашего голоса.
-        </p>
-      </div>
-
-      <button class="main-button" onclick="goHome()">На главную</button>
     </div>
 
   </div>
@@ -1569,8 +1551,6 @@
           const response = await fetch(`/api/create-payment?user_id=${userId}`);
           const data = await response.json();
           
-          console.log('Ответ от сервера оплаты:', data);
-
           const paymentUrl = data.confirmation_url || data.confirmation?.confirmation_url || data.url;
 
           if (paymentUrl) {
@@ -1669,6 +1649,143 @@
       }
     }
 
+    /* ================= ЛОГИКА ВОСПРОИЗВЕДЕНИЯ ВСЕЙ СУРЫ ШЕЙХОМ (С ПАУЗОЙ) ================= */
+    let currentAyah = 1;
+    const totalAyahs = 7;
+    let isPlayingSheikh = false;
+    let sheikhAudio = new Audio();
+
+    function toggleSheikhAudio() {
+      const btn = document.getElementById('sheikh-play-btn');
+      if (isPlayingSheikh) {
+        sheikhAudio.pause();
+        isPlayingSheikh = false;
+        btn.textContent = "▶️ Продолжить чтение";
+      } else {
+        if (sheikhAudio.src && sheikhAudio.paused && sheikhAudio.currentTime > 0) {
+          sheikhAudio.play();
+          isPlayingSheikh = true;
+          btn.textContent = `⏸️ Пауза (Аят ${currentAyah}/${totalAyahs})`;
+        } else {
+          currentAyah = 1;
+          playNextAyah();
+        }
+      }
+    }
+
+    function playNextAyah() {
+      if (currentAyah > totalAyahs) {
+        isPlayingSheikh = false;
+        currentAyah = 1;
+        document.getElementById('sheikh-play-btn').textContent = "🔊 Слушать чтеца (Айман Суэйд)";
+        return;
+      }
+      let ayahStr = String(currentAyah).padStart(3, '0');
+      let url = `https://everyayah.com/data/Ayman_Sowaid_64kbps/001${ayahStr}.mp3`;
+      sheikhAudio.src = url;
+      sheikhAudio.play().then(() => {
+        isPlayingSheikh = true;
+        document.getElementById('sheikh-play-btn').textContent = `⏸️ Пауза (Аят ${currentAyah}/${totalAyahs})`;
+      }).catch(e => {
+        console.log("Ошибка воспроизведения аудио:", e);
+      });
+
+      sheikhAudio.onended = () => {
+        currentAyah++;
+        playNextAyah();
+      };
+    }
+
+    /* ================= ДИКТОФОН С СОХРАНЕНИЕМ ДО 5 ЗАПИСЕЙ ================= */
+    let mediaRecorder;
+    let audioChunks = [];
+    let userRecordings = JSON.parse(localStorage.getItem('app_user_recordings')) || [];
+
+    function saveRecordingToStorage(blob) {
+      if (userRecordings.length >= 5) {
+        alert("Достигнут лимит в 5 записей. Удалите одну из существующих записей перед добавлением новой.");
+        return;
+      }
+      const reader = new FileReader();
+      reader.readAsDataURL(blob);
+      reader.onloadend = function() {
+        const base64data = reader.result;
+        userRecordings.push({
+          id: Date.now(),
+          date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+          data: base64data
+        });
+        localStorage.setItem('app_user_recordings', JSON.stringify(userRecordings));
+        renderRecordingsList();
+      }
+    }
+
+    function deleteRecording(id) {
+      userRecordings = userRecordings.filter(rec => rec.id !== id);
+      localStorage.setItem('app_user_recordings', JSON.stringify(userRecordings));
+      renderRecordingsList();
+    }
+
+    function renderRecordingsList() {
+      const container = document.getElementById('recordings-list-container');
+      if (!container) return;
+      if (userRecordings.length === 0) {
+        container.innerHTML = '<p style="color: var(--text-secondary); font-size: 13px;">У вас пока нет сохраненных записей.</p>';
+        return;
+      }
+      let html = '';
+      userRecordings.forEach((rec, idx) => {
+        html += `
+          <div style="background: rgba(255,255,255,0.04); border: 1px solid var(--card-border); padding: 12px; border-radius: 12px; margin-bottom: 12px; text-align: left;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span style="font-size: 12px; color: var(--gold-light); font-weight: 600;">Запись #${idx + 1} (${rec.date})</span>
+              <button onclick="deleteRecording(${rec.id})" style="background: var(--accent-red, #ff7675); color: white; border: none; padding: 4px 10px; border-radius: 6px; font-size: 11px; cursor: pointer; font-weight: bold;">🗑️ Удалить</button>
+            </div>
+            <audio controls src="${rec.data}" style="width: 100%; height: 36px;"></audio>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    async function startRecording() {
+      if (userRecordings.length >= 5) {
+        alert("Достигнут лимит в 5 записей. Пожалуйста, удалите старую запись.");
+        return;
+      }
+      audioChunks = [];
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+
+        mediaRecorder.ondataavailable = (event) => {
+          audioChunks.push(event.data);
+        };
+
+        mediaRecorder.onstop = () => {
+          const audioBlob = new Blob(audioChunks, { type: 'audio/mp3' });
+          saveRecordingToStorage(audioBlob);
+          stream.getTracks().forEach(track => track.stop());
+        };
+
+        mediaRecorder.start();
+        document.getElementById('start-rec-btn').style.display = 'none';
+        document.getElementById('stop-rec-btn').style.display = 'block';
+      } catch (err) {
+        console.error("Ошибка доступа к микрофону:", err);
+        alert("Не удалось получить доступ к микрофону. Проверьте разрешения устройства.");
+      }
+    }
+
+    function stopRecording() {
+      if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+        mediaRecorder.stop();
+      }
+      document.getElementById('start-rec-btn').style.display = 'block';
+      document.getElementById('stop-rec-btn').style.display = 'none';
+    }
+
+
     // Функция для динамической загрузки и отрисовки слов и фраз из words.json
     async function loadAndRenderWordsAndPhrases() {
         try {
@@ -1695,7 +1812,6 @@
                         </label>
                     `;
                 });
-                // Добавляем плашку в самый конец списка слов
                 wordsHtml += `
                     <div class="coming-soon-box" style="margin-top: 24px;">
                         <div class="coming-soon-icon">✨</div>
@@ -1725,7 +1841,6 @@
                         </label>
                     `;
                 });
-                // Добавляем плашку в самый конец списка фраз
                 phrasesHtml += `
                     <div class="coming-soon-box" style="margin-top: 24px;">
                         <div class="coming-soon-icon">✨</div>
@@ -2256,6 +2371,7 @@
     window.addEventListener('DOMContentLoaded', () => {
       loadAndRenderWordsAndPhrases();
       loadAppData();
+      renderRecordingsList();
       
       const savedTheme = localStorage.getItem('app_theme');
       if (savedTheme) {
@@ -2284,66 +2400,6 @@
         if (chk) chk.checked = true;
       });
     });
-    /* ================= ТРЕНАЖЕР ЧТЕНИЯ И ДИКТОФОН ================= */
-    
-    // Функция воспроизведения аудио шейха Аймана Суэйда
-    function playSheikhAudio() {
-      const audio = document.getElementById('sheikh-audio');
-      if (audio.paused) {
-        audio.play().catch(e => {
-          console.log("Ошибка воспроизведения аудио чтеца:", e);
-          alert("Не удалось воспроизвести аудио поток.");
-        });
-      } else {
-        audio.pause();
-        audio.currentTime = 0;
-      }
-    }
-
-    // Переменные для диктофона
-    let mediaRecorder;
-    let audioChunks = [];
-
-    // Запуск записи голоса
-    async function startRecording() {
-      audioChunks = [];
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        mediaRecorder = new MediaRecorder(stream);
-
-        mediaRecorder.ondataavailable = (event) => {
-          audioChunks.push(event.data);
-        };
-
-        mediaRecorder.onstop = () => {
-          const audioBlob = new Blob(audioChunks, { type: 'audio/mp3' });
-          const audioUrl = URL.createObjectURL(audioBlob);
-          
-          const player = document.getElementById('user-audio-player');
-          player.src = audioUrl;
-          
-          document.getElementById('user-audio-container').style.display = 'block';
-        };
-
-        mediaRecorder.start();
-        document.getElementById('start-rec-btn').style.display = 'none';
-        document.getElementById('stop-rec-btn').style.display = 'block';
-      } catch (err) {
-        console.error("Ошибка доступа к микрофону:", err);
-        alert("Не удалось получить доступ к микрофону. Проверьте разрешения в браузере или Telegram.");
-      }
-    }
-
-    // Остановка записи голоса
-    function stopRecording() {
-      if (mediaRecorder && mediaRecorder.state !== 'inactive') {
-        mediaRecorder.stop();
-        // Останавливаем потоки микрофона, чтобы индикатор записи погас
-        mediaRecorder.stream.getTracks().forEach(track => track.stop());
-      }
-      document.getElementById('start-rec-btn').style.display = 'block';
-      document.getElementById('stop-rec-btn').style.display = 'none';
-    }
   </script>
 </body>
 </html>
