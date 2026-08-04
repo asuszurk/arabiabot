@@ -1385,13 +1385,77 @@
     </div>
 
 
-    <!-- ================= ЭКРАН: ТРЕНАЖЕР ЧТЕНИЯ ================= -->
+    <!-- ================= ЭКРАН: ТРЕНАЖЕР ЧТЕНИЯ И ЗАПИСИ ================= -->
     <div id="screen-audio-trainer" class="screen">
       <div class="lesson-header">
         <button class="back-button" onclick="goHome()">←</button>
         <span>Тренажер чтения</span>
         <span>🎙️</span>
       </div>
+
+      <!-- Стили для подсветки таджвида -->
+      <style>
+        .tajweed-madd { color: #ff7675; font-weight: bold; } /* Красный: Удлинение (Мадд) */
+        .tajweed-ghunna { color: #55efc4; font-weight: bold; } /* Зеленый: Носовой звук (Гунна / Ихфа) */
+        .tajweed-qalqalah { color: #74b9ff; font-weight: bold; } /* Синий: Эхо (Калькаля) */
+        .tajweed-normal { color: var(--gold-light); }
+      </style>
+
+      <!-- Карточка с сурой -->
+      <div class="tajweed-content-box" style="text-align: center; padding: 20px;">
+        <h3 style="margin-bottom: 8px; color: var(--gold-light);">Сура 1: Аль-Фатиха (Открывающая)</h3>
+        <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 12px;">Чтец: Шейх Айман Суэйд</p>
+        
+        <!-- Легенда цветов таджвида -->
+        <div style="display: flex; justify-content: center; gap: 12px; font-size: 11px; margin-bottom: 16px; flex-wrap: wrap;">
+          <span><span style="color: #ff7675;">■</span> Мадд (тянем)</span>
+          <span><span style="color: #55efc4;">■</span> Гунна (в нос)</span>
+          <span><span style="color: #74b9ff;">■</span> Калькаля (эхо)</span>
+        </div>
+
+        <!-- Текст суры Аль-Фатиха с цветным таджвидом -->
+        <div style="font-family: 'Amiri Quran', serif; font-size: calc(22px * var(--base-font-scale)); direction: rtl; line-height: 2.3; margin-bottom: 20px; background: rgba(0,0,0,0.25); padding: 18px; border-radius: 12px; text-align: right;">
+          <span class="tajweed-normal">بِسْمِ </span><span class="tajweed-normal">اللَّهِ </span><span class="tajweed-normal">الرَّحْمَ</span><span class="tajweed-madd">ـنِ </span><span class="tajweed-normal">الرَّحِي</span><span class="tajweed-madd">مِ</span> <br>
+          <span class="tajweed-normal">الْحَمْدُ </span><span class="tajweed-normal">لِلَّهِ </span><span class="tajweed-normal">رَبِّ </span><span class="tajweed-normal">الْعَالَمِي</span><span class="tajweed-madd">نَ</span> <br>
+          <span class="tajweed-normal">الرَّحْمَ</span><span class="tajweed-madd">ـنِ </span><span class="tajweed-normal">الرَّحِي</span><span class="tajweed-madd">مِ</span> <br>
+          <span class="tajweed-normal">مَالِكِ </span><span class="tajweed-normal">يَوْمِ </span><span class="tajweed-normal">الدِّي</span><span class="tajweed-madd">نِ</span> <br>
+          <span class="tajweed-normal">إِيَّاكَ </span><span class="tajweed-normal">نَعْبُ</span><span class="tajweed-qalqalah">دُ</span> <span class="tajweed-normal">وَإِيَّاكَ </span><span class="tajweed-normal">نَسْتَعِي</span><span class="tajweed-madd">نُ</span> <br>
+          <span class="tajweed-normal">اهْدِنَا </span><span class="tajweed-normal">الصِّرَاطَ </span><span class="tajweed-normal">الْمُسْتَقِي</span><span class="tajweed-madd">مَ</span> <br>
+          <span class="tajweed-normal">صِرَاطَ </span><span class="tajweed-normal">الَّذِينَ </span><span class="tajweed-normal">أَنْعَمْتَ </span><span class="tajweed-normal">عَلَيْهِمْ </span><span class="tajweed-normal">غَيْرِ </span><span class="tajweed-normal">الْمَغْضُوبِ </span><span class="tajweed-normal">عَلَيْهِمْ </span><span class="tajweed-normal">وَلَا </span><span class="tajweed-normal">الضَّالِّي</span><span class="tajweed-madd">نَ</span>
+        </div>
+
+        <!-- Кнопка прослушивания шейха -->
+        <button class="main-button" onclick="playSheikhAudio()" style="margin-bottom: 12px; background: linear-gradient(135deg, #00b894, #00cec9); color: white;">
+          🔊 Слушать чтеца (Айман Суэйд)
+        </button>
+
+        <audio id="sheikh-audio" src="https://everyayah.com/data/Ayman_Sowaid_64kbps/001001.mp3" preload="auto"></audio>
+      </div>
+
+      <!-- Блок диктофона для записи пользователя -->
+      <div class="tajweed-content-box" style="text-align: center; padding: 20px; margin-top: 16px;">
+        <h3 style="margin-bottom: 10px; color: var(--gold-light);">🎙️ Ваш диктофон</h3>
+        <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 16px;">
+          Нажмите запись, прочитайте суру вслух, соблюдая цветные правила, затем прослушайте себя.
+        </p>
+
+        <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 15px;">
+          <button id="start-rec-btn" class="main-button" onclick="startRecording()" style="margin: 0; background: var(--accent-red); color: white;">
+            🔴 Запись
+          </button>
+          <button id="stop-rec-btn" class="main-button" onclick="stopRecording()" style="margin: 0; background: #636e72; color: white; display: none;">
+            ⏹️ Стоп
+          </button>
+        </div>
+
+        <div id="user-audio-container" style="display: none; margin-top: 15px; border-top: 1px dashed var(--card-border); padding-top: 15px;">
+          <p style="font-size: 13px; color: var(--gold-light); margin-bottom: 8px; font-weight: 600;">Ваша запись:</p>
+          <audio id="user-audio-player" controls style="width: 100%;"></audio>
+        </div>
+      </div>
+
+      <button class="main-button" onclick="goHome()" style="margin-top: 20px;">На главную</button>
+    </div>
 
       <div class="tajweed-content-box" style="text-align: center; padding: 25px 20px;">
         <h3 style="margin-bottom: 12px; color: var(--gold-light);">🎙️ Практика произношения</h3>
@@ -2220,6 +2284,66 @@
         if (chk) chk.checked = true;
       });
     });
+    /* ================= ТРЕНАЖЕР ЧТЕНИЯ И ДИКТОФОН ================= */
+    
+    // Функция воспроизведения аудио шейха Аймана Суэйда
+    function playSheikhAudio() {
+      const audio = document.getElementById('sheikh-audio');
+      if (audio.paused) {
+        audio.play().catch(e => {
+          console.log("Ошибка воспроизведения аудио чтеца:", e);
+          alert("Не удалось воспроизвести аудио поток.");
+        });
+      } else {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    }
+
+    // Переменные для диктофона
+    let mediaRecorder;
+    let audioChunks = [];
+
+    // Запуск записи голоса
+    async function startRecording() {
+      audioChunks = [];
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+
+        mediaRecorder.ondataavailable = (event) => {
+          audioChunks.push(event.data);
+        };
+
+        mediaRecorder.onstop = () => {
+          const audioBlob = new Blob(audioChunks, { type: 'audio/mp3' });
+          const audioUrl = URL.createObjectURL(audioBlob);
+          
+          const player = document.getElementById('user-audio-player');
+          player.src = audioUrl;
+          
+          document.getElementById('user-audio-container').style.display = 'block';
+        };
+
+        mediaRecorder.start();
+        document.getElementById('start-rec-btn').style.display = 'none';
+        document.getElementById('stop-rec-btn').style.display = 'block';
+      } catch (err) {
+        console.error("Ошибка доступа к микрофону:", err);
+        alert("Не удалось получить доступ к микрофону. Проверьте разрешения в браузере или Telegram.");
+      }
+    }
+
+    // Остановка записи голоса
+    function stopRecording() {
+      if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+        mediaRecorder.stop();
+        // Останавливаем потоки микрофона, чтобы индикатор записи погас
+        mediaRecorder.stream.getTracks().forEach(track => track.stop());
+      }
+      document.getElementById('start-rec-btn').style.display = 'block';
+      document.getElementById('stop-rec-btn').style.display = 'none';
+    }
   </script>
 </body>
 </html>
