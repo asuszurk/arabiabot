@@ -1670,11 +1670,14 @@
     }
 
     /* ================= ЛОГИКА ПЛЕЕРА С ПОЛЗУНКОМ ================= */
-    let sheikhAudio = new Audio('https://download.quranicaudio.com/quran/ayman_sowaid/001.mp3');
+    /* ================= ЛОГИКА ПЛЕЕРА С ПОЛЗУНКОМ И ЗАЩИТОЙ ПОТОКА ================= */
+    // Используем стабильный и поддерживаемый зеркальный поток чтеца Аймана Суэйда
+     = new Audio('https://server8.mp3quran.net/swn/001.mp3');
+    sheikhAudio.preload = 'auto';
 
     // Обновление ползунка и таймера по мере воспроизведения
     sheikhAudio.addEventListener('timeupdate', () => {
-      if (sheikhAudio.duration) {
+      if (sheikhAudio.duration && !isNaN(sheikhAudio.duration)) {
         const progress = (sheikhAudio.currentTime / sheikhAudio.duration) * 100;
         const slider = document.getElementById('audio-slider');
         const currTimeEl = document.getElementById('current-time');
@@ -1686,21 +1689,32 @@
       }
     });
 
+    // Обработка готовности аудио
+    sheikhAudio.addEventListener('loadedmetadata', () => {
+      const totalDurEl = document.getElementById('total-duration');
+      if (totalDurEl && sheikhAudio.duration) {
+        totalDurEl.textContent = formatTime(sheikhAudio.duration);
+      }
+    });
+
     // Перемотка при перемещении ползунка
     function seekAudio(value) {
-      if (sheikhAudio.duration) {
+      if (sheikhAudio.duration && !isNaN(sheikhAudio.duration)) {
         const time = (value / 100) * sheikhAudio.duration;
         sheikhAudio.currentTime = time;
       }
     }
 
-    // Включение / пауза
+    // Включение / пауза с обработкой ошибок мобильных устройств
     function toggleSheikhAudio() {
       const btn = document.getElementById('sheikh-play-btn');
       if (sheikhAudio.paused) {
         sheikhAudio.play().then(() => {
           if (btn) btn.textContent = "⏸️ Пауза";
-        }).catch(e => console.log("Ошибка воспроизведения:", e));
+        }).catch(e => {
+          console.error("Ошибка воспроизведения аудио:", e);
+          alert("Не удалось запустить аудио. Проверьте интернет-соединение.");
+        });
       } else {
         sheikhAudio.pause();
         if (btn) btn.textContent = "▶️ Продолжить";
@@ -1719,6 +1733,7 @@
     };
 
     function formatTime(seconds) {
+      if (isNaN(seconds)) return "0:00";
       const mins = Math.floor(seconds / 60);
       const secs = Math.floor(seconds % 60);
       return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
