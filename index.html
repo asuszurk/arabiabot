@@ -8,6 +8,8 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <!-- Подключаем изящный шрифт -->
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Подключаем шрифт Amiri Quran -->
+  <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-gradient: linear-gradient(180deg, #071520 0%, #0b1e2d 50%, #061018 100%);
@@ -324,6 +326,9 @@
     .alphabet-card:active {
       transform: scale(0.95);
     }
+    .alphabet-card div:first-child {
+      font-family: 'Amiri Quran', serif;
+    }
 
     .main-button {
       width: 100%;
@@ -407,8 +412,9 @@
     }
     .example-content { flex: 1; }
     .example-arabic {
+      font-family: 'Amiri Quran', serif;
       color: var(--accent-red);
-      font-size: calc(20px * var(--base-font-scale));
+      font-size: calc(22px * var(--base-font-scale));
       font-weight: bold;
       direction: rtl;
       display: inline-block;
@@ -483,7 +489,8 @@
       color: var(--text-primary); line-height: 1.5;
     }
     .quiz-target {
-      font-size: calc(32px * var(--base-font-scale));
+      font-family: 'Amiri Quran', serif;
+      font-size: calc(36px * var(--base-font-scale));
       font-weight: bold; color: var(--gold-light);
       margin-bottom: 20px; direction: rtl;
     }
@@ -1123,7 +1130,7 @@
         <div class="tajweed-content-box">
           <h3>Все знаки остановок и продолжения чтения в Коране</h3>
           <h4>Что это за правило:</h4>
-          <p>Специальные знаки препинания в арабском тексте, регулирующие дыхание чтеца и сохраняющие правильный смысл слов Всевышнего.</p>
+          <p>Специальные знаки препинания в арабском тексте, регулирующие дыхание чтеца и сохраняющий правильный смысл слов Всевышнего.</p>
           
           <div class="example-box">
             <div class="example-text"><strong>Знак م (Обязательная остановка — Лазим):</strong> Обязательная остановка, чтобы отделить один смысл от другого.</div>
