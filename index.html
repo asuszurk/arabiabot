@@ -1431,11 +1431,19 @@
           <span class="tajweed-normal">صِرَاطَ </span><span class="tajweed-normal">الَّذِينَ </span><span class="tajweed-normal">أَنْعَمْتَ </span><span class="tajweed-normal">عَلَيْهِمْ </span><span class="tajweed-normal">غَيْرِ </span><span class="tajweed-normal">الْمَغْضُوبِ </span><span class="tajweed-normal">عَلَيْهِمْ </span><span class="tajweed-normal">وَلَا </span><span class="tajweed-normal">الضَّالِّي</span><span class="tajweed-madd">نَ</span>
         </div>
 
-        <!-- Кнопка управления и статус воспроизведения -->
-        <button id="sheikh-play-btn" class="main-button" onclick="toggleSheikhAudio()" style="margin-bottom: 8px; background: linear-gradient(135deg, #00b894, #00cec9); color: white;">
+        <!-- Кнопка воспроизведения / паузы -->
+        <button id="sheikh-play-btn" class="main-button" onclick="toggleSheikhAudio()" style="margin-bottom: 10px; background: linear-gradient(135deg, #00b894, #00cec9); color: white;">
           🔊 Слушать чтеца (Айман Суэйд)
         </button>
-        <div id="audio-status-text" style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Нажмите для прослушивания всей суры</div>
+
+        <!-- Интерактивный ползунок перемотки -->
+        <div style="margin: 10px 0 5px 0;">
+          <input type="range" id="audio-slider" value="0" min="0" max="100" step="0.1" style="width: 100%; accent-color: var(--gold-primary); cursor: pointer;" oninput="seekAudio(this.value)">
+          <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-secondary); margin-top: 4px;">
+            <span id="current-time">0:00</span>
+            <span id="total-duration">0:00</span>
+          </div>
+        </div>
       </div>
 
       <!-- Блок диктофона для записи пользователя -->
@@ -1658,65 +1666,74 @@
       }
     }
 
-    /* ================= НАДЕЖНЫЙ CDN-ПЛЕЕР АЙМАНА СУЭЙДА ================= */
-    let currentAyah = 1;
-    const totalAyahs = 7;
-    let isPlayingSheikh = false;
-    let sheikhAudio = new Audio();
+/* ================= ЛОГИКА ПЛЕЕРА С ПОЛЗУНКОМ И ПЕРЕМОТКОЙ ================= */
+    let sheikhAudio = new Audio('https://server8.mp3quran.net/swn/001.mp3');
+    sheikhAudio.preload = 'auto';
 
+    // Автоматическое обновление ползунка по мере проигрывания
+    sheikhAudio.addEventListener('timeupdate', () => {
+      if (sheikhAudio.duration && !isNaN(sheikhAudio.duration)) {
+        const progress = (sheikhAudio.currentTime / sheikhAudio.duration) * 100;
+        const slider = document.getElementById('audio-slider');
+        const currTimeEl = document.getElementById('current-time');
+        const totalDurEl = document.getElementById('total-duration');
+        
+        if (slider) slider.value = progress;
+        if (currTimeEl) currTimeEl.textContent = formatTime(sheikhAudio.currentTime);
+        if (totalDurEl) totalDurEl.textContent = formatTime(sheikhAudio.duration);
+      }
+    });
+
+    // Определение общей длительности при загрузке
+    sheikhAudio.addEventListener('loadedmetadata', () => {
+      const totalDurEl = document.getElementById('total-duration');
+      if (totalDurEl && sheikhAudio.duration) {
+        totalDurEl.textContent = formatTime(sheikhAudio.duration);
+      }
+    });
+
+    // Перемотка трека при движении ползунка пользователем
+    function seekAudio(value) {
+      if (sheikhAudio.duration && !isNaN(sheikhAudio.duration)) {
+        const time = (value / 100) * sheikhAudio.duration;
+        sheikhAudio.currentTime = time;
+      }
+    }
+
+    // Кнопка Старт / Пауза
     function toggleSheikhAudio() {
       const btn = document.getElementById('sheikh-play-btn');
-      const statusText = document.getElementById('audio-status-text');
-
-      if (isPlayingSheikh) {
-        sheikhAudio.pause();
-        isPlayingSheikh = false;
-        if (btn) btn.textContent = "▶️ Продолжить чтение";
-        if (statusText) statusText.textContent = `Пауза на аяте ${currentAyah} из ${totalAyahs}`;
+      if (sheikhAudio.paused) {
+        sheikhAudio.play().then(() => {
+          if (btn) btn.textContent = "⏸️ Пауза";
+        }).catch(e => {
+          console.error("Ошибка воспроизведения:", e);
+          alert("Не удалось запустить аудио. Проверьте интернет-соединение.");
+        });
       } else {
-        if (sheikhAudio.src && sheikhAudio.paused && sheikhAudio.currentTime > 0) {
-          sheikhAudio.play().then(() => {
-            isPlayingSheikh = true;
-            if (btn) btn.textContent = "⏸️ Пауза";
-            if (statusText) statusText.textContent = `Воспроизведение: аят ${currentAyah} из ${totalAyahs}`;
-          }).catch(e => console.log(e));
-        } else {
-          currentAyah = 1;
-          playAyah(currentAyah);
-        }
+        sheikhAudio.pause();
+        if (btn) btn.textContent = "▶️ Продолжить";
       }
     }
 
-    function playAyah(num) {
-      if (num > totalAyahs) {
-        isPlayingSheikh = false;
-        currentAyah = 1;
-        const btn = document.getElementById('sheikh-play-btn');
-        const statusText = document.getElementById('audio-status-text');
-        if (btn) btn.textContent = "🔊 Слушать чтеца (Айман Суэйд)";
-        if (statusText) statusText.textContent = "Сура завершена. Нажмите повторно для прослушивания.";
-        return;
-      }
-
-      currentAyah = num;
-      let ayahNumStr = String(num).padStart(3, '0');
-      sheikhAudio.src = `https://everyayah.com/data/Ayman_Sowaid_64kbps/001${ayahNumStr}.mp3`;
+    // Сброс кнопки по окончании суры
+    sheikhAudio.onended = () => {
+      const btn = document.getElementById('sheikh-play-btn');
+      const slider = document.getElementById('audio-slider');
+      const currTimeEl = document.getElementById('current-time');
       
-      sheikhAudio.play().then(() => {
-        isPlayingSheikh = true;
-        const btn = document.getElementById('sheikh-play-btn');
-        const statusText = document.getElementById('audio-status-text');
-        if (btn) btn.textContent = "⏸️ Пауза";
-        if (statusText) statusText.textContent = `Воспроизведение: аят ${num} из ${totalAyahs}`;
-      }).catch(err => {
-        console.error("Ошибка воспроизведения аята:", err);
-        alert("Не удалось воспроизвести аудио. Проверьте интернет-соединение.");
-      });
+      if (btn) btn.textContent = "🔊 Слушать чтеца (Айман Суэйд)";
+      if (slider) slider.value = 0;
+      if (currTimeEl) currTimeEl.textContent = "0:00";
+    };
 
-      sheikhAudio.onended = () => {
-        playAyah(num + 1);
-      };
+    function formatTime(seconds) {
+      if (isNaN(seconds)) return "0:00";
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
     }
+    
 
 
     /* ================= ДИКТОФОН С СОХРАНЕНИЕМ ДО 5 ЗАПИСЕЙ ================= */
