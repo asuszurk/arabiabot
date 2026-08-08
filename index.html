@@ -1421,7 +1421,7 @@
           <span><span style="color: #74b9ff;">■</span> Калькаля (эхо)</span>
         </div>
 
-        <div style="font-family: 'Amiri Quran', serif; font-size: calc(24px * var(--base-font-scale)); direction: rtl; line-height: 2.3; margin-bottom: 20px; background: rgba(0,0,0,0.25); padding: 18px; border-radius: 12px; text-align: right;">
+        <div class="tajweed-box">
           <span class="tajweed-normal">بِسْمِ </span><span class="tajweed-normal">اللَّهِ </span><span class="tajweed-normal">الرَّحْمَ</span><span class="tajweed-madd">ـنِ </span><span class="tajweed-normal">الرَّحِي</span><span class="tajweed-madd">مِ</span> <br>
           <span class="tajweed-normal">الْحَمْدُ </span><span class="tajweed-normal">لِلَّهِ </span><span class="tajweed-normal">رَبِّ </span><span class="tajweed-normal">الْعَالَمِي</span><span class="tajweed-madd">نَ</span> <br>
           <span class="tajweed-normal">الرَّحْمَ</span><span class="tajweed-madd">ـنِ </span><span class="tajweed-normal">الرَّحِي</span><span class="tajweed-madd">مِ</span> <br>
@@ -1431,19 +1431,11 @@
           <span class="tajweed-normal">صِرَاطَ </span><span class="tajweed-normal">الَّذِينَ </span><span class="tajweed-normal">أَنْعَمْتَ </span><span class="tajweed-normal">عَلَيْهِمْ </span><span class="tajweed-normal">غَيْرِ </span><span class="tajweed-normal">الْمَغْضُوبِ </span><span class="tajweed-normal">عَلَيْهِمْ </span><span class="tajweed-normal">وَلَا </span><span class="tajweed-normal">الضَّالِّي</span><span class="tajweed-madd">نَ</span>
         </div>
 
-        <!-- Кнопка управления и ползунок прокрутки -->
-        <button id="sheikh-play-btn" class="main-button" onclick="toggleSheikhAudio()" style="margin-bottom: 10px; background: linear-gradient(135deg, #00b894, #00cec9); color: white;">
+        <!-- Кнопка управления и статус воспроизведения -->
+        <button id="sheikh-play-btn" class="main-button" onclick="toggleSheikhAudio()" style="margin-bottom: 8px; background: linear-gradient(135deg, #00b894, #00cec9); color: white;">
           🔊 Слушать чтеца (Айман Суэйд)
         </button>
-
-        <!-- Ползунок перемотки -->
-        <div style="margin: 10px 0 15px 0;">
-          <input type="range" id="audio-slider" value="0" min="0" max="100" step="0.1" style="width: 100%; accent-color: var(--gold-primary); cursor: pointer;" oninput="seekAudio(this.value)">
-          <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-secondary); margin-top: 4px;">
-            <span id="current-time">0:00</span>
-            <span id="total-duration">0:00</span>
-          </div>
-        </div>
+        <div id="audio-status-text" style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Нажмите для прослушивания всей суры</div>
       </div>
 
       <!-- Блок диктофона для записи пользователя -->
@@ -1462,10 +1454,7 @@
           </button>
         </div>
 
-        <!-- Список сохраненных записей -->
-        <div id="recordings-list-container" style="margin-top: 15px;">
-          <!-- Сюда динамически выводятся записи пользователя -->
-        </div>
+        <div id="recordings-list-container" style="margin-top: 15px;"></div>
       </div>
     </div>
 
@@ -1669,76 +1658,66 @@
       }
     }
 
-    /* ================= ЛОГИКА ПЛЕЕРА С ПОЛЗУНКОМ ================= */
-    /* ================= ЛОГИКА ПЛЕЕРА С ПОЛЗУНКОМ И ЗАЩИТОЙ ПОТОКА ================= */
-    // Используем стабильный и поддерживаемый зеркальный поток чтеца Аймана Суэйда
-let sheikhAudio = new Audio('https://server8.mp3quran.net/swn/001.mp3');
-sheikhAudio.preload = 'auto';
+    /* ================= НАДЕЖНЫЙ CDN-ПЛЕЕР АЙМАНА СУЭЙДА ================= */
+    let currentAyah = 1;
+    const totalAyahs = 7;
+    let isPlayingSheikh = false;
+    let sheikhAudio = new Audio();
 
-    // Обновление ползунка и таймера по мере воспроизведения
-    sheikhAudio.addEventListener('timeupdate', () => {
-      if (sheikhAudio.duration && !isNaN(sheikhAudio.duration)) {
-        const progress = (sheikhAudio.currentTime / sheikhAudio.duration) * 100;
-        const slider = document.getElementById('audio-slider');
-        const currTimeEl = document.getElementById('current-time');
-        const totalDurEl = document.getElementById('total-duration');
-        
-        if (slider) slider.value = progress;
-        if (currTimeEl) currTimeEl.textContent = formatTime(sheikhAudio.currentTime);
-        if (totalDurEl) totalDurEl.textContent = formatTime(sheikhAudio.duration);
-      }
-    });
-
-    // Обработка готовности аудио
-    sheikhAudio.addEventListener('loadedmetadata', () => {
-      const totalDurEl = document.getElementById('total-duration');
-      if (totalDurEl && sheikhAudio.duration) {
-        totalDurEl.textContent = formatTime(sheikhAudio.duration);
-      }
-    });
-
-    // Перемотка при перемещении ползунка
-    function seekAudio(value) {
-      if (sheikhAudio.duration && !isNaN(sheikhAudio.duration)) {
-        const time = (value / 100) * sheikhAudio.duration;
-        sheikhAudio.currentTime = time;
-      }
-    }
-
-    // Включение / пауза с обработкой ошибок мобильных устройств
     function toggleSheikhAudio() {
       const btn = document.getElementById('sheikh-play-btn');
-      if (sheikhAudio.paused) {
-        sheikhAudio.play().then(() => {
-          if (btn) btn.textContent = "⏸️ Пауза";
-        }).catch(e => {
-          console.error("Ошибка воспроизведения аудио:", e);
-          alert("Не удалось запустить аудио. Проверьте интернет-соединение.");
-        });
-      } else {
+      const statusText = document.getElementById('audio-status-text');
+
+      if (isPlayingSheikh) {
         sheikhAudio.pause();
-        if (btn) btn.textContent = "▶️ Продолжить";
+        isPlayingSheikh = false;
+        if (btn) btn.textContent = "▶️ Продолжить чтение";
+        if (statusText) statusText.textContent = `Пауза на аяте ${currentAyah} из ${totalAyahs}`;
+      } else {
+        if (sheikhAudio.src && sheikhAudio.paused && sheikhAudio.currentTime > 0) {
+          sheikhAudio.play().then(() => {
+            isPlayingSheikh = true;
+            if (btn) btn.textContent = "⏸️ Пауза";
+            if (statusText) statusText.textContent = `Воспроизведение: аят ${currentAyah} из ${totalAyahs}`;
+          }).catch(e => console.log(e));
+        } else {
+          currentAyah = 1;
+          playAyah(currentAyah);
+        }
       }
     }
 
-    // Когда сура дочитана до конца
-    sheikhAudio.onended = () => {
-      const btn = document.getElementById('sheikh-play-btn');
-      const slider = document.getElementById('audio-slider');
-      const currTimeEl = document.getElementById('current-time');
-      
-      if (btn) btn.textContent = "🔊 Слушать чтеца (Айман Суэйд)";
-      if (slider) slider.value = 0;
-      if (currTimeEl) currTimeEl.textContent = "0:00";
-    };
+    function playAyah(num) {
+      if (num > totalAyahs) {
+        isPlayingSheikh = false;
+        currentAyah = 1;
+        const btn = document.getElementById('sheikh-play-btn');
+        const statusText = document.getElementById('audio-status-text');
+        if (btn) btn.textContent = "🔊 Слушать чтеца (Айман Суэйд)";
+        if (statusText) statusText.textContent = "Сура завершена. Нажмите повторно для прослушивания.";
+        return;
+      }
 
-    function formatTime(seconds) {
-      if (isNaN(seconds)) return "0:00";
-      const mins = Math.floor(seconds / 60);
-      const secs = Math.floor(seconds % 60);
-      return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+      currentAyah = num;
+      let ayahNumStr = String(num).padStart(3, '0');
+      sheikhAudio.src = `https://everyayah.com/data/Ayman_Sowaid_64kbps/001${ayahNumStr}.mp3`;
+      
+      sheikhAudio.play().then(() => {
+        isPlayingSheikh = true;
+        const btn = document.getElementById('sheikh-play-btn');
+        const statusText = document.getElementById('audio-status-text');
+        if (btn) btn.textContent = "⏸️ Пауза";
+        if (statusText) statusText.textContent = `Воспроизведение: аят ${num} из ${totalAyahs}`;
+      }).catch(err => {
+        console.error("Ошибка воспроизведения аята:", err);
+        alert("Не удалось воспроизвести аудио. Проверьте интернет-соединение.");
+      });
+
+      sheikhAudio.onended = () => {
+        playAyah(num + 1);
+      };
     }
-    
+
 
     /* ================= ДИКТОФОН С СОХРАНЕНИЕМ ДО 5 ЗАПИСЕЙ ================= */
     let mediaRecorder;
