@@ -1672,8 +1672,8 @@
     /* ================= ЛОГИКА ПЛЕЕРА С ПОЛЗУНКОМ ================= */
     /* ================= ЛОГИКА ПЛЕЕРА С ПОЛЗУНКОМ И ЗАЩИТОЙ ПОТОКА ================= */
     // Используем стабильный и поддерживаемый зеркальный поток чтеца Аймана Суэйда
-     = new Audio('https://server8.mp3quran.net/swn/001.mp3');
-    sheikhAudio.preload = 'auto';
+let sheikhAudio = new Audio('https://server8.mp3quran.net/swn/001.mp3');
+sheikhAudio.preload = 'auto';
 
     // Обновление ползунка и таймера по мере воспроизведения
     sheikhAudio.addEventListener('timeupdate', () => {
